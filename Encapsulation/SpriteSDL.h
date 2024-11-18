@@ -1,13 +1,16 @@
 #pragma once
 #include "ASprite.h"
+#include "SDL2/SDL.h"
 
-class SpriteRaylib : public ASprite
+class SpriteSDL : public ASprite
 {
 private:
-	//Texture2D texture;
+	SDL_Texture* texture;
+	SDL_Renderer* renderer;
+	SDL_Rect destRect;
 
 public:
-	SpriteRaylib();
+	SpriteSDL();
 
 	virtual void Draw() override;
 	virtual void Update() override;

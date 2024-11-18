@@ -17,7 +17,7 @@ void SpriteRaylib::Update()
 	std::cout << "Update sprite raylib !" << "\n";
 }
 
-void SpriteRaylib::LoadImage()
+void SpriteRaylib::LoadImage(const std::string& filename)
 {
 	std::cout << "Load sprite raylib !" << "\n";
 }

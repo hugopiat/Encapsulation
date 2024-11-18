@@ -3,13 +3,13 @@
   "spdxVersion": "SPDX-2.2",
   "dataLicense": "CC0-1.0",
   "SPDXID": "SPDXRef-DOCUMENT",
-  "documentNamespace": "https://spdx.org/spdxdocs/raylib-x64-windows-5.0-5aea7d70-3151-4e70-b949-8735652f5731",
-  "name": "raylib:x64-windows@5.0 bbbaae2fa279e79438dc9b92b097e8b3a7a5e50be7a90c856507450ca00009dd",
+  "documentNamespace": "https://spdx.org/spdxdocs/sdl2-image-x64-windows-2.8.2-506479c4-4242-4a38-828b-e30345205a4d",
+  "name": "sdl2-image:x64-windows@2.8.2 eea236818162f5095e4692728aa9009b7fcd332cd1a2417000c1f0a14969d847",
   "creationInfo": {
     "creators": [
       "Tool: vcpkg-2024-11-12-eb492805e92a2c14a230f5c3deb3e89f6771c321"
     ],
-    "created": "2024-11-18T11:58:35Z"
+    "created": "2024-11-18T11:59:20Z"
   },
   "relationships": [
     {
@@ -33,6 +33,11 @@
       "relatedSpdxElement": "SPDXRef-file-2"
     },
     {
+      "spdxElementId": "SPDXRef-port",
+      "relationshipType": "CONTAINS",
+      "relatedSpdxElement": "SPDXRef-file-3"
+    },
+    {
       "spdxElementId": "SPDXRef-binary",
       "relationshipType": "GENERATED_FROM",
       "relatedSpdxElement": "SPDXRef-port"
@@ -51,25 +56,30 @@
       "spdxElementId": "SPDXRef-file-2",
       "relationshipType": "CONTAINED_BY",
       "relatedSpdxElement": "SPDXRef-port"
+    },
+    {
+      "spdxElementId": "SPDXRef-file-3",
+      "relationshipType": "CONTAINED_BY",
+      "relatedSpdxElement": "SPDXRef-port"
     }
   ],
   "packages": [
     {
-      "name": "raylib",
+      "name": "sdl2-image",
       "SPDXID": "SPDXRef-port",
-      "versionInfo": "5.0",
-      "downloadLocation": "git+https://github.com/microsoft/vcpkg@7cf5ce249c066d11ea5afe9ed15972663992c0f2",
-      "homepage": "https://github.com/raysan5/raylib",
+      "versionInfo": "2.8.2",
+      "downloadLocation": "git+https://github.com/microsoft/vcpkg@849a6f697c249f583d942ce2ce08ba3e4a9c195c",
+      "homepage": "https://github.com/libsdl-org/SDL_image",
       "licenseConcluded": "Zlib",
       "licenseDeclared": "NOASSERTION",
       "copyrightText": "NOASSERTION",
-      "description": "A simple and easy-to-use library to enjoy videogames programming",
+      "description": "SDL_image is an image file loading library. It loads images as SDL surfaces and textures, and supports the following formats: BMP, GIF, JPEG, LBM, PCX, PNG, PNM, TGA, TIFF, WEBP, XCF, XPM, XV",
       "comment": "This is the port (recipe) consumed by vcpkg."
     },
     {
-      "name": "raylib:x64-windows",
+      "name": "sdl2-image:x64-windows",
       "SPDXID": "SPDXRef-binary",
-      "versionInfo": "bbbaae2fa279e79438dc9b92b097e8b3a7a5e50be7a90c856507450ca00009dd",
+      "versionInfo": "eea236818162f5095e4692728aa9009b7fcd332cd1a2417000c1f0a14969d847",
       "downloadLocation": "NONE",
       "licenseConcluded": "Zlib",
       "licenseDeclared": "NOASSERTION",
@@ -78,51 +88,63 @@
     },
     {
       "SPDXID": "SPDXRef-resource-1",
-      "name": "raysan5/raylib",
-      "downloadLocation": "git+https://github.com/raysan5/raylib@5.0",
+      "name": "libsdl-org/SDL_image",
+      "downloadLocation": "git+https://github.com/libsdl-org/SDL_image@release-2.8.2",
       "licenseConcluded": "NOASSERTION",
       "licenseDeclared": "NOASSERTION",
       "copyrightText": "NOASSERTION",
       "checksums": [
         {
           "algorithm": "SHA512",
-          "checksumValue": "5956bc1646b99baac6eb1652c4d72e96af874337158672155ba144f131de8a4fd19291a58335a92fcaaa2fc818682f93ff4230af0f815efb8b49f7d2a162e9b0"
+          "checksumValue": "1ec6e7d08bbcd28bba6c972b2e4a11a1da841abef3ffb3d29669b0f5eb0839f39044b0b334c0707274dd51192e081f25bdab97c6710d632422c4ed0274a30f18"
         }
       ]
     }
   ],
   "files": [
     {
-      "fileName": "./C:/Users/hpiat/AppData/Local/vcpkg/registries/git-trees/7cf5ce249c066d11ea5afe9ed15972663992c0f2/fix-linkGlfw.patch",
+      "fileName": "./C:/Users/hpiat/AppData/Local/vcpkg/registries/git-trees/849a6f697c249f583d942ce2ce08ba3e4a9c195c/fix-findwebp.patch",
       "SPDXID": "SPDXRef-file-0",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "f2be76d0d844c47760287ce6cb462d65e5d914852fbe6b33cec843f6985df537"
+          "checksumValue": "2d78d9a690fc75d58ab83dad770c86a21df4c42d88d1471315db0b90a4fab6d6"
         }
       ],
       "licenseConcluded": "NOASSERTION",
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/hpiat/AppData/Local/vcpkg/registries/git-trees/7cf5ce249c066d11ea5afe9ed15972663992c0f2/portfile.cmake",
+      "fileName": "./C:/Users/hpiat/AppData/Local/vcpkg/registries/git-trees/849a6f697c249f583d942ce2ce08ba3e4a9c195c/portfile.cmake",
       "SPDXID": "SPDXRef-file-1",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "6cc56534f8f41ab0e2ac6fdd2522754c47bea9f29d4c6a0e5068e12d9e6c6c3b"
+          "checksumValue": "20adf1d004b17880b4a39bca8349934686556c01784c9e3d635ee74c187d9aaa"
         }
       ],
       "licenseConcluded": "NOASSERTION",
       "copyrightText": "NOASSERTION"
     },
     {
-      "fileName": "./C:/Users/hpiat/AppData/Local/vcpkg/registries/git-trees/7cf5ce249c066d11ea5afe9ed15972663992c0f2/vcpkg.json",
+      "fileName": "./C:/Users/hpiat/AppData/Local/vcpkg/registries/git-trees/849a6f697c249f583d942ce2ce08ba3e4a9c195c/usage",
       "SPDXID": "SPDXRef-file-2",
       "checksums": [
         {
           "algorithm": "SHA256",
-          "checksumValue": "6821f74da1c52a782fdf9f8251373c474c61d52237fb5ff86751ab01a05b1124"
+          "checksumValue": "d78ce4ac61e158f4a5056753dd2bd7e3b11e7ded1f10a36c8e749029940e651f"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./C:/Users/hpiat/AppData/Local/vcpkg/registries/git-trees/849a6f697c249f583d942ce2ce08ba3e4a9c195c/vcpkg.json",
+      "SPDXID": "SPDXRef-file-3",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "519ba04cbccea6d41e2ab6cbce90904fcee97e94086cc8f17ab5ad5ec5e79ce3"
         }
       ],
       "licenseConcluded": "NOASSERTION",
