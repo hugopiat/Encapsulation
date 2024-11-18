@@ -1,6 +1,9 @@
 #pragma once
+#include <vector>
+
 class AWindow;
 class ASprite;
+class Ball;
 
 class App
 {
@@ -10,6 +13,9 @@ public:
 private:
 	AWindow* m_window;
 	ASprite* m_sprite;
-	void Update();
+	std::vector<Ball*> balls;
+	void Draw();
+	void Update(float deltaTime);
+	void SpawnBalls(int count);
 };
 

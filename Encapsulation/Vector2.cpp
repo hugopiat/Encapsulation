@@ -12,6 +12,12 @@ Maths::Vector2::Vector2(int x, int y) :
 {
 }
 
+void Maths::Vector2::CopyVector2(Vector2& vect2Origin)
+{
+    SetX(vect2Origin.GetX());
+    SetY(vect2Origin.GetY());
+}
+
 int Maths::Vector2::GetX()
 {
     return m_x;

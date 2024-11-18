@@ -14,8 +14,8 @@ ASprite::~ASprite()
 
 void ASprite::SetPositionSprite(Maths::Vector2 vect2D)
 {
-	m_pos.SetX(vect2D.GetX());
-	m_pos.SetY(vect2D.GetY());
+	m_pos.SetX(vect2D.GetX() - (m_size.GetX() / 2));
+	m_pos.SetY(vect2D.GetY() - (m_size.GetY() / 2));
 }
 
 void ASprite::SetSizeSprite(Maths::Vector2 size2D)

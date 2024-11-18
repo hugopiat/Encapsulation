@@ -9,11 +9,16 @@ namespace Maths
 		int m_y;
 
 	public:
+
 		Vector2();
 		Vector2(int x, int y);
+
+		void CopyVector2(Vector2& vect2Origin);
+
 		int GetX();
-		void SetX(int x);
 		int GetY();
+
+		void SetX(int x);
 		void SetY(int y);
 	};
 }

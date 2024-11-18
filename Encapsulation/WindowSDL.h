@@ -13,14 +13,13 @@ private:
 	SDL_Window* m_window;
 	SDL_Renderer* m_renderer;
 	bool m_isSdlInit;
-	int m_width = 1280;
-	int m_height = 720;
 
 	bool InitLib();
 	bool CreateWindow();
 	bool GetSurface();
 
 public:
+
 	WindowSDL();
 	// Hérité via AWindow
 	void Init() override;

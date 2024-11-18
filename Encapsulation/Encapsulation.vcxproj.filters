@@ -19,18 +19,18 @@
     <Filter Include="Fichiers sources\Sprite">
       <UniqueIdentifier>{2ffc229e-f9fd-4116-aa5d-c00490343030}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Window">
+      <UniqueIdentifier>{426814ab-fb81-4a67-b004-42126d1aa2ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Window">
+      <UniqueIdentifier>{8153dc88-08dd-4d2a-a401-2ae21267716e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Encapsulation.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="AWindow.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="App.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="WindowSDL.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="Vector2.cpp">
@@ -45,15 +45,18 @@
     <ClCompile Include="SpriteSDL.cpp">
       <Filter>Fichiers sources\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="AWindow.cpp">
+      <Filter>Fichiers sources\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowSDL.cpp">
+      <Filter>Fichiers sources\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Ball.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AWindow.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="App.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="WindowSDL.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Vector2.h">
@@ -67,6 +70,15 @@
     </ClInclude>
     <ClInclude Include="SpriteSDL.h">
       <Filter>Fichiers d%27en-tête\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="AWindow.h">
+      <Filter>Fichiers d%27en-tête\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowSDL.h">
+      <Filter>Fichiers d%27en-tête\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Ball.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
