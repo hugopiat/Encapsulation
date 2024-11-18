@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Fichiers d%27en-tête\Sprite">
+      <UniqueIdentifier>{516fe72d-4277-4bbf-b536-fef860cb0323}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Fichiers sources\Sprite">
+      <UniqueIdentifier>{2ffc229e-f9fd-4116-aa5d-c00490343030}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Encapsulation.cpp">
@@ -30,14 +36,14 @@
     <ClCompile Include="Vector2.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="SpriteRaylib.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="ASprite.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteRaylib.cpp">
+      <Filter>Fichiers sources\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="SpriteSDL.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers sources\Sprite</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,20 +56,25 @@
     <ClInclude Include="WindowSDL.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="ASprite.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteRaylib.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="Vector2.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
+    <ClInclude Include="ASprite.h">
+      <Filter>Fichiers d%27en-tête\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteRaylib.h">
+      <Filter>Fichiers d%27en-tête\Sprite</Filter>
+    </ClInclude>
     <ClInclude Include="SpriteSDL.h">
-      <Filter>Fichiers d%27en-tête</Filter>
+      <Filter>Fichiers d%27en-tête\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Basketball.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

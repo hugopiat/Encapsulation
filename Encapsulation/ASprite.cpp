@@ -12,14 +12,14 @@ ASprite::~ASprite()
 	//Destroy
 }
 
-void ASprite::SetPositionSprite(Vector2 vect2D)
+void ASprite::SetPositionSprite(Maths::Vector2 vect2D)
 {
-	m_pos.m_x = vect2D.m_x;
-	m_pos.m_y = vect2D.m_y;
+	m_pos.SetX(vect2D.GetX());
+	m_pos.SetY(vect2D.GetY());
 }
 
-void ASprite::SetSizeSprite(Vector2 size2D)
+void ASprite::SetSizeSprite(Maths::Vector2 size2D)
 {
-	m_size.m_x = size2D.m_x;
-	m_size.m_y = size2D.m_y;
+	m_size.SetX(size2D.GetX());
+	m_size.SetY(size2D.GetY());
 }

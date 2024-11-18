@@ -1,16 +1,20 @@
 #pragma once
 
-class Vector2
+namespace Maths 
 {
-public :
-	int m_x;
-	int m_y; 
+	class Vector2
+	{
+	private:
+		int m_x;
+		int m_y;
 
-	Vector2();
-	Vector2(int x, int y);
-	int GetPositionX();
-	void SetPositionX(int x);
-	int GetPositionY();
-	void SetPositionY(int y);
-};
+	public:
+		Vector2();
+		Vector2(int x, int y);
+		int GetX();
+		void SetX(int x);
+		int GetY();
+		void SetY(int y);
+	};
+}
 

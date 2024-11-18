@@ -56,6 +56,15 @@ bool WindowSDL::CreateWindow()
         // End the program
         return false;
     }
+
+    m_renderer = 
+        SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+    if (!m_renderer)
+    {
+        std::cerr << "SDL_CreateRenderer failed: " << SDL_GetError() << std::endl;
+        return false;
+    }
+
     std::cout << "[SDL] Create Window" << std::endl;
     return true;
 }
@@ -99,6 +108,11 @@ bool WindowSDL::IsOpen()
     }
     std::cout << "[SDL] IsOpen Window" << std::endl;
     return m_window;
+}
+
+SDL_Renderer* WindowSDL::GetRenderer()
+{
+    return m_renderer;
 }
 
 

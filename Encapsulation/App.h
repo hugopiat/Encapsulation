@@ -1,5 +1,6 @@
 #pragma once
 class AWindow;
+class ASprite;
 
 class App
 {
@@ -8,6 +9,7 @@ public:
 
 private:
 	AWindow* m_window;
+	ASprite* m_sprite;
 	void Update();
 };
 
