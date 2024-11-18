@@ -1,9 +1,8 @@
-Package: raylib
-Version: 5.0
-Depends: vcpkg-cmake, vcpkg-cmake-config
+Package: sdl2-image
+Version: 2.8.2
+Depends: libpng, sdl2, vcpkg-cmake, vcpkg-cmake-config
 Architecture: x64-windows
 Multi-Arch: same
-Abi: bbbaae2fa279e79438dc9b92b097e8b3a7a5e50be7a90c856507450ca00009dd
-Description: A simple and easy-to-use library to enjoy videogames programming
-Default-Features: use-audio
+Abi: eea236818162f5095e4692728aa9009b7fcd332cd1a2417000c1f0a14969d847
+Description: SDL_image is an image file loading library. It loads images as SDL surfaces and textures, and supports the following formats: BMP, GIF, JPEG, LBM, PCX, PNG, PNM, TGA, TIFF, WEBP, XCF, XPM, XV
 Status: install ok half-installed

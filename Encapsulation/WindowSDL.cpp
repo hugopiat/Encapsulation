@@ -1,19 +1,88 @@
 #if _SDL
 #include <iostream>
+#include <SDL2/SDL.h>
 #include "WindowSDL.h"
 
-void WindowSDL::OnCreate()
+
+WindowSDL::WindowSDL()
 {
+    m_isSdlInit = false;
+    m_winSurface = nullptr;
+    m_window = nullptr;
     std::cout << "[SDL] On Create Window" << std::endl;
+
 }
 
 void WindowSDL::Init()
 {
+    if (!InitLib())
+        return;
+    if (!CreateWindow())
+        return;
+    if (!GetSurface())
+        return;
+    SDL_FillRect(m_winSurface, NULL, SDL_MapRGB(m_winSurface->format, 255, 255, 255));
+}
+
+bool WindowSDL::InitLib()
+{
+    if (m_isSdlInit)
+    {
+        return true;
+    }
+
+    // Initialize SDL. SDL_Init will return -1 if it fails.
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+        std::cout << "Error initializing SDL: " << SDL_GetError() << std::endl;
+        system("pause");
+        // End the program
+        m_isSdlInit = false;
+        return m_isSdlInit;
+    }
+
     std::cout << "[SDL] Init Window" << std::endl;
+    m_isSdlInit = true;
+    return m_isSdlInit;
+}
+
+bool WindowSDL::CreateWindow()
+{
+    m_window = 
+        SDL_CreateWindow("Example", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
+
+    if (!m_window) {
+        std::cout << "Error creating window: " << SDL_GetError() << std::endl;
+        system("pause");
+        // End the program
+        return false;
+    }
+    std::cout << "[SDL] Create Window" << std::endl;
+    return true;
+}
+
+bool WindowSDL::GetSurface()
+{
+    m_winSurface = SDL_GetWindowSurface(m_window);
+
+    // Make sure getting the surface succeeded
+    if (!m_winSurface) {
+        std::cout << "Error getting surface: " << SDL_GetError() << std::endl;
+        system("pause");
+        // End the program
+        return false;
+    }
+
+    return true;
 }
 
 void WindowSDL::Draw()
 {
+    SDL_UpdateWindowSurface(m_window);
+    system("pause");
+    SDL_DestroyWindow(m_window);
+    m_window = nullptr;
+    m_isSdlInit = false;
+    SDL_Quit();
     std::cout << "[SDL] Draw Window" << std::endl;
 }
 
@@ -24,8 +93,13 @@ void WindowSDL::Clear()
 
 bool WindowSDL::IsOpen()
 {
+    if (!m_isSdlInit)
+    {
+        return false;
+    }
     std::cout << "[SDL] IsOpen Window" << std::endl;
-    return false;
+    return m_window;
 }
+
 
 #endif // _SDL
