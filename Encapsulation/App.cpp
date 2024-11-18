@@ -4,6 +4,7 @@
 #if _SDL
 #include "WindowSDL.h"
 #include "SpriteSDL.h"
+#include <SDL2/SDL_timer.h>
 #endif // _SDL
 
 #if _RAYLIB
@@ -27,19 +28,26 @@ void App::Run()
 		return;
 	}
 
-	m_window->Init();
+    m_window->Init();
 
-	m_sprite->Init(m_window, 640, 360, 50, 50);
-	m_sprite->Load("Basketball.png");
+    m_sprite->Init(m_window, 640, 360, 50, 50);
+    m_sprite->Load("Basketball.png");
 
-	while (m_window->IsOpen())
-	{
-		m_window->Clear();
-		Update();
-		m_window->Draw();
-		m_sprite->Draw();
-	}
+    while (m_window->IsOpen())
+    {
+        m_window->Clear();
+        Update(); 
+        m_sprite->Draw(); 
+        m_window->Draw();
 
+#if _SDL
+        SDL_Delay(16);  // ~16 ms pour correspondre à environ 60 FPS
+#elif _RAYLIB
+
+#endif
+    }
+
+    m_window->Close();
 }
 
 void App::Update()

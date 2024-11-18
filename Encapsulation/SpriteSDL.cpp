@@ -36,8 +36,6 @@ void SpriteSDL::Draw()
         m_destRect->h = m_size.GetY();
 
         SDL_RenderCopy(m_windowSDL->GetRenderer(), m_texture, nullptr, m_destRect);
-
-        SDL_RenderPresent(m_windowSDL->GetRenderer());
     }
 }
 

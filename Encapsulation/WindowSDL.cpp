@@ -9,6 +9,7 @@ WindowSDL::WindowSDL()
     m_isSdlInit = false;
     m_winSurface = nullptr;
     m_window = nullptr;
+    m_renderer = nullptr;
     std::cout << "[SDL] On Create Window" << std::endl;
 
 }
@@ -21,6 +22,7 @@ void WindowSDL::Init()
         return;
     if (!GetSurface())
         return;
+
     SDL_FillRect(m_winSurface, NULL, SDL_MapRGB(m_winSurface->format, 255, 255, 255));
 }
 
@@ -48,7 +50,7 @@ bool WindowSDL::InitLib()
 bool WindowSDL::CreateWindow()
 {
     m_window = 
-        SDL_CreateWindow("Example", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1280, 720, SDL_WINDOW_SHOWN);
+        SDL_CreateWindow("Example", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_SHOWN);
 
     if (!m_window) {
         std::cout << "Error creating window: " << SDL_GetError() << std::endl;
@@ -58,7 +60,7 @@ bool WindowSDL::CreateWindow()
     }
 
     m_renderer = 
-        SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED);
+        SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (!m_renderer)
     {
         std::cerr << "SDL_CreateRenderer failed: " << SDL_GetError() << std::endl;
@@ -87,16 +89,19 @@ bool WindowSDL::GetSurface()
 void WindowSDL::Draw()
 {
     SDL_UpdateWindowSurface(m_window);
-    system("pause");
-    SDL_DestroyWindow(m_window);
-    m_window = nullptr;
-    m_isSdlInit = false;
-    SDL_Quit();
+    //system("pause");
+    //SDL_DestroyWindow(m_window);
+    //m_window = nullptr;
+    //m_isSdlInit = false;
+    //SDL_Quit();
+
+    SDL_RenderPresent(m_renderer);
     std::cout << "[SDL] Draw Window" << std::endl;
 }
 
 void WindowSDL::Clear()
 {
+    SDL_RenderClear(m_renderer);
     std::cout << "[SDL] Clear Window" << std::endl;
 }
 
@@ -106,14 +111,40 @@ bool WindowSDL::IsOpen()
     {
         return false;
     }
+
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        switch (event.type)
+        {
+        case SDL_QUIT:
+            return false;
+            break;
+
+        case SDL_KEYDOWN:
+            if (event.key.keysym.sym == SDLK_ESCAPE)
+            {
+                return false;
+            }
+            break;
+        }
+    }
+
     std::cout << "[SDL] IsOpen Window" << std::endl;
     return m_window;
+}
+
+bool WindowSDL::Close()
+{
+    if (m_renderer) SDL_DestroyRenderer(m_renderer);
+    if (m_window) SDL_DestroyWindow(m_window);
+    SDL_Quit();
+    return true;
 }
 
 SDL_Renderer* WindowSDL::GetRenderer()
 {
     return m_renderer;
 }
-
 
 #endif // _SDL
