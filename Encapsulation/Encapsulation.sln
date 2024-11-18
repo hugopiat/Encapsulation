@@ -11,12 +11,10 @@ Global
 		Debug|x86 = Debug|x86
 		DebugSDL|x64 = DebugSDL|x64
 		DebugSDL|x86 = DebugSDL|x86
-		RaylibDebug|x64 = RaylibDebug|x64
-		RaylibDebug|x86 = RaylibDebug|x86
+		DegubRaylib|x64 = DegubRaylib|x64
+		DegubRaylib|x86 = DegubRaylib|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-		SDLDebug|x64 = SDLDebug|x64
-		SDLDebug|x86 = SDLDebug|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F8003F83-C60E-4C2E-B175-F1492FA86842}.Debug|x64.ActiveCfg = Debug|x64
@@ -27,17 +25,14 @@ Global
 		{F8003F83-C60E-4C2E-B175-F1492FA86842}.DebugSDL|x64.Build.0 = Debug|x64
 		{F8003F83-C60E-4C2E-B175-F1492FA86842}.DebugSDL|x86.ActiveCfg = DebugSDL|Win32
 		{F8003F83-C60E-4C2E-B175-F1492FA86842}.DebugSDL|x86.Build.0 = DebugSDL|Win32
-		{F8003F83-C60E-4C2E-B175-F1492FA86842}.RaylibDebug|x64.ActiveCfg = RaylibDebug|x64
-		{F8003F83-C60E-4C2E-B175-F1492FA86842}.RaylibDebug|x64.Build.0 = RaylibDebug|x64
-		{F8003F83-C60E-4C2E-B175-F1492FA86842}.RaylibDebug|x86.ActiveCfg = RaylibDebug|Win32
-		{F8003F83-C60E-4C2E-B175-F1492FA86842}.RaylibDebug|x86.Build.0 = RaylibDebug|Win32
+		{F8003F83-C60E-4C2E-B175-F1492FA86842}.DegubRaylib|x64.ActiveCfg = DebugRaylib|x64
+		{F8003F83-C60E-4C2E-B175-F1492FA86842}.DegubRaylib|x64.Build.0 = DebugRaylib|x64
+		{F8003F83-C60E-4C2E-B175-F1492FA86842}.DegubRaylib|x86.ActiveCfg = DebugRaylib|Win32
+		{F8003F83-C60E-4C2E-B175-F1492FA86842}.DegubRaylib|x86.Build.0 = DebugRaylib|Win32
 		{F8003F83-C60E-4C2E-B175-F1492FA86842}.Release|x64.ActiveCfg = Release|x64
 		{F8003F83-C60E-4C2E-B175-F1492FA86842}.Release|x64.Build.0 = Release|x64
 		{F8003F83-C60E-4C2E-B175-F1492FA86842}.Release|x86.ActiveCfg = Release|Win32
 		{F8003F83-C60E-4C2E-B175-F1492FA86842}.Release|x86.Build.0 = Release|Win32
-		{F8003F83-C60E-4C2E-B175-F1492FA86842}.SDLDebug|x64.ActiveCfg = Release|x64
-		{F8003F83-C60E-4C2E-B175-F1492FA86842}.SDLDebug|x64.Build.0 = Release|x64
-		{F8003F83-C60E-4C2E-B175-F1492FA86842}.SDLDebug|x86.ActiveCfg = Debug|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
