@@ -2,5 +2,5 @@
 
 AWindow::AWindow()
 {
-	OnCreate();
+	// AWindow::OnCreate();
 }
