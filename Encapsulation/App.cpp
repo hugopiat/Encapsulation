@@ -1,5 +1,6 @@
 #include "App.h"
 #include "AWindow.h"
+
 #if _SDL
 #include "WindowSDL.h"
 #endif // _SDL
@@ -13,7 +14,7 @@ void App::Run()
 #endif // _SDL
 
 
-	if (m_window = nullptr)
+	if (m_window == nullptr)
 	{
 		return;
 	}

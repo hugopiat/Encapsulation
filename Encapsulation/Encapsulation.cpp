@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include "App.h"
 int main()
 {
 #if _RAYLIB
@@ -8,4 +8,7 @@ int main()
 #if _SDL 
     std::cout << "Hello World SDL!\n";
 #endif // _SDL
+
+    App* app = new App();
+    app->Run();
 }
