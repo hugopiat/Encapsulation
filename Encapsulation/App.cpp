@@ -17,6 +17,7 @@ void App::Run()
 {
 	m_window = nullptr;
 	m_sprite = nullptr;
+
     balls = std::vector<Ball*>();
 
 #if _SDL
@@ -35,9 +36,7 @@ void App::Run()
 	}
 
     m_window->Init();
-
-    m_sprite->Init(m_window, 0, 0, 50, 50);
-    m_sprite->Load("Basketball.png");
+    m_sprite->Init(m_window, filename, 50, 50);
 
     SpawnBalls(50);
 
@@ -48,13 +47,7 @@ void App::Run()
     }
 
     m_window->Close();
-
-    // Libération de la mémoire
-    for (int i = 0; i < balls.size(); i++) {
-        delete balls[i];
-    }
-    delete m_window;
-    delete m_sprite;
+    DeleteBalls();
 }
 
 void App::Draw()
@@ -89,4 +82,14 @@ void App::SpawnBalls(int count)
         ball->Init(Maths::Vector2(x, y), Maths::Vector2(speedX, speedY), m_sprite);
         balls.push_back(ball);
     }
+}
+
+void App::DeleteBalls() 
+{
+    // Libération de la mémoire
+    for (int i = 0; i < balls.size(); i++) {
+        delete balls[i];
+    }
+    delete m_window;
+    delete m_sprite;
 }

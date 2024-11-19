@@ -11,29 +11,30 @@ SpriteSDL::SpriteSDL() :
     m_texture(nullptr),
     m_destRect(nullptr)
 {
-
+    std::cout << "[SDL] On Create Sprite !" << "\n";
 }
 
-void SpriteSDL::Init(AWindow* window, int x, int y, int width, int height)
+void SpriteSDL::Init(AWindow* window, const std::string& filename, int width, int height, int x, int y)
 {
     m_windowSDL = dynamic_cast<WindowSDL*>(window);
+    m_destRect = new SDL_Rect();
 
     SetPositionSprite(Maths::Vector2(x, y));
     SetSizeSprite(Maths::Vector2(width, height));
+    UpdateDestRect();
 
-    m_destRect = new SDL_Rect();
+    Load(filename);
+
+    std::cout << "[SDL] On Init Sprite !" << "\n";
 }
 
 void SpriteSDL::Draw()
 {
-    std::cout << "Draw sprite SDL !" << "\n";
+    //std::cout << "Draw sprite SDL !" << "\n";
 
     if (m_texture)
     {
-        m_destRect->x = m_pos.GetX();
-        m_destRect->y = m_pos.GetY();
-        m_destRect->w = m_size.GetX();
-        m_destRect->h = m_size.GetY();
+        UpdateDestRect();
 
         SDL_RenderCopy(m_windowSDL->GetRenderer(), m_texture, nullptr, m_destRect);
     }
@@ -41,13 +42,19 @@ void SpriteSDL::Draw()
 
 void SpriteSDL::Update()
 {
-	std::cout << "Update sprite SDL !" << "\n";
+	std::cout << "[SDL] On Update Sprite !" << "\n";
+}
+
+void SpriteSDL::UpdateDestRect()
+{
+    m_destRect->x = m_pos.GetX();
+    m_destRect->y = m_pos.GetY();
+    m_destRect->w = m_size.GetX();
+    m_destRect->h = m_size.GetY();
 }
 
 void SpriteSDL::Load(const std::string& filename)
 {
-    std::cout << "Load sprite SDL !" << "\n";
-
     if (m_texture != nullptr)
     {
         SDL_DestroyTexture(m_texture);
@@ -57,7 +64,7 @@ void SpriteSDL::Load(const std::string& filename)
     SDL_Surface* tempSurface = IMG_Load(filename.c_str());
     if (!tempSurface)
     {
-        std::cerr << "Erreur de chargement de l'image : " << SDL_GetError() << std::endl;
+        std::cerr << "[SDL - ERROR] Image load issue : " << SDL_GetError() << std::endl;
         return;
     }
 
@@ -66,11 +73,13 @@ void SpriteSDL::Load(const std::string& filename)
 
     if (!m_texture)
     {
-        std::cerr << "Erreur de création de la texture : " << SDL_GetError() << std::endl;
+        std::cerr << "[SDL - ERROR] Texture load issue : " << SDL_GetError() << std::endl;
         return;
     }
 
     SDL_QueryTexture(m_texture, nullptr, nullptr, &m_destRect->w, &m_destRect->h);
+
+    std::cout << "[SDL] On Load Sprite !" << "\n";
 }
 
 #endif
