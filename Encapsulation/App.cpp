@@ -4,43 +4,43 @@
 #include "Ball.h"
 
 #if _SDL
+#include <SDL2/SDL_timer.h>
 #include "WindowSDL.h"
 #include "SpriteSDL.h"
 #include "TimerSDL.h"
-#include <SDL2/SDL_timer.h>
+using SPECIFIC_WINDOW = WindowSDL;
+using SPECIFIC_SPRITE = SpriteSDL;
+using SPECIFIC_TIMER = TimerSDL;
 #endif // _SDL
 
 #if _RAYLIB
+#include "WindowRaylib.h"
 #include "SpriteRaylib.h"
-#endif // _SDL
+#include "TimerRaylib.h"
+using SPECIFIC_WINDOW = WindowRaylib;
+using SPECIFIC_SPRITE = SpriteRaylib;
+using SPECIFIC_TIMER = TimerRaylib;
+#endif // _RAYLIB
 
 
 void App::Run()
 {
-	m_window = nullptr;
-	m_sprite = nullptr;
-
     balls = std::vector<Ball*>();
 
-#if _SDL
-    m_timer = new TimerSDL();
-	m_window = new WindowSDL();
-	m_sprite = new SpriteSDL();
-#elif _RAYLIB
+	m_window = new SPECIFIC_WINDOW();
+	m_sprite = new SPECIFIC_SPRITE();
+    m_timer = new SPECIFIC_TIMER();
 
-	m_sprite = new SpriteRaylib();
 
-#endif
-
-	if (m_window == nullptr)
+    m_window->Init();
+	if (m_window == nullptr || m_timer == nullptr || m_sprite == nullptr)
 	{
 		return;
 	}
 
-    m_window->Init();
     m_sprite->Init(m_window, filename, 50, 50);
 
-    SpawnBalls(50);
+    SpawnBalls(5);
 
     while (m_window->IsOpen())
     {

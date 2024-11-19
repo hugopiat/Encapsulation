@@ -60,6 +60,12 @@
     <ClCompile Include="TimerSDL.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="WindowRaylib.cpp">
+      <Filter>Fichiers sources\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerRaylib.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -90,6 +96,12 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="TimerSDL.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowRaylib.h">
+      <Filter>Fichiers d%27en-tête\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerRaylib.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>

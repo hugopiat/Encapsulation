@@ -25,6 +25,8 @@ void Ball::SetSpeed(float speed)
 
 void Ball::Update(float deltaTime, int windowWidth, int windowHeight)
 {
+    return;
+
     // Init new value
     int newX = m_pos.GetX() + (m_direction.GetX() * deltaTime * m_speed);
     int newY = m_pos.GetY() + (m_direction.GetY() * deltaTime * m_speed);
