@@ -21,7 +21,6 @@ void SpriteSDL::Init(AWindow* window, const std::string& filename, int width, in
 
     SetPositionSprite(Maths::Vector2(x, y));
     SetSizeSprite(Maths::Vector2(width, height));
-    UpdateDestRect();
 
     Load(filename);
 
@@ -80,6 +79,20 @@ void SpriteSDL::Load(const std::string& filename)
     SDL_QueryTexture(m_texture, nullptr, nullptr, &m_destRect->w, &m_destRect->h);
 
     std::cout << "[SDL] On Load Sprite !" << "\n";
+}
+
+void SpriteSDL::SetPositionSprite(Maths::Vector2 vect2D)
+{
+    m_pos.SetX(vect2D.GetX() - (m_size.GetX() / 2));
+    m_pos.SetY(vect2D.GetY() - (m_size.GetY() / 2));
+    UpdateDestRect();
+}
+
+void SpriteSDL::SetSizeSprite(Maths::Vector2 size2D)
+{
+    m_size.SetX(size2D.GetX());
+    m_size.SetY(size2D.GetY());
+    UpdateDestRect();
 }
 
 #endif
