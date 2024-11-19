@@ -39,7 +39,7 @@ void App::Run()
     m_sprite->Init(m_window, 0, 0, 50, 50);
     m_sprite->Load("Basketball.png");
 
-    SpawnBalls(5);
+    SpawnBalls(50);
 
     while (m_window->IsOpen())
     {
@@ -67,12 +67,6 @@ void App::Draw()
     }
 
     m_window->Draw();
-
-#if _SDL
-    SDL_Delay(16);  // ~16 ms pour correspondre à environ 60 FPS
-#elif _RAYLIB
-
-#endif
 }
 
 void App::Update(float deltaTime)
