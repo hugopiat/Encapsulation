@@ -80,7 +80,7 @@ void App::SpawnBalls(int count)
 
         Ball* ball = new Ball();
         ball->Init(Maths::Vector2(posX, posY), Maths::Vector2(directionX, directionY), m_sprite);
-        ball->SetSpeed(5.0f);
+        ball->SetSpeed(10.0f);
         balls.push_back(ball);
     }
 }
