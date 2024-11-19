@@ -1,5 +1,4 @@
 #include "Ball.h"
-#include "AWindow.h"
 
 #include "ASprite.h"
 #include "SpriteSDL.h"
@@ -12,18 +11,11 @@ Ball::Ball() :
 
 }
 
-void Ball::Init(Maths::Vector2 pos, Maths::Vector2 speed, AWindow* window)
+void Ball::Init(Maths::Vector2 pos, Maths::Vector2 speed, ASprite* sprite)
 {
     m_pos.CopyVector2(pos);
     m_speed.CopyVector2(speed);
-
-#if _SDL
-
-    m_sprite = new SpriteSDL();
-    m_sprite->Init(window, pos.GetX(), pos.GetY(), 50, 50);
-    m_sprite->Load("Basketball.png");
-
-#endif
+    m_sprite = sprite;
 }
 
 void Ball::Update(float deltaTime, int windowWidth, int windowHeight)
@@ -55,12 +47,11 @@ void Ball::Update(float deltaTime, int windowWidth, int windowHeight)
     //Set X, Y new position
     m_pos.SetX(newX);
     m_pos.SetY(newY);
-
-    m_sprite->SetPositionSprite(m_pos);
 }
 
 void Ball::Draw()
 {
+    m_sprite->SetPositionSprite(m_pos);
     m_sprite->Draw();
 }
 

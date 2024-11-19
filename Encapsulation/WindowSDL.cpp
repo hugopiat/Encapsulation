@@ -89,13 +89,8 @@ bool WindowSDL::GetSurface()
 void WindowSDL::Draw()
 {
     SDL_UpdateWindowSurface(m_window);
-    //system("pause");
-    //SDL_DestroyWindow(m_window);
-    //m_window = nullptr;
-    //m_isSdlInit = false;
-    //SDL_Quit();
-
     SDL_RenderPresent(m_renderer);
+    SDL_Delay(16);
     std::cout << "[SDL] Draw Window" << std::endl;
 }
 

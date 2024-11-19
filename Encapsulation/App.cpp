@@ -23,7 +23,6 @@ void App::Run()
 
 	m_window = new WindowSDL();
 	m_sprite = new SpriteSDL();
-
 #elif _RAYLIB
 
 	m_sprite = new SpriteRaylib();
@@ -36,6 +35,10 @@ void App::Run()
 	}
 
     m_window->Init();
+
+    m_sprite->Init(m_window, 0, 0, 50, 50);
+    m_sprite->Load("Basketball.png");
+
     SpawnBalls(5);
 
     while (m_window->IsOpen())
@@ -89,7 +92,7 @@ void App::SpawnBalls(int count)
         float speedY = (std::rand() % 100) - 50;
 
         Ball* ball = new Ball();
-        ball->Init(Maths::Vector2(x, y), Maths::Vector2(speedX, speedY), m_window);
+        ball->Init(Maths::Vector2(x, y), Maths::Vector2(speedX, speedY), m_sprite);
         balls.push_back(ball);
     }
 }
