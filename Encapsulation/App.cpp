@@ -40,7 +40,7 @@ void App::Run()
     m_window->Init();
     m_sprite->Init(m_window, filename, 50, 50);
 
-    SpawnBalls(50);
+    SpawnBalls(10);
 
     while (m_window->IsOpen())
     {
@@ -85,7 +85,7 @@ void App::SpawnBalls(int count)
 
         Ball* ball = new Ball();
         ball->Init(Maths::Vector2(posX, posY), Maths::Vector2(directionX, directionY), m_sprite);
-        ball->SetSpeed(10.0f);
+        ball->SetSpeed(100.0f);
         balls.push_back(ball);
     }
 }

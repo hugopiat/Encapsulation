@@ -5,22 +5,25 @@ class ASprite;
 
 class Ball
 {
+private:
+
+    ASprite* m_sprite;
+    Maths::Vector2 m_pos;
+    Maths::Vector2 m_direction;
+    float m_speed;
+
+    Maths::Vector2 InitNextPos(float deltaTime);
+    Maths::Vector2 GetNormalVector(int posX, int posY, int windowWidth, int windowHeight);
+
 public:
 
     Ball();
 
-    void Init(Maths::Vector2 pos, Maths::Vector2 speed, ASprite* sprite);
+    void Init(Maths::Vector2 pos, Maths::Vector2 direction, ASprite* sprite);
     void SetSpeed(float speed);
     void Update(float deltaTime, int windowWidth, int windowHeight);
     void Draw();
 
     int ABS(int value);
-
-private:
-
-    Maths::Vector2 m_pos;
-    Maths::Vector2 m_direction;
-    float m_speed;
-    ASprite* m_sprite;
 };
 

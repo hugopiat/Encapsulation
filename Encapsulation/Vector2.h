@@ -20,6 +20,26 @@ namespace Maths
 
 		void SetX(int x);
 		void SetY(int y);
+
+        Vector2& operator+=(const Vector2& other) {
+            m_x += other.m_x;
+            m_y += other.m_y;
+            return *this;
+        }
+
+        Vector2& operator-=(const Vector2& other) {
+            m_x -= other.m_x;
+            m_y -= other.m_y;
+            return *this;
+        }
+
+        bool operator==(const Vector2& other) const {
+            return m_x == other.m_x && m_y == other.m_y;
+        }
+
+        bool operator!=(const Vector2& other) const {
+            return !(*this == other);
+        }
 	};
 }
 
