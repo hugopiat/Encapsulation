@@ -15,7 +15,7 @@ SpriteRaylib::~SpriteRaylib()
 	UnloadTexture(texture);
 }
 
-void SpriteRaylib::Init(AWindow* window, int x, int y, int width, int height)
+void SpriteRaylib::Init(AWindow* window, const std::string& filename, int width, int height, int x, int y)
 {
 	//m_windowRAYLIB = dynamic_cast<WindowRAYLIB*>(window);
 	m_pos.SetX(x);

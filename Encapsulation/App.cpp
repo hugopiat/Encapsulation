@@ -18,6 +18,7 @@ void App::Run()
 {
 	m_window = nullptr;
 	m_sprite = nullptr;
+
     balls = std::vector<Ball*>();
 
 #if _SDL
@@ -36,11 +37,9 @@ void App::Run()
 	}
 
     m_window->Init();
+    m_sprite->Init(m_window, filename, 50, 50);
 
-    m_sprite->Init(m_window, 0, 0, 50, 50);
-    m_sprite->Load("Basketball.png");
-
-    SpawnBalls(5);
+    SpawnBalls(50);
 
     while (m_window->IsOpen())
     {
@@ -52,13 +51,7 @@ void App::Run()
     }
 
     m_window->Close();
-
-    // Libération de la mémoire
-    for (int i = 0; i < balls.size(); i++) {
-        delete balls[i];
-    }
-    delete m_window;
-    delete m_sprite;
+    DeleteBalls();
 }
 
 void App::Draw()
@@ -71,7 +64,6 @@ void App::Draw()
     }
 
     m_window->Draw();
-
 }
 
 void App::Update(float deltaTime)
@@ -85,13 +77,24 @@ void App::SpawnBalls(int count)
 {
     std::srand(static_cast<unsigned>(std::time(0)));
     for (int i = 0; i < count; ++i) {
-        float x = std::rand() % 800;
-        float y = std::rand() % 600;
-        float speedX = (std::rand() % 100) - 50; // Vitesse entre -50 et 50
-        float speedY = (std::rand() % 100) - 50;
+        float posX = std::rand() % 800;
+        float posY = std::rand() % 600;
+        float directionX = (std::rand() % 10) - 5; // Vitesse entre -5 et 5
+        float directionY = (std::rand() % 10) - 5;
 
         Ball* ball = new Ball();
-        ball->Init(Maths::Vector2(x, y), Maths::Vector2(speedX, speedY), m_sprite);
+        ball->Init(Maths::Vector2(posX, posY), Maths::Vector2(directionX, directionY), m_sprite);
+        ball->SetSpeed(5.0f);
         balls.push_back(ball);
     }
+}
+
+void App::DeleteBalls() 
+{
+    // Libï¿½ration de la mï¿½moire
+    for (int i = 0; i < balls.size(); i++) {
+        delete balls[i];
+    }
+    delete m_window;
+    delete m_sprite;
 }

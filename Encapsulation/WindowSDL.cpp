@@ -6,12 +6,11 @@
 
 WindowSDL::WindowSDL()
 {
+    std::cout << "[SDL] On Create Window" << std::endl;
     m_isSdlInit = false;
     m_winSurface = nullptr;
     m_window = nullptr;
     m_renderer = nullptr;
-    std::cout << "[SDL] On Create Window" << std::endl;
-
 }
 
 void WindowSDL::Init()
@@ -88,20 +87,23 @@ bool WindowSDL::GetSurface()
 
 void WindowSDL::Draw()
 {
+    //std::cout << "[SDL] Draw Window" << std::endl;
     SDL_UpdateWindowSurface(m_window);
     SDL_RenderPresent(m_renderer);
 
     std::cout << ATimer::GetDeltaTime() << std::endl;
+    SDL_Delay(16);
 }
 
 void WindowSDL::Clear()
 {
+    //std::cout << "[SDL] Clear Window" << std::endl;
     SDL_RenderClear(m_renderer);
-    std::cout << "[SDL] Clear Window" << std::endl;
 }
 
 bool WindowSDL::IsOpen()
 {
+    //std::cout << "[SDL] IsOpen Window" << std::endl;
     if (!m_isSdlInit)
     {
         return false;
@@ -125,7 +127,6 @@ bool WindowSDL::IsOpen()
         }
     }
 
-    std::cout << "[SDL] IsOpen Window" << std::endl;
     return m_window;
 }
 
