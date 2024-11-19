@@ -65,7 +65,8 @@ bool WindowSDL::CreateWindow()
         std::cerr << "SDL_CreateRenderer failed: " << SDL_GetError() << std::endl;
         return false;
     }
-
+    int a = SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_BLEND);
+    int b = SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
     std::cout << "[SDL] Create Window" << std::endl;
     return true;
 }
@@ -88,7 +89,6 @@ bool WindowSDL::GetSurface()
 void WindowSDL::Draw()
 {
     //std::cout << "[SDL] Draw Window" << std::endl;
-    SDL_UpdateWindowSurface(m_window);
     SDL_RenderPresent(m_renderer);
 
     std::cout << ATimer::GetDeltaTime() << std::endl;

@@ -1,5 +1,6 @@
 #include "App.h"
 #include "AWindow.h"
+#include "ATimer.h"
 #include "Ball.h"
 
 #if _SDL
@@ -22,7 +23,7 @@ void App::Run()
     balls = std::vector<Ball*>();
 
 #if _SDL
-    TimerSDL* timersdl = new TimerSDL();
+    m_timer = new TimerSDL();
 	m_window = new WindowSDL();
 	m_sprite = new SpriteSDL();
 #elif _RAYLIB
@@ -43,7 +44,7 @@ void App::Run()
 
     while (m_window->IsOpen())
     {
-        if (timersdl->UpdateTime())
+        if (m_timer->UpdateTime())
         {
             Update(ATimer::GetDeltaTime());
             Draw();      

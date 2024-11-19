@@ -4,6 +4,7 @@
 
 class AWindow;
 class ASprite;
+class ATimer;
 class Ball;
 
 class App
@@ -15,6 +16,7 @@ public:
 private:
 	AWindow* m_window;
 	ASprite* m_sprite;
+	ATimer* m_timer;
 	std::vector<Ball*> balls;
 
 	void Draw();

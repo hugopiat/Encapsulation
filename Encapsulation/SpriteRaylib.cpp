@@ -27,7 +27,7 @@ void SpriteRaylib::Init(AWindow* window, const std::string& filename, int width,
 void SpriteRaylib::Draw()
 {
 	std::cout << "Draw sprite raylib !" << "\n";
-	DrawTexture(texture, m_pos.GetPositionX(), m_pos.GetPositionY(), WHITE);
+	DrawTexture(texture, m_pos.GetX(), m_pos.GetY(), WHITE);
 }
 
 void SpriteRaylib::Update()

@@ -1,3 +1,4 @@
+#if _SDL
 #pragma once
 #include "ATimer.h"
 
@@ -7,4 +8,5 @@ public:
 	// Hérité via ATimer
 	bool UpdateTime() override;
 };
+#endif // _SDL
 
