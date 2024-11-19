@@ -5,6 +5,7 @@
 #if _SDL
 #include "WindowSDL.h"
 #include "SpriteSDL.h"
+#include "TimerSDL.h"
 #include <SDL2/SDL_timer.h>
 #endif // _SDL
 
@@ -20,7 +21,7 @@ void App::Run()
     balls = std::vector<Ball*>();
 
 #if _SDL
-
+    TimerSDL* timersdl = new TimerSDL();
 	m_window = new WindowSDL();
 	m_sprite = new SpriteSDL();
 #elif _RAYLIB
@@ -43,8 +44,11 @@ void App::Run()
 
     while (m_window->IsOpen())
     {
-        Update(0.5f);
-        Draw();      
+        if (timersdl->UpdateTime())
+        {
+            Update(ATimer::GetDeltaTime());
+            Draw();      
+        }
     }
 
     m_window->Close();
@@ -68,11 +72,6 @@ void App::Draw()
 
     m_window->Draw();
 
-#if _SDL
-    SDL_Delay(16);  // ~16 ms pour correspondre à environ 60 FPS
-#elif _RAYLIB
-
-#endif
 }
 
 void App::Update(float deltaTime)
