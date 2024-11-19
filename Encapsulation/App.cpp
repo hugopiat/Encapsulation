@@ -73,13 +73,14 @@ void App::SpawnBalls(int count)
 {
     std::srand(static_cast<unsigned>(std::time(0)));
     for (int i = 0; i < count; ++i) {
-        float x = std::rand() % 800;
-        float y = std::rand() % 600;
-        float speedX = (std::rand() % 100) - 50; // Vitesse entre -50 et 50
-        float speedY = (std::rand() % 100) - 50;
+        float posX = std::rand() % 800;
+        float posY = std::rand() % 600;
+        float directionX = (std::rand() % 10) - 5; // Vitesse entre -5 et 5
+        float directionY = (std::rand() % 10) - 5;
 
         Ball* ball = new Ball();
-        ball->Init(Maths::Vector2(x, y), Maths::Vector2(speedX, speedY), m_sprite);
+        ball->Init(Maths::Vector2(posX, posY), Maths::Vector2(directionX, directionY), m_sprite);
+        ball->SetSpeed(5.0f);
         balls.push_back(ball);
     }
 }

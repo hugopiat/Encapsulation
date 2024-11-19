@@ -5,7 +5,7 @@
 
 Ball::Ball() : 
     m_pos(0,0),
-    m_speed(0,0), 
+    m_direction(0,0), 
     m_sprite(nullptr)
 {
 
@@ -14,34 +14,39 @@ Ball::Ball() :
 void Ball::Init(Maths::Vector2 pos, Maths::Vector2 speed, ASprite* sprite)
 {
     m_pos.CopyVector2(pos);
-    m_speed.CopyVector2(speed);
+    m_direction.CopyVector2(speed);
     m_sprite = sprite;
+}
+
+void Ball::SetSpeed(float speed)
+{
+    m_speed = speed;
 }
 
 void Ball::Update(float deltaTime, int windowWidth, int windowHeight)
 {
     // Init new value
-    int newX = m_pos.GetX() + (m_speed.GetX() * deltaTime);
-    int newY = m_pos.GetY() + (m_speed.GetY() * deltaTime);
+    int newX = m_pos.GetX() + (m_direction.GetX() * deltaTime);
+    int newY = m_pos.GetY() + (m_direction.GetY() * deltaTime);
 
     // Check X bounds
     if (newX <= 0)
     {
-        m_speed.SetX(ABS(m_speed.GetX()));
+        m_direction.SetX(ABS(m_direction.GetX()));
     }
     else if (newX >= windowWidth)
     {
-        m_speed.SetX(-ABS(m_speed.GetX()));
+        m_direction.SetX(-ABS(m_direction.GetX()));
     }
 
     // Check Y bounds
     if (newY <= 0)
     {
-        m_speed.SetY(ABS(m_speed.GetY()));
+        m_direction.SetY(ABS(m_direction.GetY()));
     }
     else if (newY >= windowHeight)
     {
-        m_speed.SetY(-ABS(m_speed.GetY()));
+        m_direction.SetY(-ABS(m_direction.GetY()));
     }
 
     //Set X, Y new position
