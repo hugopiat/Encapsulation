@@ -33,18 +33,16 @@ void SpriteSDL::Draw()
     if (m_texture)
     {
         UpdateDestRect();
-
         SDL_RenderCopy(m_windowSDL->GetRenderer(), m_texture, nullptr, m_destRect);
     }
 }
 
-void SpriteSDL::Update()
-{
-	std::cout << "[SDL] On Update Sprite !" << "\n";
-}
-
 void SpriteSDL::UpdateDestRect()
 {
+    if (!m_destRect) 
+    {
+        return;
+    }
     m_destRect->x = m_pos.GetX();
     m_destRect->y = m_pos.GetY();
     m_destRect->w = m_size.GetX();

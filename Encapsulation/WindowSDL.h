@@ -22,12 +22,12 @@ public:
 
 	WindowSDL();
 	// Hérité via AWindow
-	void Init() override;
-	void Draw() override;
-	void Clear() override;
-	bool IsOpen() override;
-	bool Close() override;
+	virtual void Init() override;
+	virtual void Draw() override;
+	virtual void Clear() override;
+	virtual bool IsOpen() override;
+	virtual bool Close() override;
 
-	SDL_Renderer* GetRenderer();
+	virtual SDL_Renderer* GetRenderer();
 };
 

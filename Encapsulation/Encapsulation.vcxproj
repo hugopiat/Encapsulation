@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\vcpkg.C.Users.hgpia.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.hgpia.source.repos.vcpkg.props" Condition="Exists('..\packages\vcpkg.C.Users.hgpia.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.hgpia.source.repos.vcpkg.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="DebugSDL|Win32">
       <Configuration>DebugSDL</Configuration>
@@ -238,12 +239,17 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="ASprite.cpp" />
+    <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Collider.cpp" />
+    <ClCompile Include="ColliderManager.cpp" />
+    <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="AWindow.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Encapsulation.cpp" />
     <ClCompile Include="SpriteRaylib.cpp" />
     <ClCompile Include="SpriteSDL.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="WindowRaylib.cpp" />
     <ClCompile Include="WindowSDL.cpp" />
@@ -251,11 +257,16 @@
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="ASprite.h" />
+    <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Collider.h" />
+    <ClInclude Include="ColliderManager.h" />
+    <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="AWindow.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="SpriteRaylib.h" />
     <ClInclude Include="SpriteSDL.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Vector2.h" />
     <ClInclude Include="WindowRaylib.h" />
     <ClInclude Include="WindowSDL.h" />
@@ -269,10 +280,13 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\packages\vcpkg.C.Users.hgpia.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.hgpia.source.repos.vcpkg.targets" Condition="Exists('..\packages\vcpkg.C.Users.hgpia.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.hgpia.source.repos.vcpkg.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\packages\vcpkg.C.Users.hgpia.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.hgpia.source.repos.vcpkg.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\vcpkg.C.Users.hgpia.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.hgpia.source.repos.vcpkg.props'))" />
+    <Error Condition="!Exists('..\packages\vcpkg.C.Users.hgpia.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.hgpia.source.repos.vcpkg.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\vcpkg.C.Users.hgpia.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.hgpia.source.repos.vcpkg.targets'))" />
   </Target>
 </Project>

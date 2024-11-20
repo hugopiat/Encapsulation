@@ -14,6 +14,7 @@ namespace Maths
 		Vector2(float x, float y);
 
         void Normalize();
+        static float Scalar(const Vector2& origin, const Vector2& second);
 
 		float GetX() const;
         float GetY() const;

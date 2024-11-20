@@ -16,19 +16,18 @@
 
 void App::Run(int argc, char* argv[])
 {
-
     if (!ManageArgs(argc, argv))
     {
 #if _SDL
         m_graphicLibType = GraphicLib::SDL2;
 #elif _RAYLIB
-        <<<<<< < Updated upstream
-            m_graphicLibType = GraphicLib::RAYLIB;
+        m_graphicLibType = GraphicLib::RAYLIB;
 #else
         std::cout << "Il manque des arguments ou ceux specifies ne sont pas valides" << std::endl;
         return;
 #endif // _RAYLIB
     }
+
     Init();
     while (m_window->IsOpen())
     {
@@ -109,20 +108,21 @@ void App::Init()
     }
 
     m_window->Init();
-    m_sprite->Init(m_window, filename, 50, 50);
+    m_managerCollider->InitBounds(m_window->m_width, m_window->m_height);
+    m_sprite->Init(m_window, filename);
 
-    SpawnBalls(5);
+    SpawnBalls(100);
 }
 
 void App::Draw()
 {
-    m_window->Clear(); 
+    m_window->Clear();
+    m_managerCollider->DrawDebugAll(m_window);
     
     for (int i = 0; i < balls.size(); i++) 
     {
         balls[i]->Draw();
     }
-
     m_window->Draw();    
 }
 
@@ -132,22 +132,28 @@ void App::Update(float deltaTime)
     for (int i = 0; i < balls.size(); i++) {
         balls[i]->Update(deltaTime, m_window->m_width, m_window->m_height);
     }
-    //m_managerCollider->CheckAllCollisionsWithBounds();
+    m_managerCollider->CheckAllCollisionsWithBounds();
 }
 
 void App::SpawnBalls(int count)
 {
+    int ballSize = 25;
+
     std::srand(static_cast<unsigned>(std::time(0)));
     for (int i = 0; i < count; ++i) {
-        float posX = (std::rand() % (m_window->m_width - 10)) + 5;
-        float posY = (std::rand() % (m_window->m_height - 10)) + 5;
-        float directionX = (std::rand() % 10) - 5; // Vitesse entre -5 et 5
+
+        float posX = (std::rand() % (m_window->m_width - (ballSize * 4))) + (ballSize * 2);
+        float posY = (std::rand() % (m_window->m_height - (ballSize * 4))) + (ballSize * 2);
+
+        float directionX = (std::rand() % 10) - 5;
         float directionY = (std::rand() % 10) - 5;
 
         Ball* ball = new Ball();
-        ball->Init(Maths::Vector2(posX, posY), Maths::Vector2(directionX, directionY), m_sprite);
-        //m_managerCollider->AddCollider(ball->GetCollider());
+        //ball->Init(Maths::Vector2(posX, posY), Maths::Vector2(directionX, directionY), m_sprite, ballSize);
+        ball->Init(Maths::Vector2(m_window->m_width / 2, m_window->m_height / 2), Maths::Vector2(directionX, directionY), m_sprite, ballSize);
+        m_managerCollider->AddCollider(ball->GetCollider());
         ball->SetSpeed(100.0f);
+
         balls.push_back(ball);
     }
 }

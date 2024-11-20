@@ -16,8 +16,13 @@ Maths::Vector2::Vector2(float x, float y) :
 void Maths::Vector2::Normalize()
 {
     float ratio = sqrt(m_x * m_x) + (m_y * m_y);
-    m_x = (m_x / ratio) * 10;
-    m_y = (m_y / ratio) * 10;
+    m_x = (m_x / ratio);
+    m_y = (m_y / ratio);
+}
+
+float Maths::Vector2::Scalar(const Vector2& origin, const Vector2& second)
+{
+    return origin.GetX() * second.GetX() + origin.GetY() * second.GetY();
 }
 
 float Maths::Vector2::GetX() const

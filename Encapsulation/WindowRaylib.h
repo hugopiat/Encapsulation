@@ -1,5 +1,6 @@
 #pragma once
 #include "AWindow.h"
+
 class WindowRaylib :
     public AWindow
 {

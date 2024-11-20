@@ -1,13 +1,15 @@
 #pragma once
 #include <vector>
-#include <iostream>
+#include "Vector2.h"
 
 class Collider;
+class AWindow;
 
 class ColliderManager
 {
 private:
     std::vector<Collider*> m_bounds; // Liste des colliders gérés
+    std::vector<Maths::Vector2> m_boundNormals; // Liste des colliders gérés
     std::vector<Collider*> m_colliders; // Liste des colliders gérés
 
 public:
@@ -29,6 +31,6 @@ public:
     void CheckAllCollisionsWithBounds() const;
 
     // Appeler la fonction de débogage de tous les colliders
-    void DrawDebugAll() const;
+    void DrawDebugAll(AWindow* window);
 };
 

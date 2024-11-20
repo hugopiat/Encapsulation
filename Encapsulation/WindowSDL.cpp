@@ -1,10 +1,9 @@
-#include <iostream>
-#include <SDL2/SDL.h>
 #include "WindowSDL.h"
+
+#include <SDL2/SDL.h>
+#include <iostream>
+
 #include "Timer.h"
-//#include "TimerSDL.h"
-#include "Vector2.h"
-#include "BoxCollider.h"
 
 WindowSDL::WindowSDL()
 {
@@ -59,6 +58,7 @@ bool WindowSDL::InitRenderer()
         std::cerr << "SDL_CreateRenderer failed: " << SDL_GetError() << std::endl;
         return false;
     }
+
     int a = SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_BLEND);
     int b = SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
     std::cout << "[SDL] Create Window" << std::endl;
@@ -69,7 +69,7 @@ bool WindowSDL::InitRenderer()
 bool WindowSDL::CreateWindow()
 {
     m_window = 
-        SDL_CreateWindow("Example", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_SHOWN);
+        SDL_CreateWindow("[SDL] PROJECT : BLOCKS GAME", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, m_width, m_height, SDL_WINDOW_SHOWN);
 
     if (!m_window) {
         std::cout << "Error creating window: " << SDL_GetError() << std::endl;

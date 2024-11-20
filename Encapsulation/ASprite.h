@@ -18,9 +18,8 @@ public :
 	ASprite();
 	virtual ~ASprite();
 
-	virtual void Init(AWindow* window, const std::string& filename, int width = 0, int height = 0, int x = 0, int y = 0) = 0;
+	virtual void Init(AWindow* window, const std::string& filename, int width = 50, int height = 50, int x = 0, int y = 0) = 0;
 	virtual void Draw() = 0;
-	virtual void Update() = 0;
 
 	virtual void SetPositionSprite(const Maths::Vector2& vect2D) = 0;
 	virtual void SetSizeSprite(const Maths::Vector2& size2D) = 0;

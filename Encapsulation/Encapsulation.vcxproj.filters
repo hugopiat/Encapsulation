@@ -69,29 +69,29 @@
     <ClCompile Include="Ball.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Fichiers sources\Maths</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowRaylib.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereCollider.cpp">
+      <Filter>Fichiers sources\Collider</Filter>
+    </ClCompile>
     <ClCompile Include="BoxCollider.cpp">
       <Filter>Fichiers sources\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="SphereCollider.cpp">
+    <ClCompile Include="ColliderManager.cpp">
       <Filter>Fichiers sources\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Collider.cpp">
       <Filter>Fichiers sources\Collider</Filter>
     </ClCompile>
-    <ClCompile Include="ATimer.cpp">
-      <Filter>Fichiers sources\Timer</Filter>
-    </ClCompile>
-    <ClCompile Include="TimerSDL.cpp">
-      <Filter>Fichiers sources\Timer</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Fichiers sources\Maths</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Fichiers sources\Maths</Filter>
-    </ClCompile>
-    <ClCompile Include="ColliderManager.cpp">
-      <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -116,8 +116,14 @@
     <ClInclude Include="Ball.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Collider.h">
-      <Filter>Fichiers d%27en-tête\Collider</Filter>
+    <ClInclude Include="Vector2.h">
+      <Filter>Fichiers d%27en-tête\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowRaylib.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="BoxCollider.h">
       <Filter>Fichiers d%27en-tête\Collider</Filter>
@@ -125,24 +131,19 @@
     <ClInclude Include="SphereCollider.h">
       <Filter>Fichiers d%27en-tête\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="ATimer.h">
-      <Filter>Fichiers d%27en-tête\Timer</Filter>
+    <ClInclude Include="ColliderManager.h">
+      <Filter>Fichiers d%27en-tête\Collider</Filter>
     </ClInclude>
-    <ClInclude Include="TimerSDL.h">
-      <Filter>Fichiers d%27en-tête\Timer</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.h">
-      <Filter>Fichiers d%27en-tête\Maths</Filter>
+    <ClInclude Include="Collider.h">
+      <Filter>Fichiers d%27en-tête\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Fichiers d%27en-tête\Maths</Filter>
     </ClInclude>
-    <ClInclude Include="ColliderManager.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Basketball.png">

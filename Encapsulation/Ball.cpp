@@ -1,7 +1,6 @@
 #include "Ball.h"
 
 #include "ASprite.h"
-#include "SpriteSDL.h"
 #include "Utils.h"
 
 #include "Collider.h"
@@ -24,7 +23,8 @@ void Ball::Init(const Maths::Vector2 pos, const Maths::Vector2 direction, ASprit
     m_direction.Normalize();
     m_sprite = sprite;
 
-    //m_sphereCollider = new SphereCollider(pos, radius);
+    m_sphereCollider = new SphereCollider(pos, radius, m_direction * 10);
+    m_sprite->SetSizeSprite(Maths::Vector2(radius, radius));
 }
 
 void Ball::SetSpeed(float speed)
@@ -36,8 +36,8 @@ Maths::Vector2 Ball::InitNextPos(float deltaTime)
 {
     // Init next pos
     Maths::Vector2 nextPos = Maths::Vector2(
-        m_pos.GetX() + (m_direction.GetX() * deltaTime * m_speed),
-        m_pos.GetY() + (m_direction.GetY() * deltaTime * m_speed));
+        m_pos.GetX() + (deltaTime * m_speed * m_sphereCollider->GetVelocity().GetX()),
+        m_pos.GetY() + (deltaTime * m_speed * m_sphereCollider->GetVelocity().GetY()));
 
     return nextPos;
 }
@@ -74,14 +74,8 @@ bool Ball::CheckCollisionBounds(Maths::Vector2 nextPos, int windowWidth, int win
 void Ball::Update(float deltaTime, int windowWidth, int windowHeight)
 {
     Maths::Vector2 nextPos = InitNextPos(deltaTime);
-
-    if (CheckCollisionBounds(nextPos, windowWidth, windowHeight)) 
-    {
-        nextPos = InitNextPos(deltaTime);
-    }
-
     m_pos = nextPos;
-    //m_sphereCollider->SetColliderPos(nextPos);
+    m_sphereCollider->SetColliderPos(nextPos);
 }
 
 void Ball::Draw()

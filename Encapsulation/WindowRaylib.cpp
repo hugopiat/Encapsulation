@@ -1,21 +1,17 @@
 #include "WindowRaylib.h"
 #include "raylib.h"
 
-
-
 void WindowRaylib::Init()
 {
-    const int screenWidth = m_width;
-    const int screenHeight = m_height;
+    m_width *= 1.25f;
+    m_height *= 1.25f;
 
-    InitWindow(screenWidth, screenHeight, "PROJECT: BLOCKS GAME");
-    
+    InitWindow(m_width, m_height, "[RAYLIB] PROJECT: BLOCKS GAME");    
     SetTargetFPS(60);
 }
 
 void WindowRaylib::Draw()
 {
-    
     EndDrawing();
 }
 
