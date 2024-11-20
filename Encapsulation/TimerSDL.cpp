@@ -15,6 +15,10 @@ bool TimerSDL::UpdateTime()
     m_lastTick = newTick;
     if (m_deltaTime > 1000/FPS_MAX)
     {
+        if (m_deltaTime > 1000/(FPS_MAX/2))
+        {
+            m_deltaTime = 1000 / (FPS_MAX / 2);
+        }
         m_haveToResetDeltaTime = true;
         m_deltaTime /= 1000;
         return true;

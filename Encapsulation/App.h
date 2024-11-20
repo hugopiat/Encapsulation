@@ -19,6 +19,7 @@ private:
 	ATimer* m_timer;
 	std::vector<Ball*> balls;
 
+	void Init();
 	void Draw();
 	void Update(float deltaTime);
 	void SpawnBalls(int count);

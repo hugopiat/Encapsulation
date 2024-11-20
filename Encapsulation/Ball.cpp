@@ -13,8 +13,8 @@ Ball::Ball() :
 
 void Ball::Init(Maths::Vector2 pos, Maths::Vector2 direction, ASprite* sprite)
 {
-    m_pos.CopyVector2(pos);
-    m_direction.CopyVector2(direction);
+    m_pos = pos;
+    m_direction = speed;
     m_sprite = sprite;
 }
 

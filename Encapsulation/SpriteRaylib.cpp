@@ -12,33 +12,38 @@ SpriteRaylib::SpriteRaylib() :
 SpriteRaylib::~SpriteRaylib()
 {
 	std::cout << "Draw sprite raylib !" << "\n";
-	UnloadTexture(texture);
+	UnloadTexture(m_texture);
 }
 
 void SpriteRaylib::Init(AWindow* window, const std::string& filename, int width, int height, int x, int y)
 {
 	//m_windowRAYLIB = dynamic_cast<WindowRAYLIB*>(window);
 	m_pos.SetX(x);
-	m_pos.SetY(x);
+	m_pos.SetY(y);
 	m_size.SetX(width);
-	m_pos.SetY(height);
+	m_size.SetY(height);
+	Load(filename);
 }
 
 void SpriteRaylib::Draw()
 {
-	std::cout << "Draw sprite raylib !" << "\n";
-	DrawTexture(texture, m_pos.GetX(), m_pos.GetY(), WHITE);
+	Vector2 pos = Vector2();
+	pos.x = m_pos.GetX();
+	pos.y = m_pos.GetY();
+	//DrawTexture(m_texture, m_pos.GetX(), m_pos.GetY(), WHITE);
+	DrawTextureEx(m_texture, pos, 0, 1, WHITE);
 }
 
 void SpriteRaylib::Update()
 {
-	std::cout << "Update sprite raylib !" << "\n";
 }
 
 void SpriteRaylib::Load(const std::string& filename)
 {
 	std::cout << "Load sprite raylib !" << "\n";
-	texture = LoadTexture(filename.c_str());
+	m_texture = LoadTexture(filename.c_str());
+	m_texture.width = m_size.GetX();
+	m_texture.height = m_size.GetY();
 }
 
 void SpriteRaylib::SetPositionSprite(Maths::Vector2 vect2D)

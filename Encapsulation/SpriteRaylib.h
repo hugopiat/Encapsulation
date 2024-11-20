@@ -7,7 +7,7 @@ class AWindow;
 class SpriteRaylib : public ASprite
 {
 private:
-	Texture2D texture;
+	Texture2D m_texture;
 	virtual void Load(const std::string& filename) override;
 
 public:
