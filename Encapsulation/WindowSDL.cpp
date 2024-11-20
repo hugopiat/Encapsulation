@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "WindowSDL.h"
-#include "TimerSDL.h"
+#include "Timer.h"
 
 WindowSDL::WindowSDL()
 {
@@ -91,7 +91,7 @@ void WindowSDL::Draw()
     //std::cout << "[SDL] Draw Window" << std::endl;
     SDL_RenderPresent(m_renderer);
 
-    std::cout << ATimer::GetDeltaTime() << std::endl;
+    std::cout << Timer::GetDeltaTime() << std::endl;
     SDL_Delay(16);
 }
 

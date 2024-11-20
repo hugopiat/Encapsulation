@@ -1,25 +1,21 @@
 #include "App.h"
 #include "AWindow.h"
-#include "ATimer.h"
+#include "Timer.h"
 #include "Ball.h"
 
 #if _SDL
 #include <SDL2/SDL_timer.h>
 #include "WindowSDL.h"
 #include "SpriteSDL.h"
-#include "TimerSDL.h"
 using SPECIFIC_WINDOW = WindowSDL;
 using SPECIFIC_SPRITE = SpriteSDL;
-using SPECIFIC_TIMER = TimerSDL;
 #endif // _SDL
 
 #if _RAYLIB
 #include "WindowRaylib.h"
 #include "SpriteRaylib.h"
-#include "TimerRaylib.h"
 using SPECIFIC_WINDOW = WindowRaylib;
 using SPECIFIC_SPRITE = SpriteRaylib;
-using SPECIFIC_TIMER = TimerRaylib;
 #endif // _RAYLIB
 
 
@@ -31,7 +27,7 @@ void App::Run()
     {
         if (m_timer->UpdateTime())
         {
-            Update(ATimer::GetDeltaTime());
+            Update(Timer::GetDeltaTime());
             Draw();      
         }
     }
@@ -46,7 +42,7 @@ void App::Init()
 
     m_window = new SPECIFIC_WINDOW();
     m_sprite = new SPECIFIC_SPRITE();
-    m_timer = new SPECIFIC_TIMER();
+    m_timer = new Timer();
 
 
     if (m_window == nullptr || m_timer == nullptr || m_sprite == nullptr)

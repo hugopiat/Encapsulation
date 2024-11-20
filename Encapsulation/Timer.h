@@ -1,7 +1,7 @@
 #pragma once
 const int FPS_MAX = 60;
 
-class ATimer
+class Timer
 {
 
 protected:
@@ -10,6 +10,6 @@ protected:
 	static float m_deltaTime;
 public:
 	static float GetDeltaTime();
-	virtual bool UpdateTime() = 0;
+	bool UpdateTime();
 };
 

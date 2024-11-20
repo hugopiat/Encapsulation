@@ -4,7 +4,7 @@
 
 class AWindow;
 class ASprite;
-class ATimer;
+class Timer;
 class Ball;
 
 class App
@@ -16,7 +16,7 @@ public:
 private:
 	AWindow* m_window;
 	ASprite* m_sprite;
-	ATimer* m_timer;
+	Timer* m_timer;
 	std::vector<Ball*> balls;
 
 	void Init();
