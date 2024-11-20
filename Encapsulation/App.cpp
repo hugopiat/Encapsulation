@@ -3,25 +3,21 @@
 #include "Timer.h"
 #include "Ball.h"
 
-#if _SDL
 #include <SDL2/SDL_timer.h>
 #include "WindowSDL.h"
 #include "SpriteSDL.h"
-using SPECIFIC_WINDOW = WindowSDL;
-using SPECIFIC_SPRITE = SpriteSDL;
-#endif // _SDL
 
-#if _RAYLIB
 #include "WindowRaylib.h"
 #include "SpriteRaylib.h"
-using SPECIFIC_WINDOW = WindowRaylib;
-using SPECIFIC_SPRITE = SpriteRaylib;
-#endif // _RAYLIB
 
 
-void App::Run()
+void App::Run(int argc, char* argv[])
 {
-    
+    if (!ManageArgs(argc, argv))
+    {
+        std::cout << "Il manque des arguments ou ceux specifies ne sont pas valides" << std::endl;
+        return;
+    }
     Init();
     while (m_window->IsOpen())
     {
@@ -36,12 +32,63 @@ void App::Run()
     DeleteBalls();
 }
 
+bool App::ManageArgs(int argc, char* argv[])
+{
+    if (argc == 1)
+    {
+        return false;
+    }
+
+    m_graphicLibType = GraphicLib::NONE;
+    std::string arg;
+    for (int i = 1; i < argc; i++)
+    {
+        arg = argv[i];
+        if (!PerformArgForGraphicLib(arg))
+        {
+            return false;
+        }
+    }
+
+    if (m_graphicLibType == GraphicLib::NONE)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool App::PerformArgForGraphicLib(std::string arg)
+{
+    if (m_graphicLibType != GraphicLib::NONE)
+    {
+        return false;
+    }
+
+    if (arg == "sdl2")
+    {
+        m_graphicLibType = GraphicLib::SDL2;
+    }
+    else if (arg == "raylib")
+    {
+        m_graphicLibType = GraphicLib::RAYLIB;
+    }
+    return true;
+}
+
 void App::Init()
 {
     balls = std::vector<Ball*>();
 
-    m_window = new SPECIFIC_WINDOW();
-    m_sprite = new SPECIFIC_SPRITE();
+    if (m_graphicLibType == GraphicLib::SDL2)
+    {
+        m_window = new WindowSDL();
+        m_sprite = new SpriteSDL();
+    }
+    else if (m_graphicLibType == GraphicLib::RAYLIB) 
+    {
+        m_window = new WindowRaylib();
+        m_sprite = new SpriteRaylib();
+    }
     m_timer = new Timer();
 
 

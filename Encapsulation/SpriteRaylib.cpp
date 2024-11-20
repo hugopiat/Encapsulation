@@ -1,4 +1,3 @@
-#if _RAYLIB
 #include "SpriteRaylib.h"
 //#include "WindowRAYLIB.h"
 #include "AWindow.h"
@@ -58,4 +57,3 @@ void SpriteRaylib::SetSizeSprite(Maths::Vector2 size2D)
 	m_size.SetY(size2D.GetY());
 }
 
-#endif

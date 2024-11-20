@@ -1,4 +1,3 @@
-#if _SDL
 #include "SpriteSDL.h"
 #include "SDL2/SDL.h"
 #include "SDL2/SDL_image.h"
@@ -94,5 +93,3 @@ void SpriteSDL::SetSizeSprite(Maths::Vector2 size2D)
     m_size.SetY(size2D.GetY());
     UpdateDestRect();
 }
-
-#endif

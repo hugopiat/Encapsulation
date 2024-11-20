@@ -1,4 +1,3 @@
-#if _SDL
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "WindowSDL.h"
@@ -143,4 +142,3 @@ SDL_Renderer* WindowSDL::GetRenderer()
     return m_renderer;
 }
 
-#endif // _SDL

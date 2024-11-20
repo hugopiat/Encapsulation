@@ -1,4 +1,3 @@
-#if _SDL
 #pragma once
 #include "AWindow.h"
 
@@ -30,5 +29,4 @@ public:
 
 	SDL_Renderer* GetRenderer();
 };
-#endif // _SDL
 
