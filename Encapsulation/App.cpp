@@ -25,23 +25,8 @@ using SPECIFIC_TIMER = TimerRaylib;
 
 void App::Run()
 {
-    balls = std::vector<Ball*>();
-
-	m_window = new SPECIFIC_WINDOW();
-	m_sprite = new SPECIFIC_SPRITE();
-    m_timer = new SPECIFIC_TIMER();
-
-
-    m_window->Init();
-	if (m_window == nullptr || m_timer == nullptr || m_sprite == nullptr)
-	{
-		return;
-	}
-
-    m_sprite->Init(m_window, filename, 50, 50);
-
-    SpawnBalls(5);
-
+    
+    Init();
     while (m_window->IsOpen())
     {
         if (m_timer->UpdateTime())
@@ -53,6 +38,26 @@ void App::Run()
 
     m_window->Close();
     DeleteBalls();
+}
+
+void App::Init()
+{
+    balls = std::vector<Ball*>();
+
+    m_window = new SPECIFIC_WINDOW();
+    m_sprite = new SPECIFIC_SPRITE();
+    m_timer = new SPECIFIC_TIMER();
+
+
+    if (m_window == nullptr || m_timer == nullptr || m_sprite == nullptr)
+    {
+        return;
+    }
+
+    m_window->Init();
+    m_sprite->Init(m_window, filename, 50, 50);
+
+    SpawnBalls(5);
 }
 
 void App::Draw()

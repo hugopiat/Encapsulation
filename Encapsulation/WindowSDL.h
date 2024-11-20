@@ -28,7 +28,6 @@ public:
 	bool IsOpen() override;
 	bool Close() override;
 
-	// Hérité via AWindow
 	SDL_Renderer* GetRenderer();
 };
 #endif // _SDL

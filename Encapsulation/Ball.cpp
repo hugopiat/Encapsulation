@@ -13,8 +13,8 @@ Ball::Ball() :
 
 void Ball::Init(Maths::Vector2 pos, Maths::Vector2 speed, ASprite* sprite)
 {
-    m_pos.CopyVector2(pos);
-    m_direction.CopyVector2(speed);
+    m_pos = pos;
+    m_direction = speed;
     m_sprite = sprite;
 }
 
@@ -25,8 +25,6 @@ void Ball::SetSpeed(float speed)
 
 void Ball::Update(float deltaTime, int windowWidth, int windowHeight)
 {
-    return;
-
     // Init new value
     int newX = m_pos.GetX() + (m_direction.GetX() * deltaTime * m_speed);
     int newY = m_pos.GetY() + (m_direction.GetY() * deltaTime * m_speed);

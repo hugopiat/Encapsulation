@@ -1,10 +1,8 @@
 #include <ctime>
 #include "TimerRaylib.h"
+#include "raylib.h"
 bool TimerRaylib::UpdateTime()
 {
-
-    int newTick = time(NULL);
-    m_deltaTime = (newTick - m_lastTick);
-    m_lastTick = newTick;
+    m_deltaTime = GetFrameTime();
     return true;
 }

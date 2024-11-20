@@ -238,25 +238,34 @@
   <ItemGroup>
     <ClCompile Include="App.cpp" />
     <ClCompile Include="ASprite.cpp" />
+    <ClCompile Include="ATimer.cpp" />
     <ClCompile Include="AWindow.cpp" />
     <ClCompile Include="Ball.cpp" />
     <ClCompile Include="Encapsulation.cpp" />
     <ClCompile Include="SpriteRaylib.cpp" />
     <ClCompile Include="SpriteSDL.cpp" />
+    <ClCompile Include="TimerRaylib.cpp" />
+    <ClCompile Include="TimerSDL.cpp" />
     <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="WindowRaylib.cpp" />
     <ClCompile Include="WindowSDL.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
     <ClInclude Include="ASprite.h" />
+    <ClInclude Include="ATimer.h" />
     <ClInclude Include="AWindow.h" />
     <ClInclude Include="Ball.h" />
     <ClInclude Include="SpriteRaylib.h" />
     <ClInclude Include="SpriteSDL.h" />
+    <ClInclude Include="TimerRaylib.h" />
+    <ClInclude Include="TimerSDL.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="WindowRaylib.h" />
     <ClInclude Include="WindowSDL.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
