@@ -1,4 +1,7 @@
 #pragma once
+#include <vector>
+class BoxCollider;
+
 class AWindow
 {
 public:

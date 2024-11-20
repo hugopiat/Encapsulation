@@ -1,7 +1,10 @@
 #include "App.h"
 #include "AWindow.h"
 #include "Timer.h"
+#include "ASprite.h"
 #include "Ball.h"
+#include "ColliderManager.h"
+#include "BoxCollider.h"
 
 #include <SDL2/SDL_timer.h>
 #include "WindowSDL.h"
@@ -13,12 +16,14 @@
 
 void App::Run(int argc, char* argv[])
 {
+
     if (!ManageArgs(argc, argv))
     {
 #if _SDL
         m_graphicLibType = GraphicLib::SDL2;
 #elif _RAYLIB
-        m_graphicLibType = GraphicLib::RAYLIB;
+        <<<<<< < Updated upstream
+            m_graphicLibType = GraphicLib::RAYLIB;
 #else
         std::cout << "Il manque des arguments ou ceux specifies ne sont pas valides" << std::endl;
         return;
@@ -95,6 +100,7 @@ void App::Init()
         m_sprite = new SpriteRaylib();
     }
     m_timer = new Timer();
+    m_managerCollider = new ColliderManager();
 
 
     if (m_window == nullptr || m_timer == nullptr || m_sprite == nullptr)
@@ -117,27 +123,30 @@ void App::Draw()
         balls[i]->Draw();
     }
 
-    m_window->Draw();
+    m_window->Draw();    
 }
 
 void App::Update(float deltaTime)
 {
+    //m_managerCollider->CheckAllCollisions();
     for (int i = 0; i < balls.size(); i++) {
         balls[i]->Update(deltaTime, m_window->m_width, m_window->m_height);
     }
+    //m_managerCollider->CheckAllCollisionsWithBounds();
 }
 
 void App::SpawnBalls(int count)
 {
     std::srand(static_cast<unsigned>(std::time(0)));
     for (int i = 0; i < count; ++i) {
-        float posX = std::rand() % 800;
-        float posY = std::rand() % 600;
+        float posX = (std::rand() % (m_window->m_width - 10)) + 5;
+        float posY = (std::rand() % (m_window->m_height - 10)) + 5;
         float directionX = (std::rand() % 10) - 5; // Vitesse entre -5 et 5
         float directionY = (std::rand() % 10) - 5;
 
         Ball* ball = new Ball();
         ball->Init(Maths::Vector2(posX, posY), Maths::Vector2(directionX, directionY), m_sprite);
+        //m_managerCollider->AddCollider(ball->GetCollider());
         ball->SetSpeed(100.0f);
         balls.push_back(ball);
     }

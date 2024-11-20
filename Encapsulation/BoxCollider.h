@@ -6,10 +6,10 @@ class BoxCollider : public Collider
 public:
     BoxCollider(Maths::Vector2 position, int width, int height);
 
-    Maths::Vector2 GetPosition() const override;
+    virtual Maths::Vector2 GetPosition() const override;
+    virtual void SetColliderPos(const Maths::Vector2 newPos) override;
     virtual bool CheckCollision(const Collider* other)const override;
-
-    int Clamp(int value, int min, int max) const;
+    virtual void DrawDebug() const override;
 
 private:
 

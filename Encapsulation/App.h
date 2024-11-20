@@ -6,6 +6,7 @@ class AWindow;
 class ASprite;
 class Timer;
 class Ball;
+class ColliderManager;
 
 
 enum class GraphicLib
@@ -24,8 +25,9 @@ public:
 private:
 	AWindow* m_window;
 	ASprite* m_sprite;
-	Timer* m_timer;
 	GraphicLib m_graphicLibType;
+	Timer* m_timer;
+	ColliderManager* m_managerCollider;
 	std::vector<Ball*> balls;
 
 	

@@ -5,21 +5,21 @@ namespace Maths
 	class Vector2
 	{
 	private:
-		int m_x;
-		int m_y;
+        float m_x;
+        float m_y;
 
 	public:
 
 		Vector2();
-		Vector2(int x, int y);
+		Vector2(float x, float y);
 
-		void CopyVector2(Vector2& vect2Origin);
+        void Normalize();
 
-		int GetX() const;
-		int GetY() const;
+		float GetX() const;
+        float GetY() const;
 
-		void SetX(int x);
-		void SetY(int y);
+		void SetX(float x);
+		void SetY(float y);
 
         Vector2& operator+=(const Vector2& other) {
             m_x += other.m_x;
@@ -38,7 +38,19 @@ namespace Maths
         }
 
         bool operator!=(const Vector2& other) const {
-            return !(*this == other);
+            return m_x != other.m_x || m_y != other.m_y;
+        }
+
+        Vector2 operator-(const Vector2& other) const {
+            return Vector2(m_x - other.m_x, m_y - other.m_y);
+        }
+
+        Vector2 operator*(int scalar) const {
+            return Vector2(m_x * scalar, m_y * scalar);
+        }
+
+        Vector2 operator/(int scalar) const {
+            return Vector2(m_x / scalar, m_y / scalar);
         }
 	};
 }

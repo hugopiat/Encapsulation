@@ -14,6 +14,7 @@ private:
 	bool m_isSdlInit;
 
 	bool InitLib();
+	bool InitRenderer();
 	bool CreateWindow();
 	bool GetSurface();
 

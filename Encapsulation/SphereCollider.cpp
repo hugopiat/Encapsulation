@@ -6,6 +6,12 @@ SphereCollider::SphereCollider(Maths::Vector2 position, float radius) :
     m_position(position),
     m_radius(radius)
 {
+
+}
+
+int SphereCollider::GetRadius() const
+{
+    return m_radius;
 }
 
 bool SphereCollider::CheckCollision(const Collider* other) const
@@ -29,7 +35,12 @@ Maths::Vector2 SphereCollider::GetPosition() const
 	return m_position;
 }
 
-int SphereCollider::GetRadius() const
+void SphereCollider::SetColliderPos(const Maths::Vector2 newPos)
 {
-	return m_radius;
+    m_position = newPos;
+}
+
+void SphereCollider::DrawDebug() const
+{
+
 }

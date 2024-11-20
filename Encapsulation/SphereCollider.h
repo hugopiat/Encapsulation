@@ -11,9 +11,11 @@ private:
 public:
     SphereCollider(Maths::Vector2 position, float radius);
 
-    virtual bool CheckCollision(const Collider* other)const override;
-
-    Maths::Vector2 GetPosition() const override;
     int GetRadius() const;
+
+    virtual bool CheckCollision(const Collider* other)const override;
+    virtual Maths::Vector2 GetPosition() const override;
+    virtual void SetColliderPos(const Maths::Vector2 newPos) override;
+    virtual void DrawDebug() const override;
 };
 

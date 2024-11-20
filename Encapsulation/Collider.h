@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2.h"
+#include "Utils.h"
 
 class Collider
 {
@@ -12,6 +13,10 @@ public:
 
     // Obtient la position du collider
     virtual Maths::Vector2 GetPosition() const = 0;
+    virtual void SetColliderPos(const Maths::Vector2 newPos) = 0;
+
+    // Obtient la position du collider
+    virtual void DrawDebug() const = 0;
 
 };
 

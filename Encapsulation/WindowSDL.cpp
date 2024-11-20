@@ -2,6 +2,9 @@
 #include <SDL2/SDL.h>
 #include "WindowSDL.h"
 #include "Timer.h"
+//#include "TimerSDL.h"
+#include "Vector2.h"
+#include "BoxCollider.h"
 
 WindowSDL::WindowSDL()
 {
@@ -17,6 +20,8 @@ void WindowSDL::Init()
     if (!InitLib())
         return;
     if (!CreateWindow())
+        return;
+    if (!InitRenderer())
         return;
     if (!GetSurface())
         return;
@@ -45,6 +50,22 @@ bool WindowSDL::InitLib()
     return m_isSdlInit;
 }
 
+bool WindowSDL::InitRenderer()
+{
+    m_renderer =
+        SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+    if (!m_renderer)
+    {
+        std::cerr << "SDL_CreateRenderer failed: " << SDL_GetError() << std::endl;
+        return false;
+    }
+    int a = SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_BLEND);
+    int b = SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
+    std::cout << "[SDL] Create Window" << std::endl;
+
+    return true;
+}
+
 bool WindowSDL::CreateWindow()
 {
     m_window = 
@@ -56,17 +77,7 @@ bool WindowSDL::CreateWindow()
         // End the program
         return false;
     }
-
-    m_renderer = 
-        SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-    if (!m_renderer)
-    {
-        std::cerr << "SDL_CreateRenderer failed: " << SDL_GetError() << std::endl;
-        return false;
-    }
-    int a = SDL_SetRenderDrawBlendMode(m_renderer, SDL_BLENDMODE_BLEND);
-    int b = SDL_SetRenderDrawColor(m_renderer, 0, 0, 0, 255);
-    std::cout << "[SDL] Create Window" << std::endl;
+    
     return true;
 }
 
@@ -91,13 +102,14 @@ void WindowSDL::Draw()
     SDL_RenderPresent(m_renderer);
 
     std::cout << Timer::GetDeltaTime() << std::endl;
-    SDL_Delay(16);
+    SDL_Delay(16 - Timer::GetDeltaTime());
 }
 
 void WindowSDL::Clear()
 {
     //std::cout << "[SDL] Clear Window" << std::endl;
     SDL_RenderClear(m_renderer);
+    //system("CLS");
 }
 
 bool WindowSDL::IsOpen()

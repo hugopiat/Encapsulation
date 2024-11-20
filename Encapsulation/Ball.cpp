@@ -2,20 +2,29 @@
 
 #include "ASprite.h"
 #include "SpriteSDL.h"
+#include "Utils.h"
 
-Ball::Ball() : 
+#include "Collider.h"
+#include "SphereCollider.h"
+
+Ball::Ball() :
+    m_sprite(nullptr),
+    m_sphereCollider(nullptr),
     m_pos(0,0),
     m_direction(0,0), 
-    m_sprite(nullptr)
+    m_speed(0)
 {
 
 }
 
-void Ball::Init(Maths::Vector2 pos, Maths::Vector2 direction, ASprite* sprite)
+void Ball::Init(const Maths::Vector2 pos, const Maths::Vector2 direction, ASprite* sprite, float radius)
 {
     m_pos = pos;
     m_direction = direction;
+    m_direction.Normalize();
     m_sprite = sprite;
+
+    //m_sphereCollider = new SphereCollider(pos, radius);
 }
 
 void Ball::SetSpeed(float speed)
@@ -33,55 +42,46 @@ Maths::Vector2 Ball::InitNextPos(float deltaTime)
     return nextPos;
 }
 
-Maths::Vector2 Ball::GetNormalVector(int posX, int posY, int windowWidth, int windowHeight)
+bool Ball::CheckCollisionBounds(Maths::Vector2 nextPos, int windowWidth, int windowHeight)
 {
-    Maths::Vector2 vecteurNormal = Maths::Vector2(0, 0);
-    if (posX <= 0)
-    {
-        vecteurNormal += Maths::Vector2(1, 0);
+    bool collided = false;
+
+    if (nextPos.GetX() <= 0) {
+        m_direction.SetX(Maths::Utils::ABS(m_direction.GetX()));
+        nextPos.SetX(0);
+        collided = true;
     }
-    else if (posX >= windowWidth)
-    {
-        vecteurNormal += Maths::Vector2(-1, 0);
+    else if (nextPos.GetX() >= windowWidth) {
+        m_direction.SetX(-Maths::Utils::ABS(m_direction.GetX()));
+        nextPos.SetX(windowWidth);
+        collided = true;
     }
 
-    if (posY <= 0)
-    {
-        vecteurNormal += Maths::Vector2(0, 1);
+    if (nextPos.GetY() <= 0) {
+        m_direction.SetY(Maths::Utils::ABS(m_direction.GetY())); 
+        nextPos.SetY(0);
+        collided = true;
     }
-    else if (posY >= windowHeight)
-    {
-        vecteurNormal += Maths::Vector2(0, -1);
+    else if (nextPos.GetY() >= windowHeight) {
+        m_direction.SetY(-Maths::Utils::ABS(m_direction.GetY()));
+        nextPos.SetY(windowHeight);
+        collided = true;
     }
 
-    return vecteurNormal;
+    return collided;
 }
 
 void Ball::Update(float deltaTime, int windowWidth, int windowHeight)
 {
     Maths::Vector2 nextPos = InitNextPos(deltaTime);
 
-    // Calculate Scalar product by direction and normalVector
-    Maths::Vector2 vecteurNormal = GetNormalVector(nextPos.GetX(), nextPos.GetY(), windowWidth, windowHeight);
-
-    if (vecteurNormal != Maths::Vector2(0, 0)) 
+    if (CheckCollisionBounds(nextPos, windowWidth, windowHeight)) 
     {
-        int scalarProduct = (m_direction.GetX() * vecteurNormal.GetX()) + (m_direction.GetY() * vecteurNormal.GetY());
-
-        // Init new direction
-        Maths::Vector2 newDirection = Maths::Vector2(
-            m_direction.GetX() - (2 * scalarProduct * vecteurNormal.GetX()),
-            m_direction.GetY() - (2 * scalarProduct * vecteurNormal.GetY()));
-
-        m_direction.CopyVector2(newDirection);
-
-        // Init new position
         nextPos = InitNextPos(deltaTime);
     }
-    
 
-    //Set X, Y new position / direction
-    m_pos.CopyVector2(nextPos);
+    m_pos = nextPos;
+    //m_sphereCollider->SetColliderPos(nextPos);
 }
 
 void Ball::Draw()
@@ -90,12 +90,7 @@ void Ball::Draw()
     m_sprite->Draw();
 }
 
-int Ball::ABS(int value)
+Collider* Ball::GetCollider()
 {
-    if (value >= 0) {
-        return value;
-    }
-    else {
-        return -value;
-    }
+    return m_sphereCollider;
 }
