@@ -15,8 +15,14 @@ void App::Run(int argc, char* argv[])
 {
     if (!ManageArgs(argc, argv))
     {
+#if _SDL
+        m_graphicLibType = GraphicLib::SDL2;
+#elif _RAYLIB
+        m_graphicLibType = GraphicLib::RAYLIB;
+#else
         std::cout << "Il manque des arguments ou ceux specifies ne sont pas valides" << std::endl;
         return;
+#endif // _RAYLIB
     }
     Init();
     while (m_window->IsOpen())
