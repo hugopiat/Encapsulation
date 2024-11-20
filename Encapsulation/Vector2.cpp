@@ -18,7 +18,7 @@ void Maths::Vector2::CopyVector2(Vector2& vect2Origin)
     SetY(vect2Origin.GetY());
 }
 
-int Maths::Vector2::GetX()
+int Maths::Vector2::GetX() const
 {
     return m_x;
 }
@@ -28,7 +28,7 @@ void Maths::Vector2::SetX(int x)
     m_x = x;
 }
 
-int Maths::Vector2::GetY()
+int Maths::Vector2::GetY() const
 {
     return m_y;
 }

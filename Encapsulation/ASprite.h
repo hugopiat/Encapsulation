@@ -22,7 +22,7 @@ public :
 	virtual void Draw() = 0;
 	virtual void Update() = 0;
 
-	virtual void SetPositionSprite(Maths::Vector2 vect2D) = 0;
-	virtual void SetSizeSprite(Maths::Vector2 size2D) = 0;
+	virtual void SetPositionSprite(const Maths::Vector2& vect2D) = 0;
+	virtual void SetSizeSprite(const Maths::Vector2& size2D) = 0;
 };
 

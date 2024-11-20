@@ -44,7 +44,6 @@ bool App::ManageArgs(int argc, char* argv[])
     {
         return false;
     }
-
     m_graphicLibType = GraphicLib::NONE;
     std::string arg;
     for (int i = 1; i < argc; i++)
@@ -63,7 +62,7 @@ bool App::ManageArgs(int argc, char* argv[])
     return true;
 }
 
-bool App::PerformArgForGraphicLib(std::string arg)
+bool App::PerformArgForGraphicLib(const std::string& arg)
 {
     if (m_graphicLibType != GraphicLib::NONE)
     {

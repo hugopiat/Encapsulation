@@ -30,7 +30,7 @@ private:
 
 	
 	bool ManageArgs(int argc, char* argv[]);
-	bool PerformArgForGraphicLib(std::string arg);
+	bool PerformArgForGraphicLib(const std::string& arg);
 	void Init();
 	void Draw();
 	void Update(float deltaTime);

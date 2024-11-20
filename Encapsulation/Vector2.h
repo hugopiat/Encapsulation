@@ -15,8 +15,8 @@ namespace Maths
 
 		void CopyVector2(Vector2& vect2Origin);
 
-		int GetX();
-		int GetY();
+		int GetX() const;
+		int GetY() const;
 
 		void SetX(int x);
 		void SetY(int y);

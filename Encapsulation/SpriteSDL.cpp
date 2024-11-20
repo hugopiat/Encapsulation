@@ -80,14 +80,14 @@ void SpriteSDL::Load(const std::string& filename)
     std::cout << "[SDL] On Load Sprite !" << "\n";
 }
 
-void SpriteSDL::SetPositionSprite(Maths::Vector2 vect2D)
+void SpriteSDL::SetPositionSprite(const Maths::Vector2& vect2D)
 {
     m_pos.SetX(vect2D.GetX() - (m_size.GetX() / 2));
     m_pos.SetY(vect2D.GetY() - (m_size.GetY() / 2));
     UpdateDestRect();
 }
 
-void SpriteSDL::SetSizeSprite(Maths::Vector2 size2D)
+void SpriteSDL::SetSizeSprite(const Maths::Vector2& size2D)
 {
     m_size.SetX(size2D.GetX());
     m_size.SetY(size2D.GetY());

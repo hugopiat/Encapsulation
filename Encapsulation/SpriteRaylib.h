@@ -18,7 +18,7 @@ public:
 	virtual void Draw() override;
 	virtual void Update() override;
 
-	virtual void SetPositionSprite(Maths::Vector2 vect2D) override;
-	virtual void SetSizeSprite(Maths::Vector2 size2D) override;
+	virtual void SetPositionSprite(const Maths::Vector2& vect2D) override;
+	virtual void SetSizeSprite(const Maths::Vector2& size2D) override;
 };
 

@@ -45,13 +45,13 @@ void SpriteRaylib::Load(const std::string& filename)
 	m_texture.height = m_size.GetY();
 }
 
-void SpriteRaylib::SetPositionSprite(Maths::Vector2 vect2D)
+void SpriteRaylib::SetPositionSprite(const Maths::Vector2& vect2D)
 {
 	m_pos.SetX(vect2D.GetX() - (m_size.GetX() / 2));
 	m_pos.SetY(vect2D.GetY() - (m_size.GetY() / 2));
 }
 
-void SpriteRaylib::SetSizeSprite(Maths::Vector2 size2D)
+void SpriteRaylib::SetSizeSprite(const Maths::Vector2& size2D)
 {
 	m_size.SetX(size2D.GetX());
 	m_size.SetY(size2D.GetY());
