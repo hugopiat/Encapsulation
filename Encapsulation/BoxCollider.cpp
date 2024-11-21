@@ -10,11 +10,12 @@
 #include <raylib.h>
 
 BoxCollider::BoxCollider(Maths::Vector2 position, int width, int height, Maths::Vector2 velocity) :
+    Collider(),
 	m_width(width), 
 	m_height(height)
 {
     SetColliderPos(position);
-    SetVelocity(velocity);
+    SetDirection(velocity);
 }
 
 Maths::Vector2 BoxCollider::GetPosition() const
@@ -27,17 +28,17 @@ void BoxCollider::SetColliderPos(const Maths::Vector2 newPos)
     m_position = newPos;
 }
 
-Maths::Vector2 BoxCollider::GetVelocity() const
+Maths::Vector2 BoxCollider::GetDirection() const
 {
-    return m_velocity;
+    return m_direction;
 }
 
-void BoxCollider::SetVelocity(const Maths::Vector2 newVelocity)
+void BoxCollider::SetDirection(const Maths::Vector2 newVelocity)
 {
-    m_velocity = newVelocity;
+    m_direction = newVelocity;
 }
 
-bool BoxCollider::CheckCollision(const Collider* other) const
+bool BoxCollider::CheckCollision(Collider* other)
 {
     // Collision avec un SphereCollider
     if (const SphereCollider* sphere = dynamic_cast<const SphereCollider*>(other))
@@ -62,43 +63,19 @@ bool BoxCollider::CheckCollision(const Collider* other) const
         float distanceSquared = dx * dx + dy * dy;
         float RadiuqSquared = (sphere->GetRadius() * sphere->GetRadius());
 
-        return distanceSquared <= RadiuqSquared;
+        if (distanceSquared <= RadiuqSquared)
+        {
+            SetNormalBounds(dx, dy);
+            return true;
+        }
+
+        return false;
     }
 
     // Collision avec un autre BoxCollider
     else if (const BoxCollider* box = dynamic_cast<const BoxCollider*>(other))
     {
-        // Récupérer les positions et dimensions du rectangle (box) à comparer
-        float boxLeft = box->GetPosition().GetX() - (box->m_width / 2);
-        float thisRight = GetPosition().GetX() + (m_width / 2);
-        if (!(thisRight <= boxLeft)) 
-        {
-            return false;
-        }
-
-        float boxRight = box->GetPosition().GetX() + (box->m_width / 2);
-        float thisLeft = GetPosition().GetX() - (m_width / 2);
-        if (!(thisRight <= boxLeft))
-        {
-            return false;
-        }
-
-        float boxTop = box->GetPosition().GetY() - (box->m_height / 2);
-        float thisBottom = GetPosition().GetY() + (m_height / 2);
-        if (!(thisBottom <= boxTop))
-        {
-            return false;
-        }
-
-        float boxBottom = box->GetPosition().GetY() + (box->m_height / 2);
-        float thisTop = GetPosition().GetY() - (m_height / 2);
-        if (!(thisTop >= boxBottom))
-        {
-            return false;
-        }
-
-        // Si aucune des conditions ci-dessus n'est remplie, les boîtes se chevauchent
-        return true;
+        return CheckBoxCollision(box);
     }
 
     // Si l'autre collider n'est ni une sphère, ni un rectangle
@@ -111,53 +88,106 @@ void BoxCollider::DrawDebug(AWindow* window)
     WindowSDL* windowSDL = dynamic_cast<WindowSDL*>(window);
     if (windowSDL)
     {
-        // Obtenir le renderer de la fenêtre
-        SDL_Renderer* renderer = windowSDL->GetRenderer();
-
-        // Définir la couleur pour le débogage (par exemple, un bleu semi-transparent)
-        SDL_SetRenderDrawColor(renderer, 0, 0, 255, 128); // Bleu avec transparence (alpha = 128)
-
-        // Dessiner le rectangle représentant le BoxCollider
-        // Note : m_position est le coin supérieur gauche du rectangle, et m_width et m_height sont ses dimensions.
-        SDL_Rect colliderRect = {
-            static_cast<int>(GetPosition().GetX() - m_width / 2),       // X : position X du coin supérieur gauche
-            static_cast<int>(GetPosition().GetY() - m_height / 2),       // Y : position Y du coin supérieur gauche
-            static_cast<int>(m_width),                    // Largeur du collider
-            static_cast<int>(m_height)                    // Hauteur du collider
-        };
-
-        // Dessiner le rectangle
-        SDL_RenderDrawRect(renderer, &colliderRect); // Dessine le contour du rectangle
-
-        // Si vous souhaitez remplir le rectangle, utilisez SDL_RenderFillRect
-        SDL_RenderFillRect(renderer, &colliderRect);
-
-        SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-        return;
+        DrawSDL(windowSDL);
     }
 
     WindowRaylib* windowRAYLIB = dynamic_cast<WindowRaylib*>(window);
     if(windowRAYLIB)
     {
-        Color debugColor = { 0, 0, 255, 128 }; // Bleu avec transparence (alpha = 128)
-
-        // Calculer les coordonnées du rectangle de débogage
-        float rectX = GetPosition().GetX() - m_width / 2; // X : position du coin supérieur gauche
-        float rectY = GetPosition().GetY() - m_height / 2; // Y : position du coin supérieur gauche
-        float rectWidth = m_width;  // Largeur du collider
-        float rectHeight = m_height; // Hauteur du collider
-
-        // Dessiner le contour du rectangle
-        DrawRectangleLinesEx(
-            Rectangle{ rectX, rectY, rectWidth, rectHeight }, // Rectangle à dessiner
-            1.0f, // Épaisseur des lignes
-            debugColor // Couleur de débogage
-        );
-
-        // Si vous souhaitez remplir le rectangle
-        DrawRectangleRec(
-            Rectangle{ rectX, rectY, rectWidth, rectHeight }, // Rectangle à remplir
-            debugColor // Couleur de débogage
-        );
+        DrawRaylib();
     }
+}
+
+bool BoxCollider::CheckBoxCollision(const BoxCollider* box)
+{
+    float boxPosX = box->GetPosition().GetX();
+    float boxPosY = box->GetPosition().GetY();
+    float thisPosX = GetPosition().GetX();
+    float thisPosY = GetPosition().GetY();
+
+    // Récupérer les positions et dimensions du rectangle (box) à comparer
+    float boxLeft = boxPosX - (box->m_width / 2);
+    float thisRight = thisPosX + (m_width / 2);
+    if (!(thisRight <= boxLeft))
+    {
+        return false;
+    }
+
+    float boxRight = boxPosX + (box->m_width / 2);
+    float thisLeft = thisPosX - (m_width / 2);
+    if (!(thisRight <= boxLeft))
+    {
+        return false;
+    }
+
+    float boxTop = boxPosY - (box->m_height / 2);
+    float thisBottom = thisPosY + (m_height / 2);
+    if (!(thisBottom <= boxTop))
+    {
+        return false;
+    }
+
+    float boxBottom = boxPosY + (box->m_height / 2);
+    float thisTop = thisPosY - (m_height / 2);
+    if (!(thisTop >= boxBottom))
+    {
+        return false;
+    }
+    // Si aucune des conditions ci-dessus n'est remplie, les boîtes se chevauchent
+    // Calcul de la direction entre la box et le point le plus proche de l'autre box
+    float dx = boxPosX - thisPosX;
+    float dy = boxPosY - thisPosY;
+
+    SetNormalBounds(dx, dy);
+    return true;
+}
+
+void BoxCollider::DrawSDL(WindowSDL* windowSDL)
+{
+    // Obtenir le renderer de la fenêtre
+    SDL_Renderer* renderer = windowSDL->GetRenderer();
+
+    // Définir la couleur pour le débogage (par exemple, un bleu semi-transparent)
+    SDL_SetRenderDrawColor(renderer, 0, 0, 255, 128); // Bleu avec transparence (alpha = 128)
+
+    // Dessiner le rectangle représentant le BoxCollider
+    // Note : m_position est le coin supérieur gauche du rectangle, et m_width et m_height sont ses dimensions.
+    SDL_Rect colliderRect = {
+        static_cast<int>(GetPosition().GetX() - m_width / 2),       // X : position X du coin supérieur gauche
+        static_cast<int>(GetPosition().GetY() - m_height / 2),       // Y : position Y du coin supérieur gauche
+        static_cast<int>(m_width),                    // Largeur du collider
+        static_cast<int>(m_height)                    // Hauteur du collider
+    };
+
+    // Dessiner le rectangle
+    SDL_RenderDrawRect(renderer, &colliderRect); // Dessine le contour du rectangle
+
+    // Si vous souhaitez remplir le rectangle, utilisez SDL_RenderFillRect
+    SDL_RenderFillRect(renderer, &colliderRect);
+
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+}
+
+void BoxCollider::DrawRaylib()
+{
+    Color debugColor = { 0, 0, 255, 128 }; // Bleu avec transparence (alpha = 128)
+
+    // Calculer les coordonnées du rectangle de débogage
+    float rectX = GetPosition().GetX() - m_width / 2; // X : position du coin supérieur gauche
+    float rectY = GetPosition().GetY() - m_height / 2; // Y : position du coin supérieur gauche
+    float rectWidth = m_width;  // Largeur du collider
+    float rectHeight = m_height; // Hauteur du collider
+
+    // Dessiner le contour du rectangle
+    DrawRectangleLinesEx(
+        Rectangle{ rectX, rectY, rectWidth, rectHeight }, // Rectangle à dessiner
+        1.0f, // Épaisseur des lignes
+        debugColor // Couleur de débogage
+    );
+
+    // Si vous souhaitez remplir le rectangle
+    DrawRectangleRec(
+        Rectangle{ rectX, rectY, rectWidth, rectHeight }, // Rectangle à remplir
+        debugColor // Couleur de débogage
+    );
 }

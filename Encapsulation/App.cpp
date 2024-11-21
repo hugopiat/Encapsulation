@@ -108,10 +108,10 @@ void App::Init()
     }
 
     m_window->Init();
-    m_managerCollider->InitBounds(m_window->m_width, m_window->m_height);
+    m_managerCollider->InitWalls(m_window->m_width, m_window->m_height);
     m_sprite->Init(m_window, filename);
 
-    SpawnBalls(100);
+    SpawnBalls(1);
 }
 
 void App::Draw()
@@ -128,11 +128,11 @@ void App::Draw()
 
 void App::Update(float deltaTime)
 {
-    //m_managerCollider->CheckAllCollisions();
     for (int i = 0; i < balls.size(); i++) {
         balls[i]->Update(deltaTime, m_window->m_width, m_window->m_height);
     }
-    m_managerCollider->CheckAllCollisionsWithBounds();
+    m_managerCollider->CheckAllCollisions();
+    //m_managerCollider->CheckAllCollisionsWithBounds();
 }
 
 void App::SpawnBalls(int count)
@@ -152,7 +152,7 @@ void App::SpawnBalls(int count)
         //ball->Init(Maths::Vector2(posX, posY), Maths::Vector2(directionX, directionY), m_sprite, ballSize);
         ball->Init(Maths::Vector2(m_window->m_width / 2, m_window->m_height / 2), Maths::Vector2(directionX, directionY), m_sprite, ballSize);
         m_managerCollider->AddCollider(ball->GetCollider());
-        ball->SetSpeed(100.0f);
+        ball->SetSpeed(250.0f);
 
         balls.push_back(ball);
     }

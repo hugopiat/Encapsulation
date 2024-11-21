@@ -102,7 +102,6 @@ void WindowSDL::Draw()
     SDL_RenderPresent(m_renderer);
 
     std::cout << Timer::GetDeltaTime() << std::endl;
-    SDL_Delay(16 - Timer::GetDeltaTime());
 }
 
 void WindowSDL::Clear()

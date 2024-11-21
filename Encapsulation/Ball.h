@@ -12,11 +12,8 @@ private:
     ASprite* m_sprite;
     SphereCollider* m_sphereCollider;
     Maths::Vector2 m_pos;
-    Maths::Vector2 m_direction;
-    float m_speed;
 
     Maths::Vector2 InitNextPos(float deltaTime);
-    bool CheckCollisionBounds(Maths::Vector2 nextPos, int windowWidth, int windowHeight);
 
 public:
 

@@ -2,6 +2,7 @@
 #include "Collider.h"
 
 class AWindow;
+class WindowSDL;
 
 class SphereCollider : public Collider
 {
@@ -17,10 +18,13 @@ public:
     virtual Maths::Vector2 GetPosition() const override;
     virtual void SetColliderPos(const Maths::Vector2 newPos) override;
 
-    virtual Maths::Vector2 GetVelocity() const override;
-    virtual void SetVelocity(const Maths::Vector2 newVelocity) override;
+    virtual Maths::Vector2 GetDirection() const override;
+    virtual void SetDirection(const Maths::Vector2 newVelocity) override;
 
-    virtual bool CheckCollision(const Collider* other)const override;
+    virtual bool CheckCollision(Collider* other) override;
     virtual void DrawDebug(AWindow* window) override;
+
+    void DrawSDL(WindowSDL* windowSDL);
+    void DrawRaylib();
 };
 
