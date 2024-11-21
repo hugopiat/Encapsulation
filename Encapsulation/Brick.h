@@ -16,6 +16,7 @@ private:
 
 public:
 
+    bool m_enabledLife;
     int m_life;
     bool m_isDie;
 
@@ -23,6 +24,8 @@ public:
     void Destroy();
 
     void Init(const Maths::Vector2 pos, ASprite* sprite, float width = 50, float height = 50);
+    void SetPosition(const Maths::Vector2 pos);
+    Maths::Vector2 GetPosition();
     void Update(float deltaTime);
     void Draw();
 

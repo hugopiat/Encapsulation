@@ -11,15 +11,16 @@ using namespace std::placeholders;
 Ball::Ball() :
     m_sprite(nullptr),
     m_sphereCollider(nullptr),
-    m_pos(0,0),
-    m_damage(0)
+    m_position(0,0),
+    m_damage(0),
+    _isMoved(false)
 {
 
 }
 
 void Ball::Init(const Maths::Vector2 pos, const Maths::Vector2 direction, ASprite* sprite, float radius)
 {
-    m_pos = pos;
+    m_position = pos;
     m_sprite = sprite;
     m_damage = 1;
 
@@ -43,12 +44,17 @@ void Ball::SetSpeed(float speed)
     m_sphereCollider->m_velocity = speed;
 }
 
+void Ball::SetPosition(const Maths::Vector2 pos)
+{
+    m_position = pos;
+}
+
 Maths::Vector2 Ball::InitNextPos(float deltaTime)
 {
     // Init next pos
     Maths::Vector2 nextPos = Maths::Vector2(
-        m_pos.GetX() + (deltaTime * m_sphereCollider->m_velocity * m_sphereCollider->GetDirection().GetX()),
-        m_pos.GetY() + (deltaTime * m_sphereCollider->m_velocity * m_sphereCollider->GetDirection().GetY()));
+        m_position.GetX() + (deltaTime * m_sphereCollider->m_velocity * m_sphereCollider->GetDirection().GetX()),
+        m_position.GetY() + (deltaTime * m_sphereCollider->m_velocity * m_sphereCollider->GetDirection().GetY()));
 
     return nextPos;
 }
@@ -56,13 +62,13 @@ Maths::Vector2 Ball::InitNextPos(float deltaTime)
 void Ball::Update(float deltaTime, int windowWidth, int windowHeight)
 {
     Maths::Vector2 nextPos = InitNextPos(deltaTime);
-    m_pos = nextPos;
+    m_position = nextPos;
     m_sphereCollider->SetPosition(nextPos);
 }
 
 void Ball::Draw()
 {
-    m_sprite->SetPositionSprite(m_pos);
+    m_sprite->SetPositionSprite(m_position);
     m_sprite->Draw();
 }
 

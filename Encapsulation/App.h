@@ -9,6 +9,7 @@ class AInputSystem;
 class Timer;
 class Ball;
 class Brick;
+class Player;
 class ColliderManager;
 
 enum class GraphicLib
@@ -36,6 +37,8 @@ private:
 	std::vector<Ball*> balls;
 	std::vector<Brick*> bricks;
 
+	Player* m_player;
+
 	static GraphicLib m_graphicLibType;
 	
 	bool ManageArgs(int argc, char* argv[]);
@@ -43,8 +46,13 @@ private:
 	void Init();
 	void Draw();
 	void Update(float deltaTime);
+
+	void SpawnPlayer();
 	void SpawnBalls(int count);
-	void SpawnBrick(int widthWindow, int heightWindow, int count);
+	void SpawnBrick(int count);
+
+	void MovePlayer();
+
 	void DeleteBalls();
 	void DeleteBricks();
 };

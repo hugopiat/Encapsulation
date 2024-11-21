@@ -23,24 +23,24 @@ void InputSystemSDL::PoolEvent()
 
         switch (event.type)
         {
-
         case SDL_QUIT:
             WindowSDL::s_shouldClose = true;
             break;
+
         case SDL_KEYDOWN:
-            if (s_keys[code] == KeyState::None || s_keys[code] == KeyState::KeyReleased || s_keys[code] == KeyState::KeyUp)
+            if (code < s_keys.size() && (s_keys[code] == KeyState::None || s_keys[code] == KeyState::KeyReleased || s_keys[code] == KeyState::KeyUp))
             {
-                s_keys[code] = KeyState::KeyPressed;
+                s_keys[code] = KeyState::KeyPressed;  // La touche vient juste d'être pressée
             }
             break;
+
         case SDL_KEYUP:
-            if (s_keys[code] == KeyState::None || s_keys[code] == KeyState::KeyDown || s_keys[code] == KeyState::KeyReleased)
+            if (code < s_keys.size() && (s_keys[code] == KeyState::KeyPressed || s_keys[code] == KeyState::KeyDown))
             {
-                s_keys[code] = KeyState::KeyReleased;
+                s_keys[code] = KeyState::KeyReleased; // La touche vient juste d'être relâchée
             }
             break;
         }
     }
-
 
 }

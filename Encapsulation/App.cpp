@@ -7,6 +7,7 @@
 #include "ASprite.h"
 #include "Ball.h"
 #include "Brick.h"
+#include "Player.h"
 #include "ColliderManager.h"
 #include "BoxCollider.h"
 #include "TextManager.h"
@@ -104,6 +105,8 @@ bool App::PerformArgForGraphicLib(const std::string& arg)
 void App::Init()
 {
     balls = std::vector<Ball*>();    
+    bricks = std::vector<Brick*>();
+
     Encapsulation::AInputSystem::Init();
     if (App::m_graphicLibType == GraphicLib::SDL2)
     {
@@ -132,8 +135,10 @@ void App::Init()
     m_sprite->Init(m_window, filename);
     m_text = TextManager::GetInstance()->InstantiateText();
     m_text->Init(m_window, "FPS", 1130, 30, 100);
-    SpawnBalls(50);
-    SpawnBrick(m_window->m_width, m_window->m_height, 5);
+
+    //SpawnBalls(50);
+    SpawnBrick(5);
+    SpawnPlayer();
 }
 
 void App::Draw()
@@ -151,6 +156,7 @@ void App::Draw()
 
 void App::Update(float deltaTime)
 {
+    MovePlayer();
     for (int i = 0; i < balls.size(); i++) 
     {
         balls[i]->Update(deltaTime, m_window->m_width, m_window->m_height);
@@ -160,6 +166,27 @@ void App::Update(float deltaTime)
     m_text->SetText(std::to_string(fps));
     m_managerCollider->CheckAllCollisions();
     DeleteBricks();
+}
+
+void App::SpawnPlayer()
+{
+    int brickSizeW = 100;
+    int brickSizeH = 25;
+    int ballSize = 25;
+
+    m_player = new Player();
+    m_player->Init(Maths::Vector2(m_window->m_width / 2, m_window->m_height - (brickSizeH * 2)), brickSizeW, brickSizeH, m_sprite);
+    m_managerCollider->AddCollider(m_player->GetShape()->GetCollider());
+
+    Ball* ball = new Ball();
+    int x = m_player->GetShape()->GetPosition().GetX();
+    int y = m_player->GetShape()->GetPosition().GetY() - ballSize * 1.5f;
+    ball->Init(Maths::Vector2(x, y), Maths::Vector2(0, 0), m_sprite, ballSize);
+    //ball->Init(Maths::Vector2(m_window->m_width / 2, m_window->m_height / 2), Maths::Vector2(directionX, directionY), m_sprite, ballSize);
+    m_managerCollider->AddCollider(ball->GetCollider());
+    ball->SetSpeed(500);
+
+    balls.push_back(ball);
 }
 
 void App::SpawnBalls(int count)
@@ -185,12 +212,12 @@ void App::SpawnBalls(int count)
     }
 }
 
-void App::SpawnBrick(int widthWindow, int heightWindow, int count)
+void App::SpawnBrick(int count)
 {
     int brickSizeW = 50;
     int brickSizeH = 25;
-    float nbBlock = (widthWindow / brickSizeW);
-    float offset = (float)(widthWindow % brickSizeW) / nbBlock;
+    float nbBlock = (m_window->m_width / brickSizeW);
+    float offset = (float)(m_window->m_height % brickSizeW) / nbBlock;
 
     for (size_t i = 0; i < count; i++)
     {
@@ -202,7 +229,7 @@ void App::SpawnBrick(int widthWindow, int heightWindow, int count)
             float posX = (brickSizeW * it) + (brickSizeW / 2) + (offset * it);
             float posY = (brickSizeH * i) + (brickSizeH / 2);
 
-            if (posX + (brickSizeW / 2) > widthWindow)
+            if (posX + (brickSizeW / 2) > m_window->m_width)
             {
                 break;
             }
@@ -215,6 +242,40 @@ void App::SpawnBrick(int widthWindow, int heightWindow, int count)
             it++;
         }
     }    
+}
+
+void App::MovePlayer()
+{
+    // Flèche Gauche
+    if (!balls[0]->_isMoved && Encapsulation::AInputSystem::IsInputKeyDown(32))
+    {
+        balls[0]->GetCollider()->SetDirection(Maths::Vector2(0, -1.0f));
+        balls[0]->_isMoved = true;
+    }
+
+    // Flèche Gauche
+    if (Encapsulation::AInputSystem::IsInputKeyDown(113)) 
+    {
+        m_player->MoveToLeft();
+        if (!balls[0]->_isMoved) 
+        {
+            int x = m_player->GetShape()->GetPosition().GetX();
+            int y = balls[0]->GetCollider()->GetPosition().GetY();
+            balls[0]->SetPosition(Maths::Vector2(x,y));
+        }
+    }
+
+    // Flèche Droite
+    if (Encapsulation::AInputSystem::IsInputKeyDown(100))
+    {
+        m_player->MoveToRight(m_window->m_width);
+        if (!balls[0]->_isMoved)
+        {
+            int x = m_player->GetShape()->GetPosition().GetX();
+            int y = balls[0]->GetCollider()->GetPosition().GetY();
+            balls[0]->SetPosition(Maths::Vector2(x, y));
+        }
+    }
 }
 
 void App::DeleteBalls() 

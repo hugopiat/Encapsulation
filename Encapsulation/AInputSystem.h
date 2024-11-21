@@ -16,6 +16,7 @@ namespace Encapsulation
 	protected:
 		static std::vector<KeyState> s_keys;
 	public:
+		static bool IsInputAnyKeyPressed();
 		static bool IsInputKeyPressed(int code);
 		static bool IsInputKeyDown(int code);
 		static bool IsInputKeyReleased(int code);

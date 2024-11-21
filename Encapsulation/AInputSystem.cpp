@@ -2,6 +2,18 @@
 using namespace Encapsulation;
 
 std::vector<KeyState> AInputSystem::s_keys = std::vector<KeyState>();
+bool Encapsulation::AInputSystem::IsInputAnyKeyPressed()
+{
+    for (const auto& keyState : s_keys)
+    {
+        if (keyState == KeyState::KeyPressed)
+        {
+            return true; // Une touche est pressée
+        }
+    }
+
+    return false; // Aucune touche pressée
+}
 bool AInputSystem::IsInputKeyPressed(int code)
 {
     return s_keys[code] == KeyState::KeyPressed;
