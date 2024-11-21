@@ -13,7 +13,7 @@ SphereCollider::SphereCollider(Maths::Vector2 position, float radius, Maths::Vec
     Collider(),
     m_radius(radius)
 {
-    SetColliderPos(position);
+    SetPosition(position);
     SetDirection(velocity);
 }
 
@@ -24,32 +24,33 @@ int SphereCollider::GetRadius() const
 
 bool SphereCollider::CheckCollision(Collider* other)
 {
-    if (SphereCollider* sphere = dynamic_cast<SphereCollider*>(other)) {
+    if (SphereCollider* sphere = dynamic_cast<SphereCollider*>(other)) 
+    {
         // Calculer la distance entre les centres des deux sphères
         float dx = GetPosition().GetX() - sphere->GetPosition().GetX();
         float dy = GetPosition().GetY() - sphere->GetPosition().GetY();
-        float distance = std::sqrt(dx * dx + dy * dy);
-        if (distance < (m_radius + sphere->m_radius)) 
+
+        float distanceSquared = dx * dx + dy * dy;
+        float combinedRadius = m_radius + sphere->m_radius;
+
+        if (distanceSquared < (combinedRadius * combinedRadius))
         {
             Maths::Vector2 direction = Maths::Vector2(dx, dy);
+            Maths::Vector2 directionOther = Maths::Vector2(-dx, -dy);
+
             direction.Normalize();
+            directionOther.Normalize();
+
             SetNormal(direction);
+            sphere->SetNormal(directionOther);
+
             return true;
         }
         return false;
     }
-    else if (BoxCollider* box = dynamic_cast<BoxCollider*>(other)) {
-        // Si c'est un BoxCollider, tu peux gérer la collision avec un rectangle ici.
-        if (box->CheckCollision(this))  // Appel au BoxCollider pour vérifier
-        {
-            // Calculer la distance entre les centres des deux sphères
-            float dx = GetPosition().GetX() - box->GetPosition().GetX();
-            float dy = GetPosition().GetY() - box->GetPosition().GetY();            
-
-            //SetIntersectionPoint(Maths::Vector2(dx, dy));
-            return true;
-        }
-        return false;
+    else if (BoxCollider* box = dynamic_cast<BoxCollider*>(other)) 
+    {
+        return box->CheckCollision(this);
     }
     return false;
 }
@@ -59,7 +60,7 @@ Maths::Vector2 SphereCollider::GetPosition() const
 	return m_position;
 }
 
-void SphereCollider::SetColliderPos(const Maths::Vector2 newPos)
+void SphereCollider::SetPosition(const Maths::Vector2 newPos)
 {
     m_position = newPos;
 }
@@ -100,9 +101,12 @@ void SphereCollider::DrawSDL(WindowSDL* windowSDL)
     int centerY = static_cast<int>(m_position.GetY());
     int radius = m_radius;
 
-    for (int w = -radius; w <= radius; ++w) {
-        for (int h = -radius; h <= radius; ++h) {
-            if ((w * w + h * h) <= (radius * radius)) {
+    for (int w = -radius; w <= radius; ++w) 
+    {
+        for (int h = -radius; h <= radius; ++h) 
+        {
+            if ((w * w + h * h) <= (radius * radius)) 
+            {
                 SDL_RenderDrawPoint(renderer, centerX + w, centerY + h);
             }
         }
@@ -116,14 +120,6 @@ void SphereCollider::DrawRaylib()
     // Définir la couleur pour le cercle (rouge semi-transparent)
     Color debugColor = { 255, 0, 0, 128 }; // Rouge avec alpha (transparence)
 
-    // Récupérer les coordonnées du centre du cercle et son rayon
-    float centerX = m_position.GetX(); // Coordonnée X du centre
-    float centerY = m_position.GetY(); // Coordonnée Y du centre
-    float radius = m_radius;           // Rayon du cercle
-
     // Dessiner un cercle rempli
-    DrawCircle(centerX, centerY, radius, debugColor);
-
-    // Dessiner le contour du cercle
-    //DrawCircleLines(centerX, centerY, radius, debugColor);
+    DrawCircle(m_position.GetX(), m_position.GetY(), m_radius, debugColor);
 }

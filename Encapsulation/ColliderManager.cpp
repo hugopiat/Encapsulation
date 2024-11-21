@@ -26,10 +26,10 @@ void ColliderManager::InitWalls(int widthWindow, int heightWindow)
 
 
     //  Brick
-    CreateBrick(widthWindow / 2, heightWindow / 10, sizeBounds * 10, sizeBounds * 10);
-    CreateBrick(widthWindow / 2, (heightWindow * 9) / 10, sizeBounds * 10, sizeBounds * 10);
-    CreateBrick(widthWindow / 10, heightWindow / 2, sizeBounds * 10, sizeBounds * 10);
-    CreateBrick((widthWindow * 9) / 10, heightWindow / 2, sizeBounds * 10, sizeBounds * 10);
+    //CreateBrick(widthWindow / 2, heightWindow / 10, sizeBounds * 10, sizeBounds * 10);
+    //CreateBrick(widthWindow / 2, (heightWindow * 9) / 10, sizeBounds * 10, sizeBounds * 10);
+    //CreateBrick(widthWindow / 10, heightWindow / 2, sizeBounds * 10, sizeBounds * 10);
+    //CreateBrick((widthWindow * 9) / 10, heightWindow / 2, sizeBounds * 10, sizeBounds * 10);
 }
 
 void ColliderManager::CreateWall(int x, int y, int width, int height)
@@ -68,28 +68,14 @@ void ColliderManager::CheckAllCollisions() const
     {
         for (size_t j = 0; j < m_colliders.size(); ++j) 
         {
-            if (!m_colliders[i]->IsInCollisionTypeTargets(m_colliders[j]->m_collisionType)) 
+            if (!m_colliders[i]->IsACollisionTypeTarget(m_colliders[j]->m_collisionType)) 
             {
                 continue;
             }
 
             if (m_colliders[i]->CheckCollision(m_colliders[j])) 
             {
-                Maths::Vector2 ballPos = m_colliders[i]->GetPosition();
-                Maths::Vector2 ballDirection = m_colliders[i]->GetDirection();
-                ballDirection.Normalize();
-
-                Maths::Vector2 normal = m_colliders[j]->GetNormal();
-                normal.Normalize();
-                float scalarProduct = Maths::Vector2::Scalar(ballDirection, normal);
-
-                Maths::Vector2 reflectedDirection = Maths::Vector2(
-                    ballDirection.GetX() - 2.0f * scalarProduct * normal.GetX(),
-                    ballDirection.GetY() - 2.0f * scalarProduct * normal.GetY());
-
-                reflectedDirection.Normalize();
-                m_colliders[i]->SetDirection(reflectedDirection);
-
+                m_colliders[i]->TriggerOnCollisionEnter(*m_colliders[j]);
             }
         }
     }

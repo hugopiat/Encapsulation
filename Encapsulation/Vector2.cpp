@@ -15,6 +15,10 @@ Maths::Vector2::Vector2(float x, float y) :
 
 void Maths::Vector2::Normalize()
 {
+    if (m_x == 0 && m_y == 0)
+    {
+        return;
+    }
     float ratio = sqrt((m_x * m_x) + (m_y * m_y));
     m_x = (m_x / ratio);
     m_y = (m_y / ratio);

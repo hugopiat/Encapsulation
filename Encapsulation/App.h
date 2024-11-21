@@ -7,6 +7,7 @@ class ASprite;
 class AText;
 class Timer;
 class Ball;
+class Brick;
 class ColliderManager;
 
 enum class GraphicLib
@@ -31,6 +32,7 @@ private:
 	Timer* m_timer;
 	ColliderManager* m_managerCollider;
 	std::vector<Ball*> balls;
+	std::vector<Brick*> bricks;
 
 	static GraphicLib m_graphicLibType;
 	
@@ -40,6 +42,8 @@ private:
 	void Draw();
 	void Update(float deltaTime);
 	void SpawnBalls(int count);
+	void SpawnBrick(int widthWindow, int heightWindow, int count);
 	void DeleteBalls();
+	void DeleteBricks();
 };
 

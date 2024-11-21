@@ -1,5 +1,6 @@
 #pragma once
 #include "Vector2.h"
+#include <functional>
 
 class ASprite;
 class Collider;
@@ -17,6 +18,8 @@ private:
 
 public:
 
+    int m_damage;
+
     Ball();
 
     void Init(const Maths::Vector2 pos, const Maths::Vector2 direction, ASprite* sprite, float radius = 50);
@@ -24,6 +27,7 @@ public:
     void Update(float deltaTime, int windowWidth, int windowHeight);
     void Draw();
 
+    void OnCollisionEnter(Collider& other);
     Collider* GetCollider();
 };
 

@@ -14,7 +14,7 @@ BoxCollider::BoxCollider(Maths::Vector2 position, int width, int height, Maths::
 	m_width(width), 
 	m_height(height)
 {
-    SetColliderPos(position);
+    SetPosition(position);
     SetDirection(velocity);
 }
 
@@ -23,7 +23,7 @@ Maths::Vector2 BoxCollider::GetPosition() const
 	return m_position;
 }
 
-void BoxCollider::SetColliderPos(const Maths::Vector2 newPos)
+void BoxCollider::SetPosition(const Maths::Vector2 newPos)
 {
     m_position = newPos;
 }
@@ -41,7 +41,7 @@ void BoxCollider::SetDirection(const Maths::Vector2 newVelocity)
 bool BoxCollider::CheckCollision(Collider* other)
 {
     // Collision avec un SphereCollider
-    if (const SphereCollider* sphere = dynamic_cast<const SphereCollider*>(other))
+    if (SphereCollider* sphere = dynamic_cast<SphereCollider*>(other))
     {
         // Calcul du point le plus proche du centre de la sphère dans le rectangle
         float closestX = Maths::Utils::Clamp(
@@ -65,7 +65,14 @@ bool BoxCollider::CheckCollision(Collider* other)
 
         if (distanceSquared <= RadiuqSquared)
         {
-            SetNormalBounds(dx, dy);
+            Maths::Vector2 direction = Maths::Vector2(dx, dy);
+            Maths::Vector2 directionOther = Maths::Vector2(dx, dy);
+
+            direction.Normalize();
+            directionOther.Normalize();
+
+            SetNormal(direction);
+            sphere->SetNormal(directionOther);
             return true;
         }
 
@@ -73,7 +80,7 @@ bool BoxCollider::CheckCollision(Collider* other)
     }
 
     // Collision avec un autre BoxCollider
-    else if (const BoxCollider* box = dynamic_cast<const BoxCollider*>(other))
+    else if (BoxCollider* box = dynamic_cast<BoxCollider*>(other))
     {
         return CheckBoxCollision(box);
     }
@@ -98,7 +105,7 @@ void BoxCollider::DrawDebug(AWindow* window)
     }
 }
 
-bool BoxCollider::CheckBoxCollision(const BoxCollider* box)
+bool BoxCollider::CheckBoxCollision(BoxCollider* box)
 {
     float boxPosX = box->GetPosition().GetX();
     float boxPosY = box->GetPosition().GetY();
@@ -139,6 +146,7 @@ bool BoxCollider::CheckBoxCollision(const BoxCollider* box)
     float dy = boxPosY - thisPosY;
 
     SetNormalBounds(dx, dy);
+    box->SetNormalBounds(-dx, -dy);
     return true;
 }
 

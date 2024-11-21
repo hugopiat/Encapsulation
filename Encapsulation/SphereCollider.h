@@ -16,7 +16,7 @@ public:
     int GetRadius() const;
 
     virtual Maths::Vector2 GetPosition() const override;
-    virtual void SetColliderPos(const Maths::Vector2 newPos) override;
+    virtual void SetPosition(const Maths::Vector2 newPos) override;
 
     virtual Maths::Vector2 GetDirection() const override;
     virtual void SetDirection(const Maths::Vector2 newVelocity) override;

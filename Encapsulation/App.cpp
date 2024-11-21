@@ -5,6 +5,7 @@
 #include "Timer.h"
 #include "ASprite.h"
 #include "Ball.h"
+#include "Brick.h"
 #include "ColliderManager.h"
 #include "BoxCollider.h"
 #include "TextManager.h"
@@ -99,6 +100,7 @@ bool App::PerformArgForGraphicLib(const std::string& arg)
 void App::Init()
 {
     balls = std::vector<Ball*>();
+    bricks = std::vector<Brick*>();
 
     if (App::m_graphicLibType == GraphicLib::SDL2)
     {
@@ -125,7 +127,8 @@ void App::Init()
     m_sprite->Init(m_window, filename);
     m_text = TextManager::GetInstance()->InstantiateText();
     m_text->Init(m_window, "FPS", 1130, 30, 100);
-    SpawnBalls(100);
+    SpawnBalls(50);
+    SpawnBrick(m_window->m_width, m_window->m_height, 5);
 }
 
 void App::Draw()
@@ -143,14 +146,15 @@ void App::Draw()
 
 void App::Update(float deltaTime)
 {
-    for (int i = 0; i < balls.size(); i++) {
+    for (int i = 0; i < balls.size(); i++) 
+    {
         balls[i]->Update(deltaTime, m_window->m_width, m_window->m_height);
     }
     std::ostringstream oss;
     int fps = (1.f / Timer::GetDeltaTime());
     m_text->SetText(std::to_string(fps));
     m_managerCollider->CheckAllCollisions();
-    //m_managerCollider->CheckAllCollisionsWithBounds();
+    DeleteBricks();
 }
 
 void App::SpawnBalls(int count)
@@ -158,13 +162,13 @@ void App::SpawnBalls(int count)
     int ballSize = 25;
 
     std::srand(static_cast<unsigned>(std::time(0)));
-    for (int i = 0; i < count; ++i) {
-
+    for (int i = 0; i < count; ++i) 
+    {
         float posX = (std::rand() % (m_window->m_width - (ballSize * 4))) + (ballSize * 2);
         float posY = (std::rand() % (m_window->m_height - (ballSize * 4))) + (ballSize * 2);
 
-        float directionX = (std::rand() % 10) - 5;
-        float directionY = (std::rand() % 10) - 5;
+        float directionX = (std::rand() % 1000) - 500;
+        float directionY = (std::rand() % 1000) - 500;
 
         Ball* ball = new Ball();
         ball->Init(Maths::Vector2(posX, posY), Maths::Vector2(directionX, directionY), m_sprite, ballSize);
@@ -176,12 +180,65 @@ void App::SpawnBalls(int count)
     }
 }
 
+void App::SpawnBrick(int widthWindow, int heightWindow, int count)
+{
+    int brickSizeW = 50;
+    int brickSizeH = 25;
+    float nbBlock = (widthWindow / brickSizeW);
+    float offset = (float)(widthWindow % brickSizeW) / nbBlock;
+
+    for (size_t i = 0; i < count; i++)
+    {
+        bool endLine = false;
+        int it = 0;
+
+        while (!endLine)
+        {
+            float posX = (brickSizeW * it) + (brickSizeW / 2) + (offset * it);
+            float posY = (brickSizeH * i) + (brickSizeH / 2);
+
+            if (posX + (brickSizeW / 2) > widthWindow)
+            {
+                break;
+            }
+
+            Brick* brick = new Brick();
+            brick->Init(Maths::Vector2(posX, posY), m_sprite, brickSizeW, brickSizeH);
+            m_managerCollider->AddCollider(brick->GetCollider());
+
+            bricks.push_back(brick);
+            it++;
+        }
+    }    
+}
+
 void App::DeleteBalls() 
 {
     // Lib�ration de la m�moire
-    for (int i = 0; i < balls.size(); i++) {
+    for (int i = 0; i < balls.size(); i++) 
+    {
         delete balls[i];
     }
     delete m_window;
     delete m_sprite;
+}
+
+void App::DeleteBricks()
+{
+    for (auto it = bricks.begin(); it != bricks.end(); ) 
+    {
+        Brick* brick = *it;
+
+        if (brick != nullptr && brick->m_isDie)
+        {
+            m_managerCollider->RemoveCollider(brick->GetCollider());
+            brick->Destroy();
+            it = bricks.erase(it);
+            delete brick;
+        }
+        else 
+        {
+            ++it; 
+        }
+    }
 }
