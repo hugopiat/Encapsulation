@@ -1,10 +1,11 @@
 #pragma once
 #include <vector>
 #include <iostream>
-
+#include "AInputSystem.h"
 class AWindow;
 class ASprite;
 class AText;
+class AInputSystem;
 class Timer;
 class Ball;
 class ColliderManager;
@@ -28,6 +29,7 @@ private:
 	AWindow* m_window;
 	ASprite* m_sprite;
 	AText* m_text;
+	Encapsulation::AInputSystem* m_inputSystemInstance;
 	Timer* m_timer;
 	ColliderManager* m_managerCollider;
 	std::vector<Ball*> balls;

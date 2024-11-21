@@ -2,6 +2,7 @@
 #include <iomanip>
 #include "App.h"
 #include "AWindow.h"
+#include "AInputSystem.h"
 #include "Timer.h"
 #include "ASprite.h"
 #include "Ball.h"
@@ -9,13 +10,15 @@
 #include "BoxCollider.h"
 #include "TextManager.h"
 
-#include <SDL2/SDL_timer.h>
 #include "WindowSDL.h"
 #include "SpriteSDL.h"
+#include "InputSystemSDL.h"
 
 #include "WindowRaylib.h"
 #include "SpriteRaylib.h"
 #include "TextRaylib.h"
+#include "InputSystemRaylib.h"
+using namespace Encapsulation;
 
 GraphicLib App::m_graphicLibType = GraphicLib::NONE;
 
@@ -39,6 +42,7 @@ void App::Run(int argc, char* argv[])
     {
         if (m_timer->UpdateTime())
         {
+            m_inputSystemInstance->PoolEvent();
             float deltaTime = Timer::GetDeltaTime();
             Update(deltaTime);
             Draw();      
@@ -99,16 +103,19 @@ bool App::PerformArgForGraphicLib(const std::string& arg)
 void App::Init()
 {
     balls = std::vector<Ball*>();
-
+    
+    Encapsulation::AInputSystem::Init();
     if (App::m_graphicLibType == GraphicLib::SDL2)
     {
         m_window = new WindowSDL();
         m_sprite = new SpriteSDL();
+        m_inputSystemInstance = new InputSystemSDL();
     }
     else if (App::m_graphicLibType == GraphicLib::RAYLIB) 
     {
         m_window = new WindowRaylib();
         m_sprite = new SpriteRaylib();
+        m_inputSystemInstance = new InputSystemRaylib();
     }
 
     m_timer = new Timer();

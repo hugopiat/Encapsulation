@@ -29,5 +29,7 @@ public:
 	virtual bool Close() override;
 
 	virtual SDL_Renderer* GetRenderer();
+
+	static bool s_shouldClose;
 };
 

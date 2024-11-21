@@ -1,5 +1,6 @@
 #include "TextRaylib.h"
 #include <raylib.h>
+#include "AInputSystem.h"
 
 void TextRaylib::OnInit()
 {
@@ -11,5 +12,5 @@ void TextRaylib::Draw()
 	Vector2 pos;
 	pos.x = m_pos.GetX();
 	pos.y = m_pos.GetY();
-	DrawTextEx(m_font, m_text.c_str(),pos, m_fontSize, 4, WHITE);
+	DrawTextEx(m_font, m_text.c_str(), pos, m_fontSize, 4, WHITE);
 }
