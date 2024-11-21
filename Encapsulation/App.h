@@ -4,10 +4,10 @@
 
 class AWindow;
 class ASprite;
+class AText;
 class Timer;
 class Ball;
 class ColliderManager;
-
 
 enum class GraphicLib
 {
@@ -22,14 +22,17 @@ public:
 	const std::string filename = "Basketball.png";
 	void Run(int argc, char* argv[]);
 
+	static GraphicLib GetGraphicLibType();
+
 private:
 	AWindow* m_window;
 	ASprite* m_sprite;
-	GraphicLib m_graphicLibType;
+	AText* m_text;
 	Timer* m_timer;
 	ColliderManager* m_managerCollider;
 	std::vector<Ball*> balls;
 
+	static GraphicLib m_graphicLibType;
 	
 	bool ManageArgs(int argc, char* argv[]);
 	bool PerformArgForGraphicLib(const std::string& arg);

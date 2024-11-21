@@ -1,3 +1,5 @@
+#include <sstream>
+#include <iomanip>
 #include "App.h"
 #include "AWindow.h"
 #include "Timer.h"
@@ -5,6 +7,7 @@
 #include "Ball.h"
 #include "ColliderManager.h"
 #include "BoxCollider.h"
+#include "TextManager.h"
 
 #include <SDL2/SDL_timer.h>
 #include "WindowSDL.h"
@@ -12,7 +15,9 @@
 
 #include "WindowRaylib.h"
 #include "SpriteRaylib.h"
+#include "TextRaylib.h"
 
+GraphicLib App::m_graphicLibType = GraphicLib::NONE;
 
 void App::Run(int argc, char* argv[])
 {
@@ -28,18 +33,25 @@ void App::Run(int argc, char* argv[])
 #endif // _RAYLIB
     }
 
+
     Init();
     while (m_window->IsOpen())
     {
         if (m_timer->UpdateTime())
         {
-            Update(Timer::GetDeltaTime());
+            float deltaTime = Timer::GetDeltaTime();
+            Update(deltaTime);
             Draw();      
         }
     }
 
     m_window->Close();
     DeleteBalls();
+}
+
+GraphicLib App::GetGraphicLibType()
+{
+    return App::m_graphicLibType;
 }
 
 bool App::ManageArgs(int argc, char* argv[])
@@ -88,16 +100,17 @@ void App::Init()
 {
     balls = std::vector<Ball*>();
 
-    if (m_graphicLibType == GraphicLib::SDL2)
+    if (App::m_graphicLibType == GraphicLib::SDL2)
     {
         m_window = new WindowSDL();
         m_sprite = new SpriteSDL();
     }
-    else if (m_graphicLibType == GraphicLib::RAYLIB) 
+    else if (App::m_graphicLibType == GraphicLib::RAYLIB) 
     {
         m_window = new WindowRaylib();
         m_sprite = new SpriteRaylib();
     }
+
     m_timer = new Timer();
     m_managerCollider = new ColliderManager();
 
@@ -110,7 +123,8 @@ void App::Init()
     m_window->Init();
     m_managerCollider->InitBounds(m_window->m_width, m_window->m_height);
     m_sprite->Init(m_window, filename);
-
+    m_text = TextManager::GetInstance()->InstantiateText();
+    m_text->Init("Oui", 1130, 30, 50);
     SpawnBalls(100);
 }
 
@@ -123,6 +137,7 @@ void App::Draw()
     {
         balls[i]->Draw();
     }
+    m_text->Draw();
     m_window->Draw();    
 }
 
@@ -132,6 +147,9 @@ void App::Update(float deltaTime)
     for (int i = 0; i < balls.size(); i++) {
         balls[i]->Update(deltaTime, m_window->m_width, m_window->m_height);
     }
+    std::ostringstream oss;
+    int fps = (1.f / Timer::GetDeltaTime());
+    m_text->SetText(std::to_string(fps));
     m_managerCollider->CheckAllCollisionsWithBounds();
 }
 
@@ -149,8 +167,8 @@ void App::SpawnBalls(int count)
         float directionY = (std::rand() % 10) - 5;
 
         Ball* ball = new Ball();
-        //ball->Init(Maths::Vector2(posX, posY), Maths::Vector2(directionX, directionY), m_sprite, ballSize);
-        ball->Init(Maths::Vector2(m_window->m_width / 2, m_window->m_height / 2), Maths::Vector2(directionX, directionY), m_sprite, ballSize);
+        ball->Init(Maths::Vector2(posX, posY), Maths::Vector2(directionX, directionY), m_sprite, ballSize);
+        //ball->Init(Maths::Vector2(m_window->m_width / 2, m_window->m_height / 2), Maths::Vector2(directionX, directionY), m_sprite, ballSize);
         m_managerCollider->AddCollider(ball->GetCollider());
         ball->SetSpeed(100.0f);
 

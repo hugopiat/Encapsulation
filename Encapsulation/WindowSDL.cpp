@@ -98,11 +98,7 @@ bool WindowSDL::GetSurface()
 
 void WindowSDL::Draw()
 {
-    //std::cout << "[SDL] Draw Window" << std::endl;
     SDL_RenderPresent(m_renderer);
-
-    std::cout << Timer::GetDeltaTime() << std::endl;
-    SDL_Delay(16 - Timer::GetDeltaTime());
 }
 
 void WindowSDL::Clear()

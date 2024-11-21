@@ -18,22 +18,21 @@ bool Timer::UpdateTime()
         m_haveToResetDeltaTime = false;
     }
 
-    milliseconds newTick = duration_cast<milliseconds>(
+    long long newTick = duration_cast<milliseconds>(
         system_clock::now().time_since_epoch()
-    );
-
-    m_deltaTime += newTick.count() - m_lastTick;
-    m_lastTick = newTick.count();
-    if (m_deltaTime > 1000 / FPS_MAX)
+    ).count() ;
+    
+    unsigned int diffTick = newTick - m_lastTick;
+    m_deltaTime += diffTick / (float)1000;
+    m_lastTick = newTick;
+    if (m_deltaTime > 1.f / FPS_MAX)
     {
-        if (m_deltaTime > 1000 / (FPS_MAX / 2))
+        if (m_deltaTime > 1.f / FPS_MIN)
         {
-            m_deltaTime = 1000 / (FPS_MAX / 2);
+            m_deltaTime = 1.f / FPS_MIN;
         }
         m_haveToResetDeltaTime = true;
-        m_deltaTime /= 1000;
         return true;
     }
     return false;
-	return false;
 }

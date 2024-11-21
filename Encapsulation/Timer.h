@@ -1,12 +1,13 @@
 #pragma once
-const int FPS_MAX = 60;
+const int FPS_MAX = 100;
+const int FPS_MIN = 10;
 
 class Timer
 {
 
 protected:
 	bool m_haveToResetDeltaTime;
-	unsigned int m_lastTick;
+	long long m_lastTick;
 	static float m_deltaTime;
 public:
 	static float GetDeltaTime();

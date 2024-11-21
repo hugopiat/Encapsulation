@@ -1,13 +1,14 @@
 #include "WindowRaylib.h"
 #include "raylib.h"
+#include "Timer.h"
 
 void WindowRaylib::Init()
 {
-    m_width *= 1.25f;
-    m_height *= 1.25f;
+    // m_width *= 1.25f;
+    // m_height *= 1.25f;
 
     InitWindow(m_width, m_height, "[RAYLIB] PROJECT: BLOCKS GAME");    
-    SetTargetFPS(60);
+    SetTargetFPS(FPS_MAX);
 }
 
 void WindowRaylib::Draw()
