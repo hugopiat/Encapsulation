@@ -3,10 +3,13 @@
 
 void TextRaylib::OnInit()
 {
-	m_font = LoadFont("Fonts/ncl-maxipower/NCLMaxipower-Demo.otf");
+	m_font = LoadFontEx("Fonts/ncl-maxipower/NCLMaxipower-Demo.otf",256,0,250);
 }
 
 void TextRaylib::Draw()
 {
-	DrawText(m_text.c_str(), m_pos.GetX(), m_pos.GetY(), m_fontSize, WHITE);
+	Vector2 pos;
+	pos.x = m_pos.GetX();
+	pos.y = m_pos.GetY();
+	DrawTextEx(m_font, m_text.c_str(),pos, m_fontSize, 4, WHITE);
 }

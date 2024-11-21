@@ -5,11 +5,12 @@ AText::AText() :
 {
 }
 
-void AText::Init(std::string text, int posX, int posY, int fontSize)
+void AText::Init(AWindow* window, std::string text, int posX, int posY, int fontSize)
 {
 	m_text = text;
 	m_fontSize = fontSize;
 	m_pos = Maths::Vector2(posX, posY);
+	m_window = window;
 
 	OnInit();
 }

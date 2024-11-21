@@ -93,6 +93,15 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Fichiers sources\Maths</Filter>
     </ClCompile>
+    <ClCompile Include="AText.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="TextManager.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
+    <ClCompile Include="TextRaylib.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h">
@@ -139,6 +148,15 @@
     </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Fichiers d%27en-tête\Maths</Filter>
+    </ClInclude>
+    <ClInclude Include="AText.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="TextManager.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="TextRaylib.h">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

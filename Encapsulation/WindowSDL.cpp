@@ -1,6 +1,8 @@
 #include "WindowSDL.h"
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
+
 #include <iostream>
 
 #include "Timer.h"
@@ -25,6 +27,7 @@ void WindowSDL::Init()
     if (!GetSurface())
         return;
 
+    TTF_Init();
     SDL_FillRect(m_winSurface, NULL, SDL_MapRGB(m_winSurface->format, 255, 255, 255));
 }
 

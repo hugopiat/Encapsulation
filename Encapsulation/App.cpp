@@ -124,7 +124,7 @@ void App::Init()
     m_managerCollider->InitWalls(m_window->m_width, m_window->m_height);
     m_sprite->Init(m_window, filename);
     m_text = TextManager::GetInstance()->InstantiateText();
-    m_text->Init("Oui", 1130, 30, 50);
+    m_text->Init(m_window, "FPS", 1130, 30, 100);
     SpawnBalls(100);
 }
 
