@@ -237,12 +237,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AInputSystem.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="ASprite.cpp" />
     <ClCompile Include="AText.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderManager.cpp" />
+    <ClCompile Include="InputSystemRaylib.cpp" />
+    <ClCompile Include="InputSystemSDL.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="TextManager.cpp" />
     <ClCompile Include="TextRaylib.cpp" />
@@ -259,12 +262,15 @@
     <ClCompile Include="WindowSDL.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AInputSystem.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="ASprite.h" />
     <ClInclude Include="AText.h" />
     <ClInclude Include="BoxCollider.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="ColliderManager.h" />
+    <ClInclude Include="InputSystemRaylib.h" />
+    <ClInclude Include="InputSystemSDL.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="TextManager.h" />
     <ClInclude Include="TextRaylib.h" />

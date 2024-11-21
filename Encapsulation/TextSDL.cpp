@@ -3,7 +3,7 @@
 #include <SDL2/SDL_ttf.h>
 #include "TextSDL.h"
 #include "WindowSDL.h"
-
+#include "AInputSystem.h"
 void TextSDL::OnInit()
 {
 	if (!(m_windowCasted = dynamic_cast<WindowSDL*>(m_window)))

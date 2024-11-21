@@ -4,11 +4,13 @@
 #include <SDL2/SDL_ttf.h>
 
 #include <iostream>
-
 #include "Timer.h"
+
+bool WindowSDL::s_shouldClose = false;
 
 WindowSDL::WindowSDL()
 {
+    
     std::cout << "[SDL] On Create Window" << std::endl;
     m_isSdlInit = false;
     m_winSurface = nullptr;
@@ -119,25 +121,7 @@ bool WindowSDL::IsOpen()
         return false;
     }
 
-    SDL_Event event;
-    while (SDL_PollEvent(&event))
-    {
-        switch (event.type)
-        {
-        case SDL_QUIT:
-            return false;
-            break;
-
-        case SDL_KEYDOWN:
-            if (event.key.keysym.sym == SDLK_ESCAPE)
-            {
-                return false;
-            }
-            break;
-        }
-    }
-
-    return m_window;
+    return m_window && !s_shouldClose;
 }
 
 bool WindowSDL::Close()
