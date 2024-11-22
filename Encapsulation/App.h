@@ -48,10 +48,11 @@ private:
 	void Update(float deltaTime);
 
 	void SpawnPlayer();
+	void SpawnBallsNearPlayer(int count);
 	void SpawnBalls(int count);
 	void SpawnBrick(int count);
 
-	void MovePlayer();
+	void InputUpdate();
 
 	void DeleteBalls();
 	void DeleteBricks();

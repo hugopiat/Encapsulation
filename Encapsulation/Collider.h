@@ -36,6 +36,7 @@ public:
 
     // Vérifie la collision avec un autre collider
     virtual bool CheckCollision(Collider* other) = 0;
+    virtual bool ResolveCollision(Collider* other) = 0;
 
     // Obtient la position du collider
     virtual void DrawDebug(AWindow* window) = 0;
@@ -47,6 +48,9 @@ public:
     // Obtient la velocity du collider
     virtual Maths::Vector2 GetDirection() const = 0;
     virtual void SetDirection(const Maths::Vector2 newPos) = 0;
+
+    virtual int GetWidth() const = 0;
+    virtual int GetHeight() const = 0;
 
     // Init / Removed all collision target
     virtual void InitAllCollisionTypeTarget();
@@ -64,8 +68,7 @@ public:
 
     // Get / Set normal
     virtual Maths::Vector2 GetNormal();
-    virtual void SetNormal(const Maths::Vector2& normal);
-    virtual void SetNormalBounds(int dx, int dy);
+    virtual void SetNormal(Maths::Vector2 normal);
 
 private:
     CollisionCallback m_onCollisionEnter;

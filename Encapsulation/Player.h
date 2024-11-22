@@ -9,14 +9,19 @@ class Player
 private : 
 	Brick* m_shape;
 	float m_speed;
+	float m_direction;
+	int m_width;
 
 public :
 
 	Player();
 	void Init(Maths::Vector2 pos, int width, int height, ASprite* sprite);
+	void Update(float deltaTime, int widthMax);
 
+	void MoveHorizontally(float moveAmount, int widthMax);
 	void MoveToLeft();
-	void MoveToRight(int widthMax);
+	void MoveToRight();
+	void StopMoving();
 
 	Brick* GetShape();
 };

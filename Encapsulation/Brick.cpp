@@ -29,14 +29,14 @@ void Brick::Destroy()
 void Brick::Init(const Maths::Vector2 pos, ASprite* sprite, float width, float height)
 {
     m_sprite = sprite;
-    m_life = 1;
+    m_life = 2;
     m_enabledLife = true;
 
     m_boxCollider = new BoxCollider(pos, width, height);
     m_boxCollider->SetOwner(this);
 
     m_boxCollider->m_collisionType = CollisionType::Brick;
-    m_boxCollider->AddCollisionTypeTarget(CollisionType::Ball);
+    //m_boxCollider->AddCollisionTypeTarget(CollisionType::Ball);
     m_boxCollider->SetOnCollisionEnterCallback(std::bind(&Brick::OnCollisionEnter, this, _1));
     SetPosition(pos);
 }

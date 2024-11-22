@@ -136,9 +136,9 @@ void App::Init()
     m_text = TextManager::GetInstance()->InstantiateText();
     m_text->Init(m_window, "FPS", 1130, 30, 100);
 
-    //SpawnBalls(50);
     SpawnBrick(5);
     SpawnPlayer();
+    //SpawnBalls(50);
 }
 
 void App::Draw()
@@ -156,33 +156,41 @@ void App::Draw()
 
 void App::Update(float deltaTime)
 {
-    MovePlayer();
+    InputUpdate();
+    m_player->Update(deltaTime, m_window->m_width);
     for (int i = 0; i < balls.size(); i++) 
     {
-        balls[i]->Update(deltaTime, m_window->m_width, m_window->m_height);
+        balls[i]->Update(deltaTime);
     }
+
+    m_managerCollider->CheckAllCollisions();
+    DeleteBricks();
+
     std::ostringstream oss;
     int fps = (1.f / Timer::GetDeltaTime());
     m_text->SetText(std::to_string(fps));
-    m_managerCollider->CheckAllCollisions();
-    DeleteBricks();
 }
 
 void App::SpawnPlayer()
 {
-    int brickSizeW = 100;
-    int brickSizeH = 25;
-    int ballSize = 25;
+    int brickSizeW = 125;
+    int brickSizeH = 20;
 
     m_player = new Player();
-    m_player->Init(Maths::Vector2(m_window->m_width / 2, m_window->m_height - (brickSizeH * 2)), brickSizeW, brickSizeH, m_sprite);
+    m_player->Init(Maths::Vector2(m_window->m_width / 2, m_window->m_height - brickSizeH), brickSizeW, brickSizeH, m_sprite);
     m_managerCollider->AddCollider(m_player->GetShape()->GetCollider());
+
+    SpawnBallsNearPlayer(1);
+}
+
+void App::SpawnBallsNearPlayer(int count)
+{
+    int ballSize = 25;
 
     Ball* ball = new Ball();
     int x = m_player->GetShape()->GetPosition().GetX();
     int y = m_player->GetShape()->GetPosition().GetY() - ballSize * 1.5f;
     ball->Init(Maths::Vector2(x, y), Maths::Vector2(0, 0), m_sprite, ballSize);
-    //ball->Init(Maths::Vector2(m_window->m_width / 2, m_window->m_height / 2), Maths::Vector2(directionX, directionY), m_sprite, ballSize);
     m_managerCollider->AddCollider(ball->GetCollider());
     ball->SetSpeed(500);
 
@@ -194,7 +202,7 @@ void App::SpawnBalls(int count)
     int ballSize = 25;
 
     std::srand(static_cast<unsigned>(std::time(0)));
-    for (int i = 0; i < count; ++i) 
+    for (int i = 0; i < count; ++i)
     {
         float posX = (std::rand() % (m_window->m_width - (ballSize * 4))) + (ballSize * 2);
         float posY = (std::rand() % (m_window->m_height - (ballSize * 4))) + (ballSize * 2);
@@ -214,10 +222,10 @@ void App::SpawnBalls(int count)
 
 void App::SpawnBrick(int count)
 {
-    int brickSizeW = 50;
-    int brickSizeH = 25;
-    float nbBlock = (m_window->m_width / brickSizeW);
-    float offset = (float)(m_window->m_height % brickSizeW) / nbBlock;
+    int brickSizeW = 100;
+    int brickSizeH = 30;
+    int nbBlock = m_window->m_width / brickSizeW; 
+    float offsetX = (float)(m_window->m_width % brickSizeW) / nbBlock;
 
     for (size_t i = 0; i < count; i++)
     {
@@ -226,8 +234,8 @@ void App::SpawnBrick(int count)
 
         while (!endLine)
         {
-            float posX = (brickSizeW * it) + (brickSizeW / 2) + (offset * it);
-            float posY = (brickSizeH * i) + (brickSizeH / 2);
+            float posX = (brickSizeW * it) + (brickSizeW / 2) + (offsetX * it);
+            float posY = (brickSizeH * i) + (brickSizeH / 2) + (offsetX * i);
 
             if (posX + (brickSizeW / 2) > m_window->m_width)
             {
@@ -244,8 +252,9 @@ void App::SpawnBrick(int count)
     }    
 }
 
-void App::MovePlayer()
+void App::InputUpdate()
 {
+    m_player->StopMoving();
     // Flèche Gauche
     if (!balls[0]->_isMoved && Encapsulation::AInputSystem::IsInputKeyDown(32))
     {
@@ -268,7 +277,7 @@ void App::MovePlayer()
     // Flèche Droite
     if (Encapsulation::AInputSystem::IsInputKeyDown(100))
     {
-        m_player->MoveToRight(m_window->m_width);
+        m_player->MoveToRight();
         if (!balls[0]->_isMoved)
         {
             int x = m_player->GetShape()->GetPosition().GetX();

@@ -75,31 +75,7 @@ Maths::Vector2 Collider::GetNormal()
 	return m_normalIntersection;
 }
 
-void Collider::SetNormal(const Maths::Vector2& normal)
+void Collider::SetNormal(Maths::Vector2 normal)
 {
 	m_normalIntersection = normal;
-}
-
-void Collider::SetNormalBounds(int dx, int dy)
-{
-	Maths::Vector2 direction = Maths::Vector2(0, 0);
-	if (dx >= 0)
-	{
-		direction += Maths::Vector2(1.0f, 0);
-	}
-	else if (dx < 0)
-	{
-		direction += Maths::Vector2(-1.0f, 0);
-	}
-
-	if (dy >= 0)
-	{
-		direction += Maths::Vector2(0, 1.0f);
-	}
-	else if (dy < 0)
-	{
-		direction += Maths::Vector2(0, -1.0f);
-	}
-
-	SetNormal(direction);
 }

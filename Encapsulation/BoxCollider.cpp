@@ -18,6 +18,16 @@ BoxCollider::BoxCollider(Maths::Vector2 position, int width, int height, Maths::
     SetDirection(velocity);
 }
 
+int BoxCollider::GetWidth() const
+{
+    return m_width;
+}
+
+int BoxCollider::GetHeight() const
+{
+    return m_height;
+}
+
 Maths::Vector2 BoxCollider::GetPosition() const
 {
 	return m_position;
@@ -43,40 +53,7 @@ bool BoxCollider::CheckCollision(Collider* other)
     // Collision avec un SphereCollider
     if (SphereCollider* sphere = dynamic_cast<SphereCollider*>(other))
     {
-        // Calcul du point le plus proche du centre de la sphère dans le rectangle
-        float closestX = Maths::Utils::Clamp(
-            sphere->GetPosition().GetX(),
-            GetPosition().GetX() - (m_width / 2),
-            GetPosition().GetX() + (m_width / 2)
-        );
-
-        float closestY = Maths::Utils::Clamp(
-            sphere->GetPosition().GetY(),
-            GetPosition().GetY() - (m_height / 2),
-            GetPosition().GetY() + (m_height / 2)
-        );
-
-        // Calcul de la distance entre la sphère et le point le plus proche
-        float dx = sphere->GetPosition().GetX() - closestX;
-        float dy = sphere->GetPosition().GetY() - closestY;
-
-        float distanceSquared = dx * dx + dy * dy;
-        float RadiuqSquared = (sphere->GetRadius() * sphere->GetRadius());
-
-        if (distanceSquared <= RadiuqSquared)
-        {
-            Maths::Vector2 direction = Maths::Vector2(dx, dy);
-            Maths::Vector2 directionOther = Maths::Vector2(dx, dy);
-
-            direction.Normalize();
-            directionOther.Normalize();
-
-            SetNormal(direction);
-            sphere->SetNormal(directionOther);
-            return true;
-        }
-
-        return false;
+        return CheckSphereCollision(sphere);
     }
 
     // Collision avec un autre BoxCollider
@@ -86,6 +63,98 @@ bool BoxCollider::CheckCollision(Collider* other)
     }
 
     // Si l'autre collider n'est ni une sphère, ni un rectangle
+    return false;
+}
+
+bool BoxCollider::ResolveCollision(Collider* other)
+{
+    // Résolution de collision avec un SphereCollider
+    if (SphereCollider* sphere = dynamic_cast<SphereCollider*>(other))
+    {
+        // Calcule la direction et la profondeur de pénétration
+        float closestX = Maths::Utils::Clamp(
+            sphere->GetPosition().GetX(),
+            GetPosition().GetX() - (GetWidth() / 2),
+            GetPosition().GetX() + (GetWidth() / 2)
+        );
+
+        float closestY = Maths::Utils::Clamp(
+            sphere->GetPosition().GetY(),
+            GetPosition().GetY() - (GetHeight() / 2),
+            GetPosition().GetY() + (GetHeight() / 2)
+        );
+
+        float dx = sphere->GetPosition().GetX() - closestX;
+        float dy = sphere->GetPosition().GetY() - closestY;
+
+        Maths::Vector2 direction(dx, dy);
+
+        if (dx == 0 && dy == 0) {
+
+            float deltaX = Maths::Utils::ABS(GetPosition().GetX() - sphere->GetPosition().GetX());
+            float deltaY = Maths::Utils::ABS(GetPosition().GetY() - sphere->GetPosition().GetY());
+
+            if (deltaX > deltaY) {
+                // Si la balle est plus proche sur l'axe Y, rebond sur l'axe X
+                direction = Maths::Vector2((GetPosition().GetX() < sphere->GetPosition().GetX()) ? -1.0f : 1.0f, 0);
+            }
+            else {
+                // Sinon, rebond sur l'axe Y
+                direction = Maths::Vector2(0, (GetPosition().GetY() < sphere->GetPosition().GetY()) ? -1.0f : 1.0f);
+            }
+        }
+
+        direction.Normalize();
+
+        // Mise à jour des normales
+        SetNormal(direction);
+        sphere->SetNormal(direction * -1);  // Inverser la direction pour la boîte
+
+        return true;
+    }
+
+    // Résolution de collision avec un autre BoxCollider
+    else if (BoxCollider* box = dynamic_cast<BoxCollider*>(other))
+    {
+        // Calcul de la direction de collision
+        float dx = GetPosition().GetX() - box->GetPosition().GetX();
+        float dy = GetPosition().GetY() - box->GetPosition().GetY();
+
+        Maths::Vector2 direction(0, 0);
+
+        // Déterminer quelle face est en collision
+        if (Maths::Utils::ABS(dx) > Maths::Utils::ABS(dy)) // Collision avec les faces gauche ou droite
+        {
+            if (dx < 0)
+            {
+                direction += Maths::Vector2(-1, 0); // Face gauche
+            }
+            else
+            {
+                direction += Maths::Vector2(1, 0); // Face gauche
+            }
+        }
+        else // Collision avec les faces haut ou bas
+        {
+            if (dy < 0)
+            {
+                direction += Maths::Vector2(0, -1); // Face gauche
+            }
+            else
+            {
+                direction += Maths::Vector2(0, 1); // Face gauche
+            }
+        }
+
+        // Mise à jour de la direction
+        direction.Normalize();
+
+        SetNormal(direction);  // Face haut
+        box->SetNormal(direction * -1); // Face bas
+
+        return true;
+    }
+
     return false;
 }
 
@@ -112,42 +181,46 @@ bool BoxCollider::CheckBoxCollision(BoxCollider* box)
     float thisPosX = GetPosition().GetX();
     float thisPosY = GetPosition().GetY();
 
-    // Récupérer les positions et dimensions du rectangle (box) à comparer
     float boxLeft = boxPosX - (box->m_width / 2);
     float thisRight = thisPosX + (m_width / 2);
-    if (!(thisRight <= boxLeft))
-    {
-        return false;
-    }
+    if (thisRight <= boxLeft) return false;
 
     float boxRight = boxPosX + (box->m_width / 2);
     float thisLeft = thisPosX - (m_width / 2);
-    if (!(thisRight <= boxLeft))
-    {
-        return false;
-    }
+    if (thisLeft >= boxRight) return false;
 
     float boxTop = boxPosY - (box->m_height / 2);
     float thisBottom = thisPosY + (m_height / 2);
-    if (!(thisBottom <= boxTop))
-    {
-        return false;
-    }
+    if (thisBottom <= boxTop) return false;
 
     float boxBottom = boxPosY + (box->m_height / 2);
     float thisTop = thisPosY - (m_height / 2);
-    if (!(thisTop >= boxBottom))
-    {
-        return false;
-    }
-    // Si aucune des conditions ci-dessus n'est remplie, les boîtes se chevauchent
-    // Calcul de la direction entre la box et le point le plus proche de l'autre box
-    float dx = boxPosX - thisPosX;
-    float dy = boxPosY - thisPosY;
+    if (thisTop >= boxBottom) return false;
 
-    SetNormalBounds(dx, dy);
-    box->SetNormalBounds(-dx, -dy);
     return true;
+}
+
+bool BoxCollider::CheckSphereCollision(SphereCollider* sphere)
+{
+    float closestX = Maths::Utils::Clamp(
+        sphere->GetPosition().GetX(),
+        GetPosition().GetX() - (m_width / 2),
+        GetPosition().GetX() + (m_width / 2)
+    );
+
+    float closestY = Maths::Utils::Clamp(
+        sphere->GetPosition().GetY(),
+        GetPosition().GetY() - (m_height / 2),
+        GetPosition().GetY() + (m_height / 2)
+    );
+
+    float dx = sphere->GetPosition().GetX() - closestX;
+    float dy = sphere->GetPosition().GetY() - closestY;
+
+    float distanceSquared = dx * dx + dy * dy;
+    float radiusSquared = sphere->GetRadius() * sphere->GetRadius();
+
+    return distanceSquared <= radiusSquared;
 }
 
 void BoxCollider::DrawSDL(WindowSDL* windowSDL)

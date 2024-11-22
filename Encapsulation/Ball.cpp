@@ -35,7 +35,6 @@ void Ball::Init(const Maths::Vector2 pos, const Maths::Vector2 direction, ASprit
     m_sphereCollider->InitAllCollisionTypeTarget();
     m_sphereCollider->RemovedCollisionTypeTarget(CollisionType::Ball);
 
-
     m_sprite->SetSizeSprite(Maths::Vector2(radius, radius));
 }
 
@@ -47,6 +46,8 @@ void Ball::SetSpeed(float speed)
 void Ball::SetPosition(const Maths::Vector2 pos)
 {
     m_position = pos;
+    m_sphereCollider->SetPosition(m_position);
+    m_sprite->SetPositionSprite(m_position);
 }
 
 Maths::Vector2 Ball::InitNextPos(float deltaTime)
@@ -59,34 +60,67 @@ Maths::Vector2 Ball::InitNextPos(float deltaTime)
     return nextPos;
 }
 
-void Ball::Update(float deltaTime, int windowWidth, int windowHeight)
+void Ball::Update(float deltaTime)
 {
     Maths::Vector2 nextPos = InitNextPos(deltaTime);
-    m_position = nextPos;
-    m_sphereCollider->SetPosition(nextPos);
+    SetPosition(nextPos);
 }
 
 void Ball::Draw()
 {
-    m_sprite->SetPositionSprite(m_position);
     m_sprite->Draw();
 }
 
 void Ball::OnCollisionEnter(Collider& other)
 {
-    Maths::Vector2 ballDirection = m_sphereCollider->GetDirection();
-    ballDirection.Normalize();
+    float closestX = Maths::Utils::Clamp(
+        m_sphereCollider->GetPosition().GetX(),
+        other.GetPosition().GetX() - other.GetWidth() / 2,
+        other.GetPosition().GetX() + other.GetWidth() / 2
+    );
+
+    float closestY = Maths::Utils::Clamp(
+        m_sphereCollider->GetPosition().GetY(),
+        other.GetPosition().GetY() - other.GetHeight() / 2,
+        other.GetPosition().GetY() + other.GetHeight() / 2
+    );
+
+    float dx = m_sphereCollider->GetPosition().GetX() - closestX;
+    float dy = m_sphereCollider->GetPosition().GetY() - closestY;
+    float distance = std::sqrt(dx * dx + dy * dy);
+
+    // Calcul de la profondeur de pénétration
+    float penetrationDepth = m_sphereCollider->GetRadius() - distance;
 
     Maths::Vector2 normal = other.GetNormal();
     normal.Normalize();
+
+    // Si la balle est en chevauchement, applique une correction
+    if (penetrationDepth > 0) {
+
+        // Ajouter un léger décalage pour éviter l'effet de "collage"
+        Maths::Vector2 correctionOffset = normal * (penetrationDepth + 0.1f); // léger décalage ajouté
+
+        // Calculer la nouvelle position de la balle
+        Maths::Vector2 newPosition = m_sphereCollider->GetPosition() + correctionOffset;
+        m_sphereCollider->SetPosition(newPosition);
+        SetPosition(newPosition); // Mettre à jour la position de la balle
+    }
+
+    Maths::Vector2 ballDirection = m_sphereCollider->GetDirection();
+    ballDirection.Normalize();
+
     float scalarProduct = Maths::Vector2::Scalar(ballDirection, normal);
 
     Maths::Vector2 reflectedDirection = Maths::Vector2(
         ballDirection.GetX() - 2.0f * scalarProduct * normal.GetX(),
-        ballDirection.GetY() - 2.0f * scalarProduct * normal.GetY());
+        ballDirection.GetY() - 2.0f * scalarProduct * normal.GetY()
+    );
 
     reflectedDirection.Normalize();
     m_sphereCollider->SetDirection(reflectedDirection);
+
+    std::cout << "[BALL] Nouvelle direction : " << reflectedDirection.GetX() << ", " << reflectedDirection.GetY() << " !\n";
 }
 
 Collider* Ball::GetCollider()

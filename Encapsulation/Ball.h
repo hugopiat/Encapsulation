@@ -26,7 +26,7 @@ public:
     void Init(const Maths::Vector2 pos, const Maths::Vector2 direction, ASprite* sprite, float radius = 50);
     void SetSpeed(float speed);
     void SetPosition(const Maths::Vector2 pos);
-    void Update(float deltaTime, int windowWidth, int windowHeight);
+    void Update(float deltaTime);
     void Draw();
 
     void OnCollisionEnter(Collider& other);

@@ -66,16 +66,20 @@ void ColliderManager::CheckAllCollisions() const
 {
     for (size_t i = 0; i < m_colliders.size(); ++i) 
     {
-        for (size_t j = 0; j < m_colliders.size(); ++j) 
+        for (size_t j = i + 1; j < m_colliders.size(); ++j) 
         {
-            if (!m_colliders[i]->IsACollisionTypeTarget(m_colliders[j]->m_collisionType)) 
+            if (!m_colliders[i]->IsACollisionTypeTarget(m_colliders[j]->m_collisionType) && !m_colliders[j]->IsACollisionTypeTarget(m_colliders[i]->m_collisionType))
             {
                 continue;
             }
 
-            if (m_colliders[i]->CheckCollision(m_colliders[j])) 
+            if (m_colliders[i]->CheckCollision(m_colliders[j]))
             {
+                m_colliders[i]->ResolveCollision(m_colliders[j]);
+                m_colliders[j]->ResolveCollision(m_colliders[i]);
+
                 m_colliders[i]->TriggerOnCollisionEnter(*m_colliders[j]);
+                m_colliders[j]->TriggerOnCollisionEnter(*m_colliders[i]);
             }
         }
     }

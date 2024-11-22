@@ -21,7 +21,11 @@ public:
     virtual Maths::Vector2 GetDirection() const override;
     virtual void SetDirection(const Maths::Vector2 newVelocity) override;
 
+    virtual int GetWidth() const override;
+    virtual int GetHeight() const override;
+
     virtual bool CheckCollision(Collider* other) override;
+    virtual bool ResolveCollision(Collider* other) override;
     virtual void DrawDebug(AWindow* window) override;
 
     void DrawSDL(WindowSDL* windowSDL);
