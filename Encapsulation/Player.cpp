@@ -30,6 +30,12 @@ void Player::Update(float deltaTime, int widthMax)
     }
 }
 
+void Player::Draw()
+{
+    m_shape->SetPosition(m_shape->GetPosition());
+    m_shape->Draw();
+}
+
 void Player::MoveHorizontally(float moveAmount, int widthMax)
 {
     float newPosX = m_shape->GetPosition().GetX() + m_direction * moveAmount;

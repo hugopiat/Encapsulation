@@ -154,7 +154,7 @@ void App::Init()
 void App::Draw()
 {
     m_window->Clear();
-    m_managerCollider->DrawDebugAll(m_window);
+    //m_managerCollider->DrawDebugAll(m_window);
     
     for (int i = 0; i < m_balls.size(); i++) 
     {
@@ -168,6 +168,7 @@ void App::Draw()
     {
         m_walls[i]->Draw();
     }
+    m_player->Draw();
     m_text->Draw();
     m_window->Draw();    
 }
@@ -198,7 +199,7 @@ void App::SpawnPlayer()
     int brickSizeH = 20;
 
     m_player = new Player();
-    m_player->Init(Maths::Vector2(m_window->m_width / 2, m_window->m_height - brickSizeH), brickSizeW, brickSizeH, m_spriteBall);
+    m_player->Init(Maths::Vector2(m_window->m_width / 2, m_window->m_height - brickSizeH), brickSizeW, brickSizeH, m_spriteWall);
     m_managerCollider->AddCollider(m_player->GetShape()->GetCollider());
 
     SpawnBallsNearPlayer(1);

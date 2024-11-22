@@ -17,6 +17,7 @@ public :
 	Player();
 	void Init(Maths::Vector2 pos, int width, int height, ASprite* sprite);
 	void Update(float deltaTime, int widthMax);
+	void Draw();
 
 	void MoveHorizontally(float moveAmount, int widthMax);
 	void MoveToLeft();
