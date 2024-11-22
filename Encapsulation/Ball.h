@@ -19,6 +19,7 @@ private:
 public:
 
     int m_damage;
+    bool m_isStarted;
 
     Ball();
 

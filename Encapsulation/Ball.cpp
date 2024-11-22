@@ -12,7 +12,8 @@ Ball::Ball() :
     m_sprite(nullptr),
     m_sphereCollider(nullptr),
     m_position(0,0),
-    m_damage(0)
+    m_damage(0),
+    m_isStarted(false)
 {
 
 }
@@ -67,6 +68,7 @@ void Ball::Update(float deltaTime)
 
 void Ball::Draw()
 {
+    m_sprite->SetPositionSprite(m_position);
     m_sprite->Draw();
 }
 
@@ -118,8 +120,6 @@ void Ball::OnCollisionEnter(Collider& other)
 
     reflectedDirection.Normalize();
     m_sphereCollider->SetDirection(reflectedDirection);
-
-    std::cout << "[BALL] Nouvelle direction : " << reflectedDirection.GetX() << ", " << reflectedDirection.GetY() << " !\n";
 }
 
 Collider* Ball::GetCollider()

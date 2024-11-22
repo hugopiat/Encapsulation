@@ -3,8 +3,10 @@
 #include <iostream>
 
 #include "AWindow.h"
+#include "ASprite.h"
 #include "Collider.h"
 #include "BoxCollider.h"
+#include "Wall.h"
 
 ColliderManager::~ColliderManager()
 {    // Libérer la mémoire des colliders gérés (si la gestion est propriétaire)
@@ -14,36 +16,36 @@ ColliderManager::~ColliderManager()
     m_colliders.clear();
 }
 
-void ColliderManager::InitWalls(int widthWindow, int heightWindow)
+std::vector<Wall*> ColliderManager::InitWalls(AWindow* window, ASprite* sprite)
 {
     int sizeBounds = 10; 
 
-    //  Bounds
-    CreateWall(widthWindow / 2, 0, widthWindow, sizeBounds);
-    CreateWall(widthWindow / 2, heightWindow, widthWindow, sizeBounds);
-    CreateWall(0, heightWindow / 2, sizeBounds, heightWindow);
-    CreateWall(widthWindow, heightWindow / 2, sizeBounds, heightWindow);
+    std::vector<Wall*> walls = std::vector<Wall*>();
+    sprite->Init(window, m_filenameWall, window->m_width, sizeBounds);
+    Wall* newWall = new Wall(sprite);
+    newWall->CreateWall(window->m_width / 2, 0, window->m_width, sizeBounds);
+    m_colliders.push_back(newWall->GetCollider());
+    walls.push_back(newWall);
 
+    //sprite->Init(window, m_filenameWall, window->m_width, sizeBounds);
+    newWall = new Wall(sprite);
+    newWall->CreateWall(window->m_width / 2, window->m_height, window->m_width, sizeBounds);
+    m_colliders.push_back(newWall->GetCollider());
+    walls.push_back(newWall);
 
-    //  Brick
-    //CreateBrick(widthWindow / 2, heightWindow / 10, sizeBounds * 10, sizeBounds * 10);
-    //CreateBrick(widthWindow / 2, (heightWindow * 9) / 10, sizeBounds * 10, sizeBounds * 10);
-    //CreateBrick(widthWindow / 10, heightWindow / 2, sizeBounds * 10, sizeBounds * 10);
-    //CreateBrick((widthWindow * 9) / 10, heightWindow / 2, sizeBounds * 10, sizeBounds * 10);
-}
+    //sprite->Init(window, m_filenameWall, sizeBounds, window->m_height);
+    newWall = new Wall(sprite);
+    newWall->CreateWall(0, window->m_height / 2, sizeBounds, window->m_height);
+    m_colliders.push_back(newWall->GetCollider());
+    walls.push_back(newWall);
 
-void ColliderManager::CreateWall(int x, int y, int width, int height)
-{
-    BoxCollider* box = new BoxCollider(Maths::Vector2(x, y), width, height);
-    box->m_collisionType = CollisionType::Wall;
-    m_colliders.push_back(box);
-}
+    //sprite->Init(window, m_filenameWall, sizeBounds, window->m_height);
+    newWall = new Wall(sprite);
+    newWall->CreateWall(window->m_width, window->m_height / 2, sizeBounds, window->m_height);
+    m_colliders.push_back(newWall->GetCollider());
+    walls.push_back(newWall);
 
-void ColliderManager::CreateBrick(int x, int y, int width, int height)
-{
-    BoxCollider* box = new BoxCollider(Maths::Vector2(x, y), width, height);
-    box->m_collisionType = CollisionType::Brick;
-    m_colliders.push_back(box);
+    return walls;
 }
 
 // Ajouter un collider au système

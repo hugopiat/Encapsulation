@@ -7,8 +7,7 @@ Player::Player():
     m_shape(nullptr),
     m_speed(0.0f),
     m_direction(0.0f),
-    m_width(0),
-    m_isStarted(false)
+    m_width(0)
 {
 }
 
