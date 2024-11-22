@@ -1,6 +1,5 @@
 #pragma once
 #include <vector>
-#include <iostream>
 #include "Vector2.h"
 
 class Collider;
@@ -12,7 +11,6 @@ class ColliderManager
 {
 private:
     std::vector<Collider*> m_colliders; // Liste des colliders gérés
-    const std::string m_filenameWall = "Wall.png";
 
 public:
     ColliderManager() = default;

@@ -12,7 +12,8 @@ private:
 
     ASprite* m_sprite;
     BoxCollider* m_boxCollider;
-    Maths::Vector2 m_pos;
+    Maths::Vector2 m_position;
+    Maths::Vector2 m_size;
 
 public:
 

@@ -25,6 +25,7 @@ class App
 public:
 
 	const std::string m_filenameBall = "Basketball.png";
+	const std::string m_filenameWall = "Wall.png";
 	void Run(int argc, char* argv[]);
 	static GraphicLib GetGraphicLibType();
 

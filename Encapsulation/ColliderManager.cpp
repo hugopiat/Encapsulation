@@ -21,27 +21,23 @@ std::vector<Wall*> ColliderManager::InitWalls(AWindow* window, ASprite* sprite)
     int sizeBounds = 10; 
 
     std::vector<Wall*> walls = std::vector<Wall*>();
-    sprite->Init(window, m_filenameWall, window->m_width, sizeBounds);
-    Wall* newWall = new Wall(sprite);
-    newWall->CreateWall(window->m_width / 2, 0, window->m_width, sizeBounds);
+    Wall* newWall = new Wall();
+    newWall->CreateWall(sprite, Maths::Vector2(window->m_width / 2, 0), window->m_width, sizeBounds);
     m_colliders.push_back(newWall->GetCollider());
     walls.push_back(newWall);
 
-    //sprite->Init(window, m_filenameWall, window->m_width, sizeBounds);
-    newWall = new Wall(sprite);
-    newWall->CreateWall(window->m_width / 2, window->m_height, window->m_width, sizeBounds);
+    newWall = new Wall();
+    newWall->CreateWall(sprite, Maths::Vector2(window->m_width / 2, window->m_height), window->m_width, sizeBounds);
     m_colliders.push_back(newWall->GetCollider());
     walls.push_back(newWall);
 
-    //sprite->Init(window, m_filenameWall, sizeBounds, window->m_height);
-    newWall = new Wall(sprite);
-    newWall->CreateWall(0, window->m_height / 2, sizeBounds, window->m_height);
+    newWall = new Wall();
+    newWall->CreateWall(sprite, Maths::Vector2(0, window->m_height / 2), sizeBounds, window->m_height);
     m_colliders.push_back(newWall->GetCollider());
     walls.push_back(newWall);
 
-    //sprite->Init(window, m_filenameWall, sizeBounds, window->m_height);
-    newWall = new Wall(sprite);
-    newWall->CreateWall(window->m_width, window->m_height / 2, sizeBounds, window->m_height);
+    newWall = new Wall();
+    newWall->CreateWall(sprite, Maths::Vector2(window->m_width, window->m_height / 2), sizeBounds, window->m_height);
     m_colliders.push_back(newWall->GetCollider());
     walls.push_back(newWall);
 

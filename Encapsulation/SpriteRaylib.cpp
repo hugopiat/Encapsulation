@@ -1,5 +1,5 @@
 #include "SpriteRaylib.h"
-//#include "WindowRAYLIB.h"
+#include "WindowRaylib.h"
 #include "AWindow.h"
 
 SpriteRaylib::SpriteRaylib() :
@@ -17,7 +17,7 @@ SpriteRaylib::~SpriteRaylib()
 
 void SpriteRaylib::Init(AWindow* window, const std::string& filename, int width, int height, int x, int y)
 {
-	//m_windowRAYLIB = dynamic_cast<WindowRAYLIB*>(window);
+	m_windowRaylib = dynamic_cast<WindowRaylib*>(window);
 
 	Load(filename);
 

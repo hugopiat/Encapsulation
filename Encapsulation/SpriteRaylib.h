@@ -3,11 +3,13 @@
 #include "raylib.h"
 
 class AWindow;
+class WindowRaylib;
 
 class SpriteRaylib : public ASprite
 {
 private:
 	Texture2D* m_texture;
+	WindowRaylib* m_windowRaylib;
 	virtual void Load(const std::string& filename) override;
 
 public:

@@ -10,7 +10,7 @@ using namespace std::placeholders;
 Brick::Brick() :
     m_sprite(nullptr),
     m_boxCollider(nullptr),
-    m_pos(0, 0),
+    m_position(0, 0),
     m_life(0),
     m_isDie(false),
     m_enabledLife(false)
@@ -39,18 +39,20 @@ void Brick::Init(const Maths::Vector2 pos, ASprite* sprite, float width, float h
     //m_boxCollider->AddCollisionTypeTarget(CollisionType::Ball);
     m_boxCollider->SetOnCollisionEnterCallback(std::bind(&Brick::OnCollisionEnter, this, _1));
     SetPosition(pos);
+    m_size = Maths::Vector2(width, height);
+    m_sprite->SetSizeSprite(m_size);
 }
 
 void Brick::SetPosition(const Maths::Vector2 pos)
 {
-    m_pos = pos;
-    m_boxCollider->SetPosition(m_pos);
-    m_sprite->SetPositionSprite(m_pos);
+    m_position = pos;
+    m_boxCollider->SetPosition(m_position);
+    m_sprite->SetPositionSprite(m_position);
 }
 
 Maths::Vector2 Brick::GetPosition()
 {
-    return m_pos;
+    return m_position;
 }
 
 void Brick::Update(float deltaTime)
@@ -60,6 +62,8 @@ void Brick::Update(float deltaTime)
 
 void Brick::Draw()
 {
+    m_sprite->SetSizeSprite(m_size);
+    m_sprite->SetPositionSprite(m_position);
     m_sprite->Draw();
 }
 

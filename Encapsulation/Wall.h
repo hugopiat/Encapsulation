@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include "Vector2.h"
 
 class ASprite;
 class BoxCollider;
@@ -11,12 +12,14 @@ private :
 
 	BoxCollider* m_box;
 	ASprite* m_sprite;
+	Maths::Vector2 m_pos;
+	Maths::Vector2 m_size;
 
 public : 
 
-	Wall(ASprite* sprite);
+	Wall();
 
-	void CreateWall(int x, int y, int width, int height);
+	void CreateWall(ASprite* sprite, const Maths::Vector2 pos, int width, int height);
 	void Draw();
 
 	BoxCollider* GetCollider();

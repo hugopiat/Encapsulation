@@ -139,8 +139,9 @@ void App::Init()
     }
 
     m_window->Init();
-    m_walls = m_managerCollider->InitWalls(m_window, m_spriteWall);
     m_spriteBall->Init(m_window, m_filenameBall);
+    m_spriteWall->Init(m_window, m_filenameWall);
+    m_walls = m_managerCollider->InitWalls(m_window, m_spriteWall);
 
     m_text = TextManager::GetInstance()->InstantiateText();
     m_text->Init(m_window, "FPS", 1130, 30, 100);
@@ -158,6 +159,10 @@ void App::Draw()
     for (int i = 0; i < m_balls.size(); i++) 
     {
         m_balls[i]->Draw();
+    }
+    for (int i = 0; i < m_bricks.size(); i++)
+    {
+        m_bricks[i]->Draw();
     }
     for (int i = 0; i < m_walls.size(); i++)
     {
@@ -259,7 +264,7 @@ void App::SpawnBrick(int count)
             }
 
             Brick* brick = new Brick();
-            brick->Init(Maths::Vector2(posX, posY), m_spriteBall, brickSizeW, brickSizeH);
+            brick->Init(Maths::Vector2(posX, posY), m_spriteWall, brickSizeW, brickSizeH);
             m_managerCollider->AddCollider(brick->GetCollider());
 
             m_bricks.push_back(brick);
