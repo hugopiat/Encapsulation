@@ -7,7 +7,8 @@ Player::Player():
     m_shape(nullptr),
     m_speed(0.0f),
     m_direction(0.0f),
-    m_width(0)
+    m_width(0),
+    m_isStarted(false)
 {
 }
 
@@ -16,6 +17,7 @@ void Player::Init(Maths::Vector2 pos, int width, int height, ASprite* sprite)
     m_shape = new Brick();
     m_shape->Init(pos, sprite, width, height);
     m_shape->m_enabledLife = false;
+
     m_speed = 1000.0f;
     m_width = width;
 }

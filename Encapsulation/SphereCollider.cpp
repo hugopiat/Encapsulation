@@ -168,7 +168,7 @@ void SphereCollider::DrawSDL(WindowSDL* windowSDL)
     {
         for (int h = -radius; h <= radius; ++h) 
         {
-            if ((w * w + h * h) <= (radius * radius)) 
+            if ((w * w + h * h) <= (radius * radius))
             {
                 SDL_RenderDrawPoint(renderer, centerX + w, centerY + h);
             }

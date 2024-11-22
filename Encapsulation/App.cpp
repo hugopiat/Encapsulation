@@ -132,7 +132,9 @@ void App::Init()
 
     m_window->Init();
     m_managerCollider->InitWalls(m_window->m_width, m_window->m_height);
+
     m_sprite->Init(m_window, filename);
+
     m_text = TextManager::GetInstance()->InstantiateText();
     m_text->Init(m_window, "FPS", 1130, 30, 100);
 
@@ -255,22 +257,22 @@ void App::SpawnBrick(int count)
 void App::InputUpdate()
 {
     m_player->StopMoving();
-    // Flèche Gauche
-    if (!balls[0]->_isMoved && Encapsulation::AInputSystem::IsInputKeyDown(32))
+    // Space Bar
+    if (!m_player->m_isStarted && Encapsulation::AInputSystem::IsInputKeyDown(32))
     {
-        balls[0]->GetCollider()->SetDirection(Maths::Vector2(0, -1.0f));
-        balls[0]->_isMoved = true;
+        balls[balls.size() - 1]->GetCollider()->SetDirection(Maths::Vector2(0, -1.0f));
+        m_player->m_isStarted = true;
     }
 
     // Flèche Gauche
     if (Encapsulation::AInputSystem::IsInputKeyDown(113)) 
     {
         m_player->MoveToLeft();
-        if (!balls[0]->_isMoved) 
+        if (!m_player->m_isStarted)
         {
             int x = m_player->GetShape()->GetPosition().GetX();
-            int y = balls[0]->GetCollider()->GetPosition().GetY();
-            balls[0]->SetPosition(Maths::Vector2(x,y));
+            int y = balls[balls.size() - 1]->GetCollider()->GetPosition().GetY();
+            balls[balls.size() - 1]->SetPosition(Maths::Vector2(x,y));
         }
     }
 
@@ -278,11 +280,11 @@ void App::InputUpdate()
     if (Encapsulation::AInputSystem::IsInputKeyDown(100))
     {
         m_player->MoveToRight();
-        if (!balls[0]->_isMoved)
+        if (!m_player->m_isStarted)
         {
             int x = m_player->GetShape()->GetPosition().GetX();
-            int y = balls[0]->GetCollider()->GetPosition().GetY();
-            balls[0]->SetPosition(Maths::Vector2(x, y));
+            int y = balls[balls.size() - 1]->GetCollider()->GetPosition().GetY();
+            balls[balls.size() - 1]->SetPosition(Maths::Vector2(x, y));
         }
     }
 }

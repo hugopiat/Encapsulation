@@ -14,6 +14,8 @@ private :
 
 public :
 
+	bool m_isStarted;
+
 	Player();
 	void Init(Maths::Vector2 pos, int width, int height, ASprite* sprite);
 	void Update(float deltaTime, int widthMax);

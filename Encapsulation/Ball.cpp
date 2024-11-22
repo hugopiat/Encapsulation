@@ -12,8 +12,7 @@ Ball::Ball() :
     m_sprite(nullptr),
     m_sphereCollider(nullptr),
     m_position(0,0),
-    m_damage(0),
-    _isMoved(false)
+    m_damage(0)
 {
 
 }
@@ -35,7 +34,7 @@ void Ball::Init(const Maths::Vector2 pos, const Maths::Vector2 direction, ASprit
     m_sphereCollider->InitAllCollisionTypeTarget();
     m_sphereCollider->RemovedCollisionTypeTarget(CollisionType::Ball);
 
-    m_sprite->SetSizeSprite(Maths::Vector2(radius, radius));
+    m_sprite->SetSizeSprite(Maths::Vector2(radius * 1.5f, radius * 1.5f));
 }
 
 void Ball::SetSpeed(float speed)

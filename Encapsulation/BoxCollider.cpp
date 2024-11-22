@@ -158,22 +158,6 @@ bool BoxCollider::ResolveCollision(Collider* other)
     return false;
 }
 
-void BoxCollider::DrawDebug(AWindow* window)
-{
-    // Convertir l'argument window en WindowSDL
-    WindowSDL* windowSDL = dynamic_cast<WindowSDL*>(window);
-    if (windowSDL)
-    {
-        DrawSDL(windowSDL);
-    }
-
-    WindowRaylib* windowRAYLIB = dynamic_cast<WindowRaylib*>(window);
-    if(windowRAYLIB)
-    {
-        DrawRaylib();
-    }
-}
-
 bool BoxCollider::CheckBoxCollision(BoxCollider* box)
 {
     float boxPosX = box->GetPosition().GetX();
@@ -221,6 +205,22 @@ bool BoxCollider::CheckSphereCollision(SphereCollider* sphere)
     float radiusSquared = sphere->GetRadius() * sphere->GetRadius();
 
     return distanceSquared <= radiusSquared;
+}
+
+void BoxCollider::DrawDebug(AWindow* window)
+{
+    // Convertir l'argument window en WindowSDL
+    WindowSDL* windowSDL = dynamic_cast<WindowSDL*>(window);
+    if (windowSDL)
+    {
+        DrawSDL(windowSDL);
+    }
+
+    WindowRaylib* windowRAYLIB = dynamic_cast<WindowRaylib*>(window);
+    if (windowRAYLIB)
+    {
+        DrawRaylib();
+    }
 }
 
 void BoxCollider::DrawSDL(WindowSDL* windowSDL)

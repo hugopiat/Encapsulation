@@ -19,7 +19,6 @@ private:
 public:
 
     int m_damage;
-    bool _isMoved;
 
     Ball();
 
