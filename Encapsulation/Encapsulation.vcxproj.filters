@@ -114,14 +114,14 @@
     <ClCompile Include="InputSystemRaylib.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="Brick.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClCompile>
     <ClCompile Include="Wall.cpp">
-      <Filter>Fichiers sources</Filter>
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Fichiers d%27en-tête</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -191,13 +191,13 @@
     <ClInclude Include="InputSystemRaylib.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="Brick.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="Wall.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
@@ -207,9 +207,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Basketball.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Wall.png">
       <Filter>Fichiers de ressources</Filter>
     </Image>
   </ItemGroup>

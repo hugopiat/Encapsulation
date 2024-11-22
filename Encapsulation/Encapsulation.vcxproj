@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.1.0.0\build\native\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.props" Condition="Exists('..\packages\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.1.0.0\build\native\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.props')" />
+  <Import Project="..\packages\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.props" Condition="Exists('..\packages\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="DebugSDL|Win32">
       <Configuration>DebugSDL</Configuration>
@@ -20,6 +20,22 @@
     </ProjectConfiguration>
     <ProjectConfiguration Include="DebugRaylib|x64">
       <Configuration>DebugRaylib</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseRaylib|Win32">
+      <Configuration>ReleaseRaylib</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseRaylib|x64">
+      <Configuration>ReleaseRaylib</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseSDL|Win32">
+      <Configuration>ReleaseSDL</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReleaseSDL|x64">
+      <Configuration>ReleaseSDL</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
@@ -68,6 +84,20 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseSDL|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseRaylib|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
@@ -93,6 +123,20 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseSDL|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseRaylib|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
@@ -110,6 +154,12 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseSDL|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseRaylib|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
@@ -120,6 +170,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseSDL|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseRaylib|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -184,11 +240,43 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseSDL|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseRaylib|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;_SDL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -236,16 +324,50 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseSDL|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseRaylib|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;_RAYLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AInputSystem.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="ASprite.cpp" />
     <ClCompile Include="AText.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
+    <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="ColliderManager.cpp" />
     <ClCompile Include="InputSystemRaylib.cpp" />
     <ClCompile Include="InputSystemSDL.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="TextManager.cpp" />
     <ClCompile Include="TextRaylib.cpp" />
@@ -258,6 +380,7 @@
     <ClCompile Include="SpriteSDL.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="WindowRaylib.cpp" />
     <ClCompile Include="WindowSDL.cpp" />
   </ItemGroup>
@@ -267,10 +390,12 @@
     <ClInclude Include="ASprite.h" />
     <ClInclude Include="AText.h" />
     <ClInclude Include="BoxCollider.h" />
+    <ClInclude Include="Brick.h" />
     <ClInclude Include="Collider.h" />
     <ClInclude Include="ColliderManager.h" />
     <ClInclude Include="InputSystemRaylib.h" />
     <ClInclude Include="InputSystemSDL.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="SphereCollider.h" />
     <ClInclude Include="TextManager.h" />
     <ClInclude Include="TextRaylib.h" />
@@ -282,6 +407,7 @@
     <ClInclude Include="SpriteSDL.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="Wall.h" />
     <ClInclude Include="WindowRaylib.h" />
     <ClInclude Include="WindowSDL.h" />
   </ItemGroup>
@@ -294,13 +420,13 @@
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.1.0.0\build\native\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.targets" Condition="Exists('..\packages\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.1.0.0\build\native\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.targets')" />
+    <Import Project="..\packages\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.targets" Condition="Exists('..\packages\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.1.0.0\build\native\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.1.0.0\build\native\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.props'))" />
-    <Error Condition="!Exists('..\packages\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.1.0.0\build\native\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.1.0.0\build\native\vcpkg.E.GamingCampus.GTECH4.3Encapsulation.vcpkg.targets'))" />
+    <Error Condition="!Exists('..\packages\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.props'))" />
+    <Error Condition="!Exists('..\packages\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.1.0.0\build\native\vcpkg.C.Users.eguignabaudet.source.repos.vcpkg.targets'))" />
   </Target>
 </Project>

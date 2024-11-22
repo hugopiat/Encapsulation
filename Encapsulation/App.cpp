@@ -31,19 +31,18 @@ void App::Run(int argc, char* argv[])
     {
 #if _SDL
         m_graphicLibType = GraphicLib::SDL2;
-        m_inputLeft = 113;
-        m_inputRight = 100;
 #elif _RAYLIB
         m_graphicLibType = GraphicLib::RAYLIB;
-        m_inputLeft = 65;
-        m_inputRight = 68;
 #else
         std::cout << "Il manque des arguments ou ceux specifies ne sont pas valides" << std::endl;
         return;
 #endif // _RAYLIB
     }
+#if _SDL
 
+#elif _RAYLIB
 
+#endif
     Init();
     while (m_window->IsOpen())
     {
@@ -120,6 +119,8 @@ void App::Init()
         m_spriteBall = new SpriteSDL();
         m_spriteWall = new SpriteSDL();
         m_inputSystemInstance = new InputSystemSDL();
+        m_inputLeft = 113;
+        m_inputRight = 100;
     }
     else if (App::m_graphicLibType == GraphicLib::RAYLIB) 
     {
@@ -127,6 +128,8 @@ void App::Init()
         m_spriteBall = new SpriteRaylib();
         m_spriteWall = new SpriteRaylib();
         m_inputSystemInstance = new InputSystemRaylib();
+        m_inputLeft = 65;
+        m_inputRight = 68;
     }
 
     m_timer = new Timer();

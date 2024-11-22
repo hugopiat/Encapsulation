@@ -4,7 +4,7 @@ void InputSystemRaylib::PoolEvent()
 {
 	for (int i = 0; i < s_keys.size() ; i++)
 	{
-		if (IsKeyReleased(i))
+		if (IsKeyPressed(i))
 		{
 			s_keys[i] = KeyState::KeyPressed;
 		}
